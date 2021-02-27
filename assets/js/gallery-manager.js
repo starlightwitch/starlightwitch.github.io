@@ -26,7 +26,7 @@ $("#left_nav").click(function() {
     gal_index = 0;
   }
   read_current_file();
-  populate();
+  populate_page();
 });
 
 $("#right_nav").click(function() {
@@ -36,25 +36,32 @@ $("#right_nav").click(function() {
     gal_index = 0;
   }
   read_current_file();
-  populate();
+  populate_page();
 });
 
 $("#left_preview").click(function() {
-  tempImg = image1;
+  console.log("clicked left preview");
+  console.log(image1);
+  console.log(image2);
+  let tempImg = image1;
   image1 = image2;
   image2 = tempImg;
 
-  tempState = statement1;
+  let tempState = statement1;
   statement1 = statement2;
   statement2 = tempState;
   populate_page();
 });
 $("#right_preview").click(function() {
-  temp = image1;
+  console.log("clicked right preview");
+  console.log(image1);
+  console.log(image2);
+
+  let temp = image1;
   image1 = image3;
   image3 = temp;
 
-  tempState = statement1;
+  let tempState = statement1;
   statement1 = statement3;
   statement3 = tempState;
   populate_page();
@@ -63,7 +70,7 @@ $("#right_preview").click(function() {
 function populate_page() {
   if (name == null || pnouns_age == null || title1 == null || image1 == null) {
     console.log("error showing page - missing elements");
-    if(title1 == null){
+    if (title1 == null) {
       console.log("^ title");
       console.log(title1);
       console.log(title2);
@@ -111,7 +118,7 @@ function populate_page() {
 }
 
 function read_current_file() {
-  $.getJSON("assets/js/gal_files/" + gal_index.toString(), function(data) {
+  $.getJSON("assets/js/gal_files/" + gal_index.toString() + ".json", function(data) {
     name = data.name;
     pnouns_age = data.pnouns_age;
 
