@@ -140,3 +140,5 @@ function read_current_file() {
     console.log("error loading JSON");
   });
 }
+
+$(document).ready(read_current_file());
