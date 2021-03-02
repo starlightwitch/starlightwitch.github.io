@@ -40,9 +40,8 @@ $("#right_nav").click(function() {
 });
 
 $("#left_preview").click(function() {
-  console.log("clicked left preview");
-  console.log(image1);
-  console.log(image2);
+  console.log("left preview -> main image");
+
   let tempImg = image1;
   image1 = image2;
   image2 = tempImg;
@@ -50,34 +49,33 @@ $("#left_preview").click(function() {
   let tempState = statement1;
   statement1 = statement2;
   statement2 = tempState;
+
+  let tempTitle = title1;
+  title1 = title2;
+  title2 = tempTitle;
   populate_page();
 });
-$("#right_preview").click(function() {
-  console.log("clicked right preview");
-  console.log(image1);
-  console.log(image2);
 
-  let temp = image1;
+$("#right_preview").click(function() {
+  console.log("right preview -> main image");
+
+  let tempImg = image1;
   image1 = image3;
-  image3 = temp;
+  image3 = tempImg;
 
   let tempState = statement1;
   statement1 = statement3;
   statement3 = tempState;
+
+  let tempTitle = title1;
+  title1 = title3;
+  title3 = tempTitle;
   populate_page();
 });
 
 function populate_page() {
   if (name == null || pnouns_age == null || title1 == null || image1 == null) {
     console.log("error showing page - missing elements");
-    if (title1 == null) {
-      console.log("^ title");
-      console.log(title1);
-      console.log(title2);
-      console.log(title3);
-    } else if (image1 == null) {
-      console.log("^ image");
-    }
   } else {
     $("#name").text(name);
     $("pnouns_name").text(pnouns_name);
