@@ -80,7 +80,7 @@ function populate_page() {
     }
   } else {
     $("#name").text(name);
-    S("pnouns_name").text(pnouns_name);
+    $("pnouns_name").text(pnouns_name);
     $("#title").text(title1);
     $("#main_image").attr("src", image1);
 
