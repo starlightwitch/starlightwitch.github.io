@@ -89,7 +89,6 @@ function populate_page() {
     }
 
     if (image2 != null) {
-      console.log("trying image 2")
       console.log(image2);
       $("#left_preview").attr("src", image2);
     } else {
