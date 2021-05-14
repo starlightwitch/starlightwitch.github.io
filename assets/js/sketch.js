@@ -37,8 +37,9 @@ var canvas;
 var selectedIcon = -1;
 
 function preload() {
-  ads.push(loadImage("assets/img/ad1.png"));
-  ads.push(loadImage("assets/img/ad2.png"));
+  let ad1 = loadImage("assets/img/ad1.png");
+  let ad2 = loadImage("assets/img/ad2.png");
+  ads = [ad1, ad2];
   fileImage = loadImage("assets/img/data.png");
   computerImage = loadImage("assets/img/computer.png");
   fridgeImage = loadImage("assets/img/fridge.png");
