@@ -207,7 +207,7 @@ class InfoGrid {
       ["", "Store data only on\nthe local network.", "Store data in the cloud."],
       [
         "",
-        "Share data with device manufacturer.",
+        "Share data with device\nmanufacturer.",
         "Share data with government.",
         "Share data with third parties.",
       ],
