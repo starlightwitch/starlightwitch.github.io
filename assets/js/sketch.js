@@ -214,7 +214,7 @@ class InfoGrid {
       [
         "",
         "Turn on or off advertisements.",
-        "Turn on or off profiling. This will turn off personalised features.",
+        "Turn on or off profiling.\nThis will turn off personalised features.",
       ],
     ];
 
@@ -273,10 +273,10 @@ class InfoGrid {
         fill(0);
         noStroke();
         // header
-        textSize(18);
+        textSize(this.cellHeight / 4);
         text(this.headers[row][i], headerPadding / 2, headerPadding);
         // description
-        textSize(12);
+        textSize(this.cellHeight / 6);
         text(this.descriptions[row][i], headerPadding / 2, headerPadding * 2);
 
         translate(this.cellWidth, 0);
