@@ -26,7 +26,7 @@ var infoGrid;
 var effects;
 var messageBox;
 var cameraCapture;
-var audioCapture;
+var audioCapture = "undefined";
 var canvas;
 
 var selectedIcon = -1;
@@ -73,9 +73,14 @@ function draw() {
 
 function mousePressed() {
   if (audioCapture === "undefined") {
-    audioCapture = new p5.AudioIn(node);
     userStartAudio();
-    audioCapture.resume();
+    console.log("userStartAudio() called")
+    audioCapture = new p5.AudioIn(node);
+    console.log("capture assigned")
+    console.log(audioCapture)
+
+    // audioCapture.resume();
+    // console.log("resumed")
   }
 
   let mouseVec = createVector(mouseX, mouseY);
