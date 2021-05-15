@@ -683,15 +683,16 @@ class MessageBox {
   }
 
   resize() {
-    this.pos = createVector(width / 4, height / 4);
+    this.pos = createVector(fridge.pos.x + fridge.dims.x / 2, fridge.pos.y);
   }
 
   draw() {
     if (this.message !== "") {
-        push();
-        textSize(height / 20);
+      push();
+      textSize(height / 24);
+      textAlign(CENTER, CENTER);
       text(this.message, this.pos.x - this.halfMessageWidth, this.pos.y);
-        pop();
+      pop();
 
       if (this.messageFrames >= 90) {
         this.message = "";
