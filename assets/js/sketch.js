@@ -51,7 +51,7 @@ function preload() {
 }
 
 function setup() {
-  canvas = createCanvas(node.clientWidth, 600);
+  canvas = createCanvas(node.clientWidth, node.clientHeight);
   canvas.parent(node);
   imageMode(CENTER);
   fridge = new Fridge();
