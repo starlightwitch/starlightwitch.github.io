@@ -364,7 +364,7 @@ class Effects {
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
-      let level = constrain(audioCapture.getLevel() * 100, 1);
+      let level = min(audioCapture.getLevel() * 100, 1);
       console.log(level);
       let leveledY = lerp(bottomY, topY, level);
 
