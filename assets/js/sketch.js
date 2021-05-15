@@ -683,7 +683,7 @@ class MessageBox {
   }
 
   resize() {
-    this.pos = createVector(fridge.pos.x + fridge.dims.x / 2, fridge.pos.y);
+    this.pos = createVector(width * (3 / 8), fridge.pos.y);
   }
 
   draw() {
