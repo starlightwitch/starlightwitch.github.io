@@ -61,7 +61,7 @@ function setup() {
 }
 
 function draw() {
-  background(230, 230, 230);
+  background(233, 236, 238);
   infoGrid.draw();
   fridge.draw();
   icons.forEach((icon) => {
