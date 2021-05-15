@@ -74,13 +74,7 @@ function draw() {
 function mousePressed() {
   if (audioCapture === "undefined") {
     userStartAudio();
-    console.log("userStartAudio() called")
     audioCapture = new p5.AudioIn(node);
-    console.log("capture assigned")
-    console.log(audioCapture)
-
-    // audioCapture.resume();
-    // console.log("resumed")
   }
 
   let mouseVec = createVector(mouseX, mouseY);
@@ -370,9 +364,9 @@ class Effects {
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
-      let level = audioCapture.getLevel();
+      let level = constrain(audioCapture.getLevel() * 100, 1);
       console.log(level);
-      let leveledY = lerp(topY, bottomY, level);
+      let leveledY = lerp(bottomY, topY, level);
 
       push();
       fill(255, 0, 0);
