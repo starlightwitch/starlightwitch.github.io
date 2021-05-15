@@ -73,8 +73,9 @@ function draw() {
 
 function mousePressed() {
   if (audioCapture === "undefined") {
-    audioCapture = new p5.AudioIn();
+    audioCapture = new p5.AudioIn(node);
     userStartAudio();
+    audioCapture.resume();
   }
 
   let mouseVec = createVector(mouseX, mouseY);
