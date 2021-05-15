@@ -1,9 +1,4 @@
-// html stuff for when we go fullscreen
 const node = document.getElementById("sketch-container");
-// const dims = {
-//   w: node.clientWidth,
-//   h: node.clientWidth * (2/3)
-// }
 
 var ads = [];
 var fridgeImage;
@@ -108,6 +103,8 @@ function windowResized() {
   resizeCanvas(node.clientWidth, node.clientHeight);
   fridge.resize();
   infoGrid.resize();
+  effects.resize();
+  messageBox.resize();
   icons.forEach((icon) => {
     icon.resize();
   });
@@ -300,6 +297,19 @@ class Effects {
     this.advertisements = false;
     this.profilingMessage = false;
     this.currentAd = random(ads);
+  }
+
+  resize(){
+    this.video = false;
+    this.audio = false;
+    this.faceRec = false;
+    this.localNetwork = false;
+    this.cloudNetwork = false;
+    this.manufacturerLink = false;
+    this.governmentLink = false;
+    this.thirdPartyLink = false;
+    this.advertisements = false;
+    this.profilingMessage = false;
   }
 
   linkLine(x1, y1, x2, y2) {
