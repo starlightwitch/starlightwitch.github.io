@@ -679,7 +679,8 @@ class MessageBox {
     this.message = "";
     this.halfMessageWidth = 0;
     this.messageFrames = 0;
-    this.pos = createVector(width / 4, height / 4);
+    this.pos = null;
+    this.resize();
   }
 
   resize() {
