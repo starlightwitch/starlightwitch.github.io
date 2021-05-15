@@ -360,6 +360,7 @@ class Effects {
       rect(leftX, topY, barWidth, bottomY - topY);
 
       let level = audioCapture.getLevel();
+      console.log(level);
       let leveledY = lerp(topY, bottomY, level);
 
       push();
@@ -588,7 +589,7 @@ class Effects {
           this.audio = true;
           messageBox.setMessage("Audio on.");
           if(audioCapture === "not yet"){
-            audioCapture = new p5.AudioIn;
+            audioCapture = new p5.AudioIn();
           }
           audioCapture.start();
         }
