@@ -26,7 +26,7 @@ var infoGrid;
 var effects;
 var messageBox;
 var cameraCapture;
-var audioCapture = "not yet";
+var audioCapture;
 var canvas;
 
 var selectedIcon = -1;
@@ -72,6 +72,11 @@ function draw() {
 }
 
 function mousePressed() {
+  if (audioCapture === "undefined") {
+    audioCapture = new p5.AudioIn();
+    userStartAudio();
+  }
+
   let mouseVec = createVector(mouseX, mouseY);
   let closestDist = width * height;
   icons.forEach((icon, i) => {
@@ -298,7 +303,7 @@ class Effects {
     this.currentAd = random(ads);
   }
 
-  resize(){
+  resize() {
     this.video = false;
     this.audio = false;
     this.faceRec = false;
@@ -588,9 +593,6 @@ class Effects {
         } else {
           this.audio = true;
           messageBox.setMessage("Audio on.");
-          if(audioCapture === "not yet"){
-            audioCapture = new p5.AudioIn();
-          }
           audioCapture.start();
         }
         break;
