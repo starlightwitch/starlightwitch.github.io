@@ -26,7 +26,7 @@ var infoGrid;
 var effects;
 var messageBox;
 var cameraCapture;
-var audioCapture;
+var audioCapture = "not yet";
 var canvas;
 
 var selectedIcon = -1;
@@ -588,6 +588,9 @@ class Effects {
         } else {
           this.audio = true;
           messageBox.setMessage("Audio on.");
+          if(audioCapture === "not yet"){
+            audioCapture = new p5.AudioIn;
+          }
           audioCapture.start();
         }
         break;
