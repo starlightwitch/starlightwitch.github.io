@@ -127,7 +127,7 @@ class Fridge {
     this.dims = createVector(fridgeImage.width, fridgeImage.height).mult(
       fridgeScale
     );
-    this.pos = createVector(width / 3, height - this.dims.y / 2);
+    this.pos = createVector(width / 4, height - this.dims.y / 1.5);
   }
 
   pointWithin(x, y) {
@@ -204,7 +204,7 @@ class InfoGrid {
         "Turn audio recording on or off.",
         "Turn face recognition on or off.",
       ],
-      ["", "Store data only on the local network.", "Store data in the cloud."],
+      ["", "Store data only on\nthe local network.", "Store data in the cloud."],
       [
         "",
         "Share data with device manufacturer.",
@@ -214,7 +214,7 @@ class InfoGrid {
       [
         "",
         "Turn on or off advertisements.",
-        "Turn on or off profiling.\nThis will turn off personalised features.",
+        "Turn on or off profiling.\nThis will turn off personalised\nfeatures.",
       ],
     ];
 
@@ -273,10 +273,10 @@ class InfoGrid {
         fill(0);
         noStroke();
         // header
-        textSize(this.cellHeight / 6);
+        textSize(this.cellHeight / 8);
         text(this.headers[row][i], headerPadding / 2, headerPadding);
         // description
-        textSize(this.cellHeight / 10);
+        textSize(this.cellHeight / 14);
         text(this.descriptions[row][i], headerPadding / 2, headerPadding * 2);
 
         translate(this.cellWidth, 0);
