@@ -690,7 +690,6 @@ class MessageBox {
     if (this.message !== "") {
       push();
       textSize(height / 24);
-      textAlign(CENTER, CENTER);
       text(this.message, this.pos.x - this.halfMessageWidth, this.pos.y);
       pop();
 
