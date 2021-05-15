@@ -42,7 +42,7 @@ function preload() {
 
   cameraCapture = createCapture(VIDEO);
   cameraCapture.hide();
-  // audioCapture = new p5.AudioIn();
+  audioCapture = new p5.AudioIn();
 
   iconNames.forEach((name) => {
     let imgPath = "assets/img/" + name + ".png";
@@ -360,7 +360,7 @@ class Effects {
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
-      let level = 0.5;
+      let level = audioCapture.getLevel();
       let leveledY = lerp(topY, bottomY, level);
 
       push();
@@ -584,11 +584,11 @@ class Effects {
         if (this.audio) {
           this.audio = false;
           messageBox.setMessage("Audio off.");
-          // audioCapture.stop();
+          audioCapture.stop();
         } else {
           this.audio = true;
           messageBox.setMessage("Audio on.");
-          // audioCapture.start();
+          audioCapture.start();
         }
         break;
       case "faceRecIcon":
