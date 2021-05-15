@@ -273,10 +273,10 @@ class InfoGrid {
         fill(0);
         noStroke();
         // header
-        textSize(this.cellHeight / 4);
+        textSize(this.cellHeight / 6);
         text(this.headers[row][i], headerPadding / 2, headerPadding);
         // description
-        textSize(this.cellHeight / 6);
+        textSize(this.cellHeight / 10);
         text(this.descriptions[row][i], headerPadding / 2, headerPadding * 2);
 
         translate(this.cellWidth, 0);
@@ -688,7 +688,10 @@ class MessageBox {
 
   draw() {
     if (this.message !== "") {
+        push();
+        textSize(height / 20);
       text(this.message, this.pos.x - this.halfMessageWidth, this.pos.y);
+        pop();
 
       if (this.messageFrames >= 90) {
         this.message = "";
