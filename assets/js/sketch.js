@@ -42,7 +42,6 @@ function preload() {
 
   cameraCapture = createCapture(VIDEO);
   cameraCapture.hide();
-  audioCapture = new p5.AudioIn();
 
   iconNames.forEach((name) => {
     let imgPath = "assets/img/" + name + ".png";
