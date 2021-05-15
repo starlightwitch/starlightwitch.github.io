@@ -689,8 +689,8 @@ class MessageBox {
   draw() {
     if (this.message !== "") {
       push();
-      textSize(height / 24);
-      text(this.message, this.pos.x - this.halfMessageWidth, this.pos.y);
+      textSize(height / 30);
+      text(this.message, this.pos.x + this.halfMessageWidth, this.pos.y);
       pop();
 
       if (this.messageFrames >= 90) {
