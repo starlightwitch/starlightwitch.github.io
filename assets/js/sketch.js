@@ -690,7 +690,9 @@ class MessageBox {
     if (this.message !== "") {
       push();
       textSize(height / 30);
-      text(this.message, this.pos.x + this.halfMessageWidth, this.pos.y);
+      textAlign(CENTER);
+      let yFactor = this.message.includes("\n") ? 28/30 : 29/30
+      text(this.message, this.pos.x, height * yFactor);
       pop();
 
       if (this.messageFrames >= 90) {
