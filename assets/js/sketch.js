@@ -301,6 +301,7 @@ class Effects {
     this.advertisements = false;
     this.profilingMessage = false;
     this.currentAd = random(ads);
+    this.lastAudioLevel = 0;
   }
 
   resize() {
@@ -364,8 +365,9 @@ class Effects {
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
-      let level = min(audioCapture.getLevel() * 100, 1);
-      console.log(level);
+      let level = min(audioCapture.getLevel() * 75, 1);
+      level = lerp(this.lastAudioLevel, level, 0.5);
+      this.lastAudioLevel = level;
       let leveledY = lerp(bottomY, topY, level);
 
       push();
