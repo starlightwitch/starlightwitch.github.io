@@ -123,11 +123,11 @@ class Fridge {
   }
 
   resize() {
-    let fridgeScale = height / 2 / fridgeImage.height;
+    let fridgeScale = (height * 0.66) / fridgeImage.height;
     this.dims = createVector(fridgeImage.width, fridgeImage.height).mult(
       fridgeScale
     );
-    this.pos = createVector(width / 4, height - this.dims.y / 1.5);
+    this.pos = createVector(width / 4, height - this.dims.y / 2);
   }
 
   pointWithin(x, y) {
