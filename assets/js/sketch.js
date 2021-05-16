@@ -123,7 +123,7 @@ class Fridge {
   }
 
   resize() {
-    let fridgeScale = (height * 0.66) / fridgeImage.height;
+    let fridgeScale = height / fridgeImage.height;
     this.dims = createVector(fridgeImage.width, fridgeImage.height).mult(
       fridgeScale
     );
@@ -348,6 +348,8 @@ class Effects {
   draw() {
     let imageSize = fridge.dims.x / 2;
     if (this.video) {
+      push()
+      scale(-1, 0);
       image(
         cameraCapture,
         fridge.pos.x,
@@ -355,6 +357,7 @@ class Effects {
         fridge.dims.x - 20,
         fridge.dims.x * 0.65
       );
+      pop();
     }
 
     if (this.audio) {
