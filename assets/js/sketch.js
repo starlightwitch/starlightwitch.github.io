@@ -349,12 +349,13 @@ class Effects {
     let imageSize = fridge.dims.x / 2;
     if (this.video) {
       push()
-      scale(-1, 0);
+      translate(fridge.pos.x, fridge.pos.y - fridge.dims.y * 0.335);
+
+      scale(-1, 1);
       image(
         cameraCapture,
-        fridge.pos.x,
-        fridge.pos.y - fridge.dims.y * 0.34,
-        fridge.dims.x - 20,
+        0,0,
+        fridge.dims.x * 0.87,
         fridge.dims.x * 0.65
       );
       pop();
@@ -381,7 +382,7 @@ class Effects {
 
     if (this.faceRec && this.video) {
       push();
-      translate(fridge.pos.x, fridge.pos.y - fridge.dims.y * 0.33);
+      translate(fridge.pos.x, fridge.pos.y - fridge.dims.y * 0.36);
       stroke(0, 255, 0);
       noFill();
       strokeWeight(2);
@@ -572,9 +573,9 @@ class Effects {
       image(
         this.currentAd,
         fridge.pos.x,
-        fridge.pos.y + fridge.dims.y * 0.15,
-        fridge.dims.x * 0.9,
-        fridge.dims.y * 0.5
+        fridge.pos.y + fridge.dims.y * 0.13,
+        fridge.dims.x * 0.88,
+        fridge.dims.y * 0.6
       );
     }
   }
