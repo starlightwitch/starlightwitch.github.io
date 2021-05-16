@@ -75,6 +75,7 @@ function mousePressed() {
   if (audioCapture === "undefined") {
     userStartAudio();
     audioCapture = new p5.AudioIn(node);
+    audioCapture.start();
   }
 
   let mouseVec = createVector(mouseX, mouseY);
@@ -354,7 +355,7 @@ class Effects {
       scale(-1, 1);
       image(
         cameraCapture,
-        0,0,
+        0, 0,
         fridge.dims.x * 0.87,
         fridge.dims.x * 0.65
       );
@@ -432,64 +433,63 @@ class Effects {
     if (this.localNetwork) {
       image(
         computerImage,
-        fridge.pos.x - imageSize * 0.65,
-        fridge.pos.y - imageSize * 2.5,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        fridge.pos.y,
         imageSize,
         imageSize
       );
 
       image(
         computerImage,
-        fridge.pos.x + imageSize * 0.65,
-        fridge.pos.y - imageSize * 2.5,
-        imageSize,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        fridge.pos.y + (fridge.dims.y * 0.25) imageSize,
         imageSize
       );
 
       this.linkLine(
-        fridge.pos.x + imageSize * 0.35,
-        fridge.pos.y - imageSize * 2.65,
-        fridge.pos.x - imageSize * 0.35,
-        fridge.pos.y - imageSize * 2.65
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        fridge.pos.y,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        fridge.pos.y + (fridge.dims.y * 0.25)
       );
 
       this.linkLine(
-        fridge.pos.x - imageSize * 0.35,
-        fridge.pos.y - imageSize * 2.45,
-        fridge.pos.x + imageSize * 0.35,
-        fridge.pos.y - imageSize * 2.45
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        fridge.pos.y + (fridge.dims.y * 0.25),
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        fridge.pos.y
       );
     }
 
     if (this.cloudNetwork) {
       image(
         computerImage,
-        fridge.pos.x - imageSize * 0.65,
-        fridge.pos.y - imageSize * 2.5,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        fridge.pos.y,
         imageSize,
         imageSize
       );
 
       image(
         cloudImage,
-        fridge.pos.x + imageSize * 0.65,
-        fridge.pos.y - imageSize * 3.6,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        fridge.pos.y - (fridge.dims.y * 0.25),
         imageSize,
         imageSize
       );
 
       this.linkLine(
-        fridge.pos.x + imageSize * 0.55,
-        fridge.pos.y - imageSize * 3.35,
-        fridge.pos.x - imageSize * 0.75,
-        fridge.pos.y - imageSize * 2.75
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        fridge.pos.y,
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        fridge.pos.y - (fridge.dims.y * 0.25)
       );
 
       this.linkLine(
-        fridge.pos.x - imageSize * 0.45,
-        fridge.pos.y - imageSize * 2.75,
-        fridge.pos.x + imageSize * 0.85,
-        fridge.pos.y - imageSize * 3.35
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        fridge.pos.y - (fridge.dims.y * 0.25),
+        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        fridge.pos.y
       );
     }
 
@@ -595,11 +595,9 @@ class Effects {
         if (this.audio) {
           this.audio = false;
           messageBox.setMessage("Audio off.");
-          audioCapture.stop();
         } else {
           this.audio = true;
           messageBox.setMessage("Audio on.");
-          audioCapture.start();
         }
         break;
       case "faceRecIcon":
@@ -696,7 +694,7 @@ class MessageBox {
       push();
       textSize(height / 30);
       textAlign(CENTER);
-      let yFactor = this.message.includes("\n") ? 28/30 : 29/30
+      let yFactor = this.message.includes("\n") ? 28 / 30 : 29 / 30
       text(this.message, this.pos.x, height * yFactor);
       pop();
 
