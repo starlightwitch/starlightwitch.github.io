@@ -443,6 +443,13 @@ class Effects {
         imageSize,
         imageSize
       );
+
+      this.linkLine(
+        fridge.pos.x + fridge.dims.x * 0.5,
+        fridge.pos.y,
+        this.rightX - (imageSize * 0.3),
+        fridge.pos.y
+      );
     }
 
     if (this.localNetwork) {
@@ -494,11 +501,9 @@ class Effects {
     }
 
     if (this.manufacturerLink || this.governmentLink || this.thirdPartyLink) {
-      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * 0.5;
-
       image(
         fileImage,
-        iconX,
+        this.leftX,
         fridge.pos.y,
         imageSize,
         imageSize
@@ -507,16 +512,16 @@ class Effects {
       this.linkLine(
         fridge.pos.x - fridge.dims.x * 0.5,
         fridge.pos.y,
-        fridge.pos.x - fridge.dims.x * 0.5 - (imageSize * 0.2),
+        this.leftX + (imageSize * 0.3),
         fridge.pos.y,
       );
     }
 
     if (this.manufacturerLink) {
-      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * (1 / 3);
+      let iconX = this.gutterWidth / 3;
 
       this.linkLine(
-        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        this.leftX,
         fridge.pos.y + imageSize * 0.26,
         iconX,
         fridge.pos.y + fridge.dims.y * 0.25,
@@ -532,10 +537,10 @@ class Effects {
     }
 
     if (this.governmentLink) {
-      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * (2 / 3);
+      let iconX = this.gutterWidth * 2 / 3;
 
       this.linkLine(
-        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        this.leftX,
         fridge.pos.y + imageSize * 0.26,
         iconX,
         fridge.pos.y + fridge.dims.y * 0.25,
@@ -551,18 +556,15 @@ class Effects {
     }
 
     if (this.thirdPartyLink) {
-      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * 0.5;
-
       this.linkLine(
-        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
-        fridge.pos.y - imageSize * 0.2,
-        iconX,
+        this.leftX, fridge.pos.y - imageSize * 0.2,
+        this.leftX,
         fridge.pos.y - fridge.dims.y * 0.25,
       );
 
       image(
         iconImages[7],
-        iconX,
+        this.leftX,
         fridge.pos.y - fridge.dims.y * 0.25,
         imageSize,
         imageSize
