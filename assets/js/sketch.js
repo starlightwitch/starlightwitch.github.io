@@ -63,11 +63,10 @@ function draw() {
   background(233, 236, 238);
   infoGrid.draw();
   fridge.draw();
+  effects.draw();
   icons.forEach((icon) => {
     icon.draw();
   });
-
-  effects.draw();
   messageBox.draw();
 }
 
@@ -363,10 +362,10 @@ class Effects {
     }
 
     if (this.audio) {
-            let barWidth = fridge.dims.x * 0.05;
+      let barWidth = fridge.dims.x * 0.05;
       let topY = fridge.pos.y - fridge.dims.y * 0.16;
       let bottomY = topY + fridge.dims.y * 0.5;
-      let leftX = fridge.pos.x + fridge.dims.x/2 - barWidth;
+      let leftX = fridge.pos.x + fridge.dims.x / 2 - barWidth;
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
@@ -496,75 +495,73 @@ class Effects {
 
     if (this.manufacturerLink || this.governmentLink || this.thirdPartyLink) {
       image(
-        computerImage,
-        fridge.pos.x - imageSize * 0.65,
-        fridge.pos.y - imageSize * 2.5,
-        imageSize,
-        imageSize
-      );
-
-      image(
         fileImage,
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y - imageSize * 2.5,
+        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        fridge.pos.y,
         imageSize,
         imageSize
       );
 
       this.linkLine(
-        fridge.pos.x - imageSize * 0.95,
-        fridge.pos.y - imageSize * 2.5,
-        fridge.pos.x - imageSize * 2.2,
-        fridge.pos.y - imageSize * 2.5
+        fridge.pos.x - fridge.dims.x * 0.5,
+        fridge.pos.y,
+        fridge.pos.x - fridge.dims.x * 0.5 - (imageSize * 0.2),
+        fridge.pos.y,
       );
     }
 
     if (this.manufacturerLink) {
+      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * (1 / 3);
+
       this.linkLine(
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y - imageSize * 2.24,
-        fridge.pos.x - imageSize * 1.3,
-        fridge.pos.y - imageSize * 1.6
+        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        fridge.pos.y + imageSize * 0.26,
+        iconX,
+        fridge.pos.y + fridge.dims.y * 0.25,
       );
 
       image(
         iconImages[5],
-        fridge.pos.x - imageSize * 1.3,
-        fridge.pos.y - imageSize * 1.6,
+        iconX,
+        fridge.pos.y + fridge.dims.y * 0.25,
         imageSize,
         imageSize
       );
     }
 
     if (this.governmentLink) {
+      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * (2 / 3);
+
       this.linkLine(
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y - imageSize * 2.24,
-        fridge.pos.x - imageSize * 1.6,
-        fridge.pos.y - imageSize * 0.4
+        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        fridge.pos.y + imageSize * 0.26,
+        iconX,
+        fridge.pos.y + fridge.dims.y * 0.25,
       );
 
       image(
         iconImages[6],
-        fridge.pos.x - imageSize * 1.6,
-        fridge.pos.y - imageSize * 0.4,
+        iconX,
+        fridge.pos.y + fridge.dims.y * 0.25,
         imageSize,
         imageSize
       );
     }
 
     if (this.thirdPartyLink) {
+      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * 0.5;
+
       this.linkLine(
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y - imageSize * 2.24,
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y + imageSize * 0.4
+        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        fridge.pos.y - imageSize * 0.2,
+        iconX,
+        fridge.pos.y - fridge.dims.y * 0.25,
       );
 
       image(
         iconImages[7],
-        fridge.pos.x - imageSize * 2.5,
-        fridge.pos.y + imageSize * 0.4,
+        iconX,
+        fridge.pos.y - fridge.dims.y * 0.25,
         imageSize,
         imageSize
       );
