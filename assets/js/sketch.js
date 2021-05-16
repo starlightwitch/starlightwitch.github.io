@@ -442,7 +442,8 @@ class Effects {
       image(
         computerImage,
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
-        fridge.pos.y + (fridge.dims.y * 0.25) imageSize,
+        fridge.pos.y + (fridge.dims.y * 0.25),
+        imageSize,
         imageSize
       );
 
