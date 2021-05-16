@@ -448,7 +448,7 @@ class Effects {
     if (this.localNetwork) {
       image(
         computerImage,
-        this.rightX
+        this.rightX,
         fridge.pos.y + (fridge.dims.y * 0.25),
         imageSize,
         imageSize
