@@ -302,6 +302,9 @@ class Effects {
     this.profilingMessage = false;
     this.currentAd = random(ads);
     this.lastAudioLevel = 0;
+    this.gutterWidth = ((width / 2) - fridge.dims.x) / 2;
+    this.leftX = this.gutterWidth / 2;
+    this.rightX = (width * 0.5) - (this.gutterWidth * 0.5);
   }
 
   resize() {
@@ -315,6 +318,9 @@ class Effects {
     this.thirdPartyLink = false;
     this.advertisements = false;
     this.profilingMessage = false;
+    this.gutterWidth = ((width / 2) - fridge.dims.x) / 2;
+    this.leftX = this.gutterWidth / 2;
+    this.rightX = (width * 0.5) - (this.gutterWidth * 0.5);
   }
 
   linkLine(x1, y1, x2, y2) {
@@ -429,74 +435,70 @@ class Effects {
       pop();
     }
 
-    if (this.localNetwork) {
+    if (this.cloudNetwork || this.localNetwork) {
       image(
         computerImage,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        this.rightX,
         fridge.pos.y,
         imageSize,
         imageSize
       );
+    }
 
+    if (this.localNetwork) {
       image(
         computerImage,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        this.rightX
         fridge.pos.y + (fridge.dims.y * 0.25),
         imageSize,
         imageSize
       );
 
       this.linkLine(
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        this.rightX + (imageSize * 0.25),
         fridge.pos.y + imageSize * 0.1,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        this.rightX + (imageSize * 0.25),
         fridge.pos.y + (fridge.dims.y * 0.25) - imageSize * 0.25
       );
 
       this.linkLine(
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        this.rightX - (imageSize * 0.25),
         fridge.pos.y + (fridge.dims.y * 0.25) - imageSize * 0.25,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        this.rightX - (imageSize * 0.25),
         fridge.pos.y + imageSize * 0.1
       );
     }
 
     if (this.cloudNetwork) {
       image(
-        computerImage,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
-        fridge.pos.y,
-        imageSize,
-        imageSize
-      );
-
-      image(
         cloudImage,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
+        this.rightX,
         fridge.pos.y - (fridge.dims.y * 0.25),
         imageSize * 0.9,
         imageSize * 0.9
       );
 
       this.linkLine(
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        this.rightX + (imageSize * 0.25),
         fridge.pos.y - imageSize * 0.25,
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
+        this.rightX + (imageSize * 0.25),
         fridge.pos.y - (fridge.dims.y * 0.25) + (imageSize * 0.25)
       );
 
       this.linkLine(
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        this.rightX - (imageSize * 0.25),
         fridge.pos.y - (fridge.dims.y * 0.25) + (imageSize * 0.25),
-        fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
+        this.rightX - (imageSize * 0.25),
         fridge.pos.y - imageSize * 0.25
       );
     }
 
     if (this.manufacturerLink || this.governmentLink || this.thirdPartyLink) {
+      let iconX = ((width * 0.25) - fridge.dims.x * 0.5) * 0.5;
+
       image(
         fileImage,
-        fridge.pos.x - (fridge.dims.x * 0.5) - (imageSize * 0.5),
+        iconX,
         fridge.pos.y,
         imageSize,
         imageSize
