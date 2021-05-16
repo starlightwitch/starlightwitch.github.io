@@ -32,8 +32,8 @@ var canvas;
 var selectedIcon = -1;
 
 function preload() {
-  let ad1 = loadImage("assets/img/nesquik.png");
-  let ad2 = loadImage("assets/img/grapefruit.png");
+  let ad1 = loadImage("assets/img/nesquik.jpeg");
+  let ad2 = loadImage("assets/img/grapefruit.jpeg");
   ads = [ad1, ad2];
   fileImage = loadImage("assets/img/data.png");
   computerImage = loadImage("assets/img/computer.png");
