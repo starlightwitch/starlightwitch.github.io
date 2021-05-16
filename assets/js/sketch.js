@@ -347,7 +347,7 @@ class Effects {
   }
 
   draw() {
-    let imageSize = fridge.dims.x / 2;
+    let imageSize = fridge.dims.x / 3;
     if (this.video) {
       push()
       translate(fridge.pos.x, fridge.pos.y - fridge.dims.y * 0.335);
@@ -356,22 +356,22 @@ class Effects {
       image(
         cameraCapture,
         0, 0,
-        fridge.dims.x * 0.87,
-        fridge.dims.x * 0.65
+        fridge.dims.x,
+        fridge.dims.x * 0.7
       );
       pop();
     }
 
     if (this.audio) {
-      let topY = fridge.pos.y - fridge.dims.y * 0.15;
+            let barWidth = fridge.dims.x * 0.05;
+      let topY = fridge.pos.y - fridge.dims.y * 0.16;
       let bottomY = topY + fridge.dims.y * 0.5;
-      let leftX = fridge.pos.x + fridge.dims.x * 0.3;
-      let barWidth = fridge.dims.x * 0.1;
+      let leftX = fridge.pos.x + fridge.dims.x/2 - barWidth;
 
       rect(leftX, topY, barWidth, bottomY - topY);
 
-      let level = min(audioCapture.getLevel() * 75, 1);
-      level = lerp(this.lastAudioLevel, level, 0.5);
+      let level = min(audioCapture.getLevel() * 35, 1);
+      level = lerp(this.lastAudioLevel, level, 0.2);
       this.lastAudioLevel = level;
       let leveledY = lerp(bottomY, topY, level);
 
@@ -449,16 +449,16 @@ class Effects {
 
       this.linkLine(
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
-        fridge.pos.y,
+        fridge.pos.y + imageSize * 0.1,
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
-        fridge.pos.y + (fridge.dims.y * 0.25)
+        fridge.pos.y + (fridge.dims.y * 0.25) - imageSize * 0.25
       );
 
       this.linkLine(
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
-        fridge.pos.y + (fridge.dims.y * 0.25),
+        fridge.pos.y + (fridge.dims.y * 0.25) - imageSize * 0.25,
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
-        fridge.pos.y
+        fridge.pos.y + imageSize * 0.1
       );
     }
 
@@ -475,22 +475,22 @@ class Effects {
         cloudImage,
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.5),
         fridge.pos.y - (fridge.dims.y * 0.25),
-        imageSize,
-        imageSize
+        imageSize * 0.9,
+        imageSize * 0.9
       );
 
       this.linkLine(
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
-        fridge.pos.y,
+        fridge.pos.y - imageSize * 0.25,
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.75),
-        fridge.pos.y - (fridge.dims.y * 0.25)
+        fridge.pos.y - (fridge.dims.y * 0.25) + (imageSize * 0.25)
       );
 
       this.linkLine(
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
-        fridge.pos.y - (fridge.dims.y * 0.25),
+        fridge.pos.y - (fridge.dims.y * 0.25) + (imageSize * 0.25),
         fridge.pos.x + (fridge.dims.x * 0.5) + (imageSize * 0.25),
-        fridge.pos.y
+        fridge.pos.y - imageSize * 0.25
       );
     }
 
