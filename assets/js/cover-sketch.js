@@ -30,9 +30,9 @@ const sketch = (p) => {
   };
 
   p.setup = () => {
-    var c = p.createCanvas(dims.w, dims.w * (2 / 3));
+    var c = p.createCanvas(dims.w, dims.h);
     p.leafCols = p.round(p.width / 25);
-    p.leafRows = p.round(p.width / 50);
+    p.leafRows = p.round(p.height / 50);
 
     leaves = [];
     for (i = 0; i < p.leafRows; i++) {
@@ -62,8 +62,9 @@ const sketch = (p) => {
           i * noiseStep + p.frameCount * noiseSpeed,
           j * noiseStep + p.frameCount * noiseSpeed
         );
+        let scaleFactor = 4 * leafDx / leaves[i][j].width;
         p.push();
-        p.scale(0.3, -0.3);
+        p.scale(scaleFactor, -scaleFactor);
         p.rotate(p.TWO_PI * noiseVal * noiseAmp);
         p.translate(-leaves[i][j].width * 0.5, 0);
         p.image(leaves[i][j], 0, 0);
