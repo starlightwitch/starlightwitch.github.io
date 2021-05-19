@@ -1,0 +1,29 @@
+.zine-container {
+  scroll-snap-type: y mandatory;
+  width: 100vw;
+  height: 100vh;
+}
+
+.zine-pane {
+  scroll-snap-align: start;
+  width: 100vw;
+  height: 100vh;
+  background: #0e0e0e;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  background: #0e0e0e;
+  overflow: hidden;
+}
+
+body {
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+a {
+  text-decoration: none;
+}
+
