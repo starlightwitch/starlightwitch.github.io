@@ -24,7 +24,7 @@ const sketch = (p) => {
     p.loadImage("assets/img/leaf4.png", (img) => {
       leafImages.push(img);
     });
-    p.loadImage("assets/img/title.png", (img) => {
+    p.loadImage("https://raw.githubusercontent.com/starlightwitch/starlightwitch.github.io/master/assets/img/title.png", (img) => {
       titleImage = img;
     });
   };
