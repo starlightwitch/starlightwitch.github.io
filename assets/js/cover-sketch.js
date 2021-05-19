@@ -31,8 +31,8 @@ const sketch = (p) => {
 
   p.setup = () => {
     var c = p.createCanvas(dims.w, dims.h);
-    p.leafCols = p.round(p.width / 25);
-    p.leafRows = p.round(p.height / 50);
+    p.leafCols = p.round(p.width / 50);
+    p.leafRows = p.round(p.height / 80);
 
     leaves = [];
     for (i = 0; i < p.leafRows; i++) {
