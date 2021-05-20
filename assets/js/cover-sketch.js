@@ -8,31 +8,49 @@ let dims = {
 let leafImages = [];
 let leaves = [];
 let titleImgage;
+let titleWidth;
+let titleHeight;
+let editionText = "the digital edition!";
 
 // Define the p5 sketch methods
 const sketch = (p) => {
   p.preload = () => {
-    p.loadImage("assets/img/leaf1.png", (img) => {
+    p.loadImage("assets/img/sketches/dark1.png", (img) => {
+      leafImages.push(img);
+      leafImages.push(img);
       leafImages.push(img);
     });
-    p.loadImage("assets/img/leaf2.png", (img) => {
+    p.loadImage("assets/img/sketches/dark2.png", (img) => {
+      leafImages.push(img);
+      leafImages.push(img);
       leafImages.push(img);
     });
-    p.loadImage("assets/img/leaf3.png", (img) => {
+    p.loadImage("assets/img/sketches/highlight1.png", (img) => {
       leafImages.push(img);
     });
-    p.loadImage("assets/img/leaf4.png", (img) => {
+    p.loadImage("assets/img/sketches/highlight2.png", (img) => {
       leafImages.push(img);
     });
-    p.loadImage("https://raw.githubusercontent.com/starlightwitch/starlightwitch.github.io/master/assets/img/title.png", (img) => {
+    p.loadImage("assets/img/sketches/highlight3.png", (img) => {
+      leafImages.push(img);
+    });
+
+    p.loadImage("assets/img/sketches/title.png", (img) => {
       titleImage = img;
     });
   };
 
   p.setup = () => {
     var c = p.createCanvas(dims.w, dims.h);
-    p.leafCols = p.round(p.width / 50);
-    p.leafRows = p.round(p.height / 80);
+    p.imageMode(p.CENTER);
+    p.rectMode(p.CENTER);
+    p.textAlign(p.LEFT, p.CENTER);
+    p.noStroke();
+    p.textSize(p.height / 18);
+    p.leafCols = p.min(p.round(p.width / 25), 30);
+    p.leafRows = p.min(p.round(p.height / 80), 20);
+    titleWidth = p.width * 0.7;
+    titleHeight = (titleWidth / titleImage.width) * titleImage.height;
 
     leaves = [];
     for (i = 0; i < p.leafRows; i++) {
@@ -52,7 +70,7 @@ const sketch = (p) => {
 
     let noiseSpeed = 0.002;
     let noiseStep = 0.03;
-    let noiseAmp = 1.4;
+    let noiseAmp = 2;
 
     p.push();
     p.translate(-leafDx * 0.5, -leafDy * 0.75);
@@ -66,7 +84,7 @@ const sketch = (p) => {
         p.push();
         p.scale(scaleFactor, -scaleFactor);
         p.rotate(p.TWO_PI * noiseVal * noiseAmp);
-        p.translate(-leaves[i][j].width * 0.5, 0);
+        // p.translate(-leaves[i][j].width * 0.5, 0);
         p.image(leaves[i][j], 0, 0);
         p.pop();
         p.translate(leafDx, 0);
@@ -78,9 +96,21 @@ const sketch = (p) => {
     p.push();
     p.imageMode(p.CENTER);
     p.translate(p.width / 2, p.height / 2);
-    let titleWidth = p.width * 0.7;
-    let titleHeight = (titleWidth / titleImage.width) * titleImage.height;
     p.image(titleImage, 0, 0, titleWidth, titleHeight);
+    p.fill("#355F6B");
+    p.rect(
+      titleWidth / 2 - p.textWidth(editionText) * 0.55,
+      titleHeight * 0.4,
+      p.textWidth(editionText) * 1.1,
+      p.height / 18 + 10
+    );
+    p.fill("#FCFAEE");
+    let charCount = p.ceil(p.frameCount / 6) % (editionText.length + 20);
+    p.text(
+      editionText.slice(0, charCount),
+      titleWidth / 2 - p.textWidth(editionText) * 1.05,
+      titleHeight * 0.4
+    );
     p.pop();
   };
 
@@ -96,4 +126,4 @@ const sketch = (p) => {
 };
 
 // Create the canvas and run the sketch in the html node.
-new p5(sketch, coverNode);
+// new p5(sketch, coverNode);
