@@ -42,15 +42,16 @@ const sketch = (p) => {
 
   p.setup = () => {
     var c = p.createCanvas(dims.w, dims.h);
+    titleWidth = p.width * 0.7;
+    titleHeight = (titleWidth / titleImage.width) * titleImage.height;
+
     p.imageMode(p.CENTER);
     p.rectMode(p.CENTER);
     p.textAlign(p.LEFT, p.CENTER);
     p.noStroke();
-    p.textSize(p.height / 18);
+    p.textSize(titleHeight / 4);
     p.leafCols = p.min(p.round(p.width / 25), 30);
     p.leafRows = p.min(p.round(p.height / 80), 20);
-    titleWidth = p.width * 0.7;
-    titleHeight = (titleWidth / titleImage.width) * titleImage.height;
 
     leaves = [];
     for (i = 0; i < p.leafRows; i++) {
@@ -65,8 +66,8 @@ const sketch = (p) => {
   p.draw = () => {
     p.background("#0e0e0e");
 
-    let leafDx = p.width / (p.leafCols-2);
-    let leafDy = p.height / (p.leafRows-2);
+    let leafDx = p.width / (p.leafCols - 2);
+    let leafDy = p.height / (p.leafRows - 2);
 
     let noiseSpeed = 0.002;
     let noiseStep = 0.03;
@@ -80,7 +81,7 @@ const sketch = (p) => {
           i * noiseStep + p.frameCount * noiseSpeed,
           j * noiseStep + p.frameCount * noiseSpeed
         );
-        let scaleFactor = 4 * leafDx / leaves[i][j].width;
+        let scaleFactor = (4 * leafDx) / leaves[i][j].width;
         p.push();
         p.scale(scaleFactor, -scaleFactor);
         p.rotate(p.TWO_PI * noiseVal * noiseAmp);
@@ -102,7 +103,7 @@ const sketch = (p) => {
       titleWidth / 2 - p.textWidth(editionText) * 0.55,
       titleHeight * 0.4,
       p.textWidth(editionText) * 1.1,
-      p.height / 18 + 10
+      titleHeight / 4 + 10
     );
     p.fill("#FCFAEE");
     let charCount = p.ceil(p.frameCount / 6) % (editionText.length + 20);
@@ -119,8 +120,6 @@ const sketch = (p) => {
       w: coverNode.clientWidth,
       h: coverNode.clientHeight,
     };
-    console.log(dims);
-
     p.resizeCanvas(dims.w, dims.h);
   };
 };
