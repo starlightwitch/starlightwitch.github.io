@@ -126,4 +126,4 @@ const sketch = (p) => {
 };
 
 // Create the canvas and run the sketch in the html node.
-// new p5(sketch, coverNode);
+new p5(sketch, coverNode);
