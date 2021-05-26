@@ -14,6 +14,13 @@ let editionText = "the digital edition!";
 
 // Define the p5 sketch methods
 const sketch = (p) => {
+  coverNode.onmouseleave = () => {
+    p.noLoop();
+  }
+  coverNode.onmouseenter = () => {
+    p.loop();
+  }
+
   p.preload = () => {
     p.loadImage("assets/img/sketches/dark1.png", (img) => {
       leafImages.push(img);
