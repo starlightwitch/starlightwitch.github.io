@@ -2,7 +2,7 @@
 ###############################################
 Program: Pentagon Fanning Animation
 Author: Jett Pavlica
-Created: 06/14/2022
+Created: 06/21/2022
 ###############################################
 */
 
@@ -13,7 +13,7 @@ var currPoint = 2;
 var cycleFrames = 300;
 
 function preload() {
-  prismImage = loadImage("assets/img/derrick-beasely-prism.png");
+  prismImage = loadImage("assets/img/mailande-moran-prism.png");
 }
 
 function setup() {
@@ -73,4 +73,5 @@ function draw() {
 
   blendMode(BLEND);
   image(prismImage, 0, 0);
+  noLoop();
 }
