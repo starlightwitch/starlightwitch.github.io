@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  background: #000817;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: stretch;
+  padding: 3%;
+}
+
+@media (max-width:600px) {
+  main {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: start;
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+  }
+}
+
+@media (min-width: 601px) {
+  .screen-panel {
+    height: 100%;
+    width: 50%;
+  }
+}
+
+#sketch-container {
+  padding: 0;
+}
+
+#artist-info-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: start;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+#title-material-link-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15%;
+}
+
+#excerpt-container {
+  justify-content: right;
+}
+
+h1 {
+  color: gainsboro;
+  font-size: 2em;
+  font-family: josefin-sans, sans-serif;
+}
+
+h2 {
+  color: #B53391;
+  font-size: 1.5rem;
+  font-family: neuropol-x-light,sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+h2, a {
+  margin-bottom: 5px;
+}
+
+h3, p {
+  text-align: right;
+}
+
+h3 {
+  font-size: 1.8rem;
+  font-family: neuropol-x-light,sans-serif;
+  color: #B53391;
+}
+
+p {
+  font-size: 1.3rem;
+  color: gainsboro;
+  font-family: josefin-sans, sans-serif;
+}
+
+a {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #bc9eca;
+  font-family: kobenhavn-sans-stencil, sans-serif;
+}
+
+a:hover {
+  font-size: 1.6rem;
+  color: rgb(216,182,232);
+}
+
+#artist-index-link {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  p, h3 {
+    text-align: center;
+  }
+}
+
+@media (min-width: 601px) {
+  #title-mobile {
+    display: none;
+  }
+}
+
+@media (max-width:600px) {
+  #title-desktop {
+    display: none;
+  }
+}
+
