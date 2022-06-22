@@ -29,6 +29,23 @@ main {
   justify-content: center;
 }
 
-#cover-container {
+p {
+  color: gainsboro;
+  font-size: 1.4rem;
+  font-family: obliqua, sans-serif;
+  width: 500px;
+  max-width: 90%;
+  text-align: center;
+}
+
+a {
+  color: #bc9eca;
+  font-size: 1.4rem;
+  font-family: kobenhavn-sans-stencil, sans-serif;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #b969ae;
 }
 
