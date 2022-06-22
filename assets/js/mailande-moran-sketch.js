@@ -1,6 +1,6 @@
 /*
 ###############################################
-Program: Pentagon Fanning Animation
+Program: Pentagon Sine Wave
 Author: Jett Pavlica
 Created: 06/21/2022
 ###############################################
@@ -9,8 +9,8 @@ Created: 06/21/2022
 p5.disableFriendlyErrors = true;
 var prismImage;
 var pentaPoints = [];
-var currPoint = 2;
-var cycleFrames = 300;
+var rows = 8;
+var cols = 8;
 
 function preload() {
   prismImage = loadImage("assets/img/mailande-moran-prism.png");
@@ -50,28 +50,24 @@ function draw() {
   background("#000817");
   blendMode(ADD);
 
-  translate(width / 2, height / 2);
-  for (let i = 0; i < 5; i++) {
-    push();
-    scale(width / 2);
-    let rotation = map(i, 0, 4, 0, 4 * TWO_PI / 5);
-    let progress = map(frameCount % cycleFrames, 0, cycleFrames, 0, 2);
-    rotation = progress > 1 ? -rotation : rotation;
-    progress = progress > 1 ? 2 - progress : progress;
-    rotate(rotation * progress);
-    beginShape();
-    vertex(0, 0);
-    vertex(pentaPoints[currPoint].x, pentaPoints[currPoint].y);
-    vertex(pentaPoints[(currPoint + 1) % 5].x, pentaPoints[(currPoint + 1) % 5].y);
-    endShape();
-    pop();
-  }
-
-  if (frameCount % cycleFrames == floor(cycleFrames / 2)) {
-    currPoint = (currPoint + 1) % 5;
+  for (let col = 1; col <= cols; col++) {
+    for (let row = 1; row <= rows; row++) {
+      let x = map(col, 1, cols, width * 0.1, width * 0.9);
+      let y = map(row, 1, rows, height * 0.1, height * 0.9);
+      let theta = map(row, 1, rows, 0, TWO_PI);
+      theta += col * TWO_PI / cols;
+      push();
+      translate(x + sin(theta + frameCount / 20) * 40, y);
+      scale(40);
+      beginShape();
+      for (var point of pentaPoints) {
+        vertex(point.x, point.y);
+      }
+      endShape();
+      pop();
+    }
   }
 
   blendMode(BLEND);
-  image(prismImage, 0, 0);
-  noLoop();
+  image(prismImage, width / 2, height / 2);
 }

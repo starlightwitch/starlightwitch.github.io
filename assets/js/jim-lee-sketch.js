@@ -57,7 +57,7 @@ function setup() {
   }
 
   // populate pentagons
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 80; i++) {
     let p = p5.Vector.random3D()
       .mult(random(max(width, height)));
     pentagons.push(p);

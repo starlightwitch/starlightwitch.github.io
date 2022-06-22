@@ -53,16 +53,19 @@ function draw() {
   translate(width / 2, height / 2);
   for (let i = 0; i < 5; i++) {
     push();
-    scale(width / 2);
+    scale(width / 2.3);
     let rotation = map(i, 0, 4, 0, 4 * TWO_PI / 5);
     let progress = map(frameCount % cycleFrames, 0, cycleFrames, 0, 2);
     rotation = progress > 1 ? -rotation : rotation;
     progress = progress > 1 ? 2 - progress : progress;
     rotate(rotation * progress);
     beginShape();
+    // vertex(0, 0);
     vertex(0, 0);
-    vertex(pentaPoints[currPoint].x, pentaPoints[currPoint].y);
-    vertex(pentaPoints[(currPoint + 1) % 5].x, pentaPoints[(currPoint + 1) % 5].y);
+    curveVertex(pentaPoints[currPoint].x, pentaPoints[currPoint].y);
+    curveVertex(pentaPoints[(currPoint + 1) % 5].x, pentaPoints[(currPoint + 1) % 5].y);
+    vertex(0, 0);
+    vertex(0, 0);
     endShape();
     pop();
   }

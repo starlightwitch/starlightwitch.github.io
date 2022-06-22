@@ -54,14 +54,14 @@ main {
 }
 
 .feature-link {
-  color: #b53391;
+  color: #b969ae;
   text-decoration: none;
   font-size: 1.3rem;
   font-family: kobenhavn-sans-stencil, sans-serif;
 }
 
 .feature-link:hover {
-  color: #d8b6e8;
+  color: #bc9eca;
 }
 
 #banner {
@@ -75,5 +75,10 @@ main {
   font-size: 1.2rem;
   font-family: obliqua, sans-serif;
   text-align: center;
+}
+
+.space-pane {
+  max-width: 600px;
+  min-height: 30vh;
 }
 

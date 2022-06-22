@@ -1,6 +1,30 @@
 p5.disableFriendlyErrors = false;
 var pentaPoints = [];
 var contourPoints = [];
+var depth = 1;
+
+function mouseMoved() {
+  // calculate the depth of recursion based
+  // on mouse position
+  let mouseVal;
+  let screenSize;
+  if (width < height) {
+    mouseVal = mouseY;
+    screenSize = height;
+  } else {
+    mouseVal = mouseX;
+    screenSize = width;
+  }
+
+  if (mouseVal < screenSize * 0.33) {
+    depth = 1;
+  } else if (mouseVal > screenSize * 0.66) {
+    depth = 3;
+  } else {
+    depth = 2;
+  }
+
+}
 
 function setup() {
   // sketch enviroment
@@ -26,16 +50,7 @@ function draw() {
   blendMode(ADD);
 
   translate(width / 2, height / 2);
-  let depth;
-  if (mouseX < width * 0.33) {
-    depth = 1;
-  } else if (mouseX > width * 0.66) {
-    depth = 3;
-  } else {
-    depth = 2;
-  }
-  drawPentagon(height / 4, depth+1);
-
+  drawPentagon(height / 4, depth + 1);
 }
 
 function drawPentagon(rad, depth) {
