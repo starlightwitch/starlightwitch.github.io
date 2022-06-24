@@ -44,7 +44,6 @@ main {
 
 @media (min-width: 601px) {
   .screen-panel {
-    /*height: 100%;*/
     width: 50%;
   }
 }
@@ -56,7 +55,7 @@ main {
 #artist-info-panel {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   justify-content: start;
   padding: 20px;
   /*overflow-y: auto;*/
@@ -142,6 +141,44 @@ a:hover {
 
 @media (max-width:600px) {
   #title-desktop {
+    display: none;
+  }
+}
+
+#button-spacer {
+  min-height: 5px;
+  width: 90%;
+  max-width: 600px;
+  background-color: #b53391;
+  margin-bottom: 15px;
+}
+
+.btn {
+  margin-bottom: 10px;
+  background-color: #b969ae;
+  border: none;
+  max-width: 400px;
+  width: 90%;
+  font-family: kobenhavn-sans-stencil, sans-serif;
+  font-size: 1.2rem;
+}
+
+.btn:hover {
+  /*margin-bottom: 10px;*/
+  background-color: #b53391;
+  border: solid;
+  border-color: gainsboro;
+  /*border-radius: 4px;*/
+  font-size: 1.2rem;
+}
+
+#mobile-page-extender {
+  min-height: 30vh;
+  min-width: 1px;
+}
+
+@media (min-width: 601px) {
+  #mobile-page-extender {
     display: none;
   }
 }

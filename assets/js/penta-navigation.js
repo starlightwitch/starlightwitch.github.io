@@ -36,17 +36,19 @@ function mouseClicked() {
 }
 
 function preload() {
-  let currImage = loadImage('assets/img/cwe-prism.png');
-  artistPrisms.push(new ArtistPrism("carlyn-wright-eakes.html", currImage));
-
-  currImage = loadImage('assets/img/BANArtwork-prism.png');
-  artistPrisms.push(new ArtistPrism("ban-artwork.html", currImage));
+  let currImage;
 
   currImage = loadImage('assets/img/derrick-beasely-prism.png');
   artistPrisms.push(new ArtistPrism("derrick-beasely.html", currImage));
 
+  currImage = loadImage('assets/img/cwe-prism.png');
+  artistPrisms.push(new ArtistPrism("carlyn-wright-eakes.html", currImage));
+
   currImage = loadImage('assets/img/jermain-powell-prism.png');
   artistPrisms.push(new ArtistPrism("jermain-powell.html", currImage));
+
+  currImage = loadImage('assets/img/BANArtwork-prism.png');
+  artistPrisms.push(new ArtistPrism("ban-artwork.html", currImage));
 
   currImage = loadImage('assets/img/mailande-moran-prism.png');
   artistPrisms.push(new ArtistPrism("mailande-moran.html", currImage));
@@ -57,6 +59,8 @@ function preload() {
   currImage = loadImage('assets/img/jim-lee-prism.png');
   artistPrisms.push(new ArtistPrism("jim-lee.html", currImage));
 
+  currImage = loadImage('assets/img/exit-prism.png');
+  artistPrisms.push(new ArtistPrism("art-artists-authors.html", currImage));
 }
 
 function setup() {
@@ -135,7 +139,7 @@ function draw() {
   for (var prism of artistPrisms) {
     push();
     translate(prism.pos.x, prism.pos.y);
-    scale(0.4 + noise(index * nd.di, frameCount * nd.dfi))
+    scale(0.6 + noise(index * nd.di, frameCount * nd.dfi) * 0.75)
     image(prism.image, 0, 0)
     pop();
     index++;
