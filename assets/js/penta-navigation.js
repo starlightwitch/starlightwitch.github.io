@@ -26,6 +26,19 @@ function shuffleArray(array) {
   }
 }
 
+function mouseMoved() {
+  cursor("auto");
+  for (var prism of artistPrisms) {
+    if (prism.inBoundingBox(mouseX, mouseY)) {
+      cursor("zoom-in");
+      if (prism.link == "art-artists-authors.html") {
+        cursor("pointer");
+      }
+      break;
+    }
+  }
+}
+
 function mouseClicked() {
   for (var prism of artistPrisms) {
     if (prism.inBoundingBox(mouseX, mouseY)) {
@@ -47,7 +60,7 @@ function preload() {
   currImage = loadImage('assets/img/jermain-powell-prism.png');
   artistPrisms.push(new ArtistPrism("jermain-powell.html", currImage));
 
-  currImage = loadImage('assets/img/BANArtwork-prism.png');
+  currImage = loadImage('assets/img/ban-artwork-prism.png');
   artistPrisms.push(new ArtistPrism("ban-artwork.html", currImage));
 
   currImage = loadImage('assets/img/mailande-moran-prism.png');
