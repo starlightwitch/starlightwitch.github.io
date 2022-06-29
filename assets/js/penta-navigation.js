@@ -57,7 +57,7 @@ function preload() {
   currImage = loadImage('assets/img/cwe-prism.png');
   artistPrisms.push(new ArtistPrism("carlyn-wright-eakes.html", currImage));
 
-  currImage = loadImage('assets/img/jermain-powell-prism.png');
+  currImage = loadImage('assets/img/jermaine-powell-prism.png');
   artistPrisms.push(new ArtistPrism("jermain-powell.html", currImage));
 
   currImage = loadImage('assets/img/ban-artwork-prism.png');
