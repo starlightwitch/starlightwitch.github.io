@@ -90,3 +90,22 @@ main {
   background-color: #b969ae;
 }
 
+.btn {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  background-color: #b969ae;
+  border: none;
+  max-width: 400px;
+  width: 90%;
+  font-family: kobenhavn-sans-stencil, sans-serif;
+  font-size: 1.2rem;
+}
+
+.btn:hover {
+  background-color: #b53391;
+  border: solid;
+  border-color: gainsboro;
+  /*border-radius: 4px;*/
+  font-size: 1.2rem;
+}
+
