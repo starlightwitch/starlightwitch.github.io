@@ -67,6 +67,7 @@ canvas {
 h1 {
   color: gainsboro;
   font-family: josefine-sand, sans-serif;
+  font-weight: 600;
   font-size: 4rem;
 }
 
@@ -79,14 +80,14 @@ h2 {
 
 a {
   color: gainsboro;
-  font-family: obliqua, sans-serif;
+  font-family: kobenhavn-sans-stencil, sans-serif;
   text-decoration: none;
   font-size: 3.5rem;
 }
 
 a:hover {
   color: #bc9eca;
-  font-family: obliqua, sans-serif;
+  font-family: kobenhavn-sans-stencil, sans-serif;
   text-decoration: none;
   font-size: 4rem;
 }

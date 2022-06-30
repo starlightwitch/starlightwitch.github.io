@@ -17,8 +17,8 @@ var nd = {
 
 function setup() {
   // sketch enviroment
-  let sketchNode = document.getElementById('navigation-sketch-container')
-  let c = createCanvas(window.innerWidth, window.innerHeight);
+  let sketchNode = document.getElementById('sketch-container')
+  let c = createCanvas(sketchNode.offsetWidth, sketchNode.offsetWidth);
   c.parent(sketchNode);
   fill("#DA48975A");
   stroke(100);

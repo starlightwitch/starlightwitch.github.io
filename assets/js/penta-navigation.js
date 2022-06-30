@@ -137,7 +137,7 @@ function setup() {
 
 function draw() {
   // reset background
-  blendMode(BLEND);
+  // blendMode(BLEND);
   background("#000817");
 
   // draw tracking grid
@@ -147,7 +147,7 @@ function draw() {
 
   // draw artistPrisms
   blendMode(BLEND);
-  fill("#000817");
+  // fill("#000817");
   let index = 0;
   for (var prism of artistPrisms) {
     push();
