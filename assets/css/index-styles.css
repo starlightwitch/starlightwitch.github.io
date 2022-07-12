@@ -35,17 +35,17 @@ p {
   font-family: obliqua, sans-serif;
   width: 500px;
   max-width: 90%;
-  text-align: center;
+  /*text-align: center;*/
 }
 
 a {
-  color: #bc9eca;
-  font-size: 1.4rem;
+  color: #b969ae;
+  font-size: 1.6rem;
   font-family: kobenhavn-sans-stencil, sans-serif;
   text-decoration: none;
 }
 
 a:hover {
-  color: #b969ae;
+  color: #bc9eca;
 }
 

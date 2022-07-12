@@ -7,6 +7,9 @@ var zineTextPos;
 var titlePos;
 var titleSize = 1;
 var creditSize = 1;
+var titleText = 'PROTOTYPE';
+var topCreditText = ' Pop Box Gallery and DurmPAC present ';
+var bottomCreditText = ' a digital zine and exhibition archive '
 var frameInterval = 30;
 var panelCount = 1;
 var panelIncrement = true;
@@ -36,14 +39,14 @@ function setup() {
   textAlign(CENTER, CENTER);
   textFont(fontJosefine);
   // title sizing
-  while (textWidth("PROTOTYPE") < width * 0.8) {
+  while (textWidth(titleText) < width * 0.8) {
     titleSize++;
     textSize(titleSize);
   }
   // credit sizing
   if (width < height) {
     textSize(creditSize);
-    while (textWidth(" a digital zine and exhibition archive. ") < width * 0.6) {
+    while (textWidth(bottomCreditText) < width * 0.6) {
       creditSize++;
       textSize(creditSize);
     }
@@ -53,7 +56,7 @@ function setup() {
 
   // type positioning
   textSize(titleSize);
-  let titleWidth = textWidth("PROTOTYPE");
+  let titleWidth = textWidth(titleText);
   titlePos = createVector(width * 0.5, height * 0.4);
   presentTextPos = createVector();
   zineTextPos = createVector();
@@ -65,8 +68,8 @@ function setup() {
     zineTextPos.y = titlePos.y + creditSize * 6;
 
     textSize(creditSize);
-    presentTextPos.x += textWidth("Pop Box Gallery and DurmPAC present") / 2;
-    zineTextPos.x -= textWidth("a digital zine and exhibition archive.") / 2;
+    presentTextPos.x += textWidth(topCreditText) / 2;
+    zineTextPos.x -= textWidth(bottomCreditText) / 2;
   } else {
     presentTextPos.x = width / 2;
     presentTextPos.y = 2 * creditSize;
@@ -99,13 +102,13 @@ function draw() {
   // title
   fill(255, 230);
   noStroke();
-  text("PROTOTYPE", titlePos.x, titlePos.y);
+  text(titleText, titlePos.x, titlePos.y);
   // credits
   fill(255);
   textFont(fontNittiTypewriter);
   textSize(creditSize);
-  text(" Pop Box Gallery and DurmPAC present ", presentTextPos.x, presentTextPos.y);
-  text(" a digital zine and exhibition archive. ", zineTextPos.x, zineTextPos.y);
+  text(topCreditText, presentTextPos.x, presentTextPos.y);
+  text(bottomCreditText, zineTextPos.x, zineTextPos.y);
   pop();
 }
 

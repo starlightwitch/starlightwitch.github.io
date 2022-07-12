@@ -13,7 +13,7 @@ var currPoint = 2;
 var cycleFrames = 300;
 
 function preload() {
-  prismImage = loadImage("assets/img/derrick-beasely-prism.png");
+  prismImage = loadImage("assets/img/derrick-beasley-prism.png");
 }
 
 function setup() {

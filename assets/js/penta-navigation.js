@@ -51,8 +51,8 @@ function mouseClicked() {
 function preload() {
   let currImage;
 
-  currImage = loadImage('assets/img/derrick-beasely-prism.png');
-  artistPrisms.push(new ArtistPrism("derrick-beasely.html", currImage));
+  currImage = loadImage('assets/img/derrick-beasley-prism.png');
+  artistPrisms.push(new ArtistPrism("derrick-beasley.html", currImage));
 
   currImage = loadImage('assets/img/cwe-prism.png');
   artistPrisms.push(new ArtistPrism("carlyn-wright-eakes.html", currImage));
