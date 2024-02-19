@@ -23,20 +23,20 @@ const widgetConfig = {
       iconMarkType: '',
     },
     {
-      imagePath: 'assets/img/microscope.png',
+      imagePath: 'assets/img/beaker.png',
       optionText: '',
       colorHexCode: '',
       iconMarkType: '',
     },
     {
-      imagePath: 'assets/img/microscope.png',
-      optionText: 'Microscope',
+      imagePath: null,
+      optionText: 'An option without a picture.',
       colorHexCode: '',
       iconMarkType: '',
     },
     {
-      imagePath: 'assets/img/microscope.png',
-      optionText: 'Microscope',
+      imagePath: 'assets/img/beaker.png',
+      optionText: 'Beaker',
       colorHexCode: '',
       iconMarkType: '',
     },
@@ -54,23 +54,23 @@ const widgetConfig = {
     },
     {
       imagePath: null,
-      optionText: 'Option.',
+      optionText: 'A text option.',
       colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: null,
-      optionText: 'Another option.',
+      optionText: 'Another text option.',
       colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: null,
-      optionText: 'A laboratory microscope, pictureless',
+      optionText: 'A laboratory microscope, pictureless.',
       colorHexCode: '',
       iconMarkType: '',
     },
   ]
 }
 
-let removeWidget = runSelectableAreasWidget(widgetConfig);
+let removeWidget = runSelectableOptionsWidget(widgetConfig);
