@@ -32,7 +32,7 @@ const widgetConfig = {
       ],
       colorHexCode: '#50DFFF',
       iconMarkVertexIndex: 1,
-      iconMarkType: 'correct',
+      iconMarkType: 'incorrect',
       tooltipID: 'Jupiter'
 
     },
@@ -48,7 +48,7 @@ const widgetConfig = {
       ],
       colorHexCode: '#50DFFF',
       iconMarkVertexIndex: 1,
-      iconMarkType: 'correct',
+      iconMarkType: 'missed',
       tooltipID: 'Uranus'
 
     },
@@ -83,7 +83,7 @@ const widgetConfig = {
       ],
       colorHexCode: '#50DFFF',
       iconMarkVertexIndex: 1,
-      iconMarkType: 'correct',
+      iconMarkType: 'none',
       tooltipID: 'Saturn'
     },
     {

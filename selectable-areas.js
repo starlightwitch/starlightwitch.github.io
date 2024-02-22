@@ -253,6 +253,9 @@ class SelectableAreasWidget {
     // draw the selectable areas
     for (const selectableArea of this.selectableAreas) {
       selectableArea.draw();
+      if (!this.interactive) {
+        selectableArea.drawIconMark();
+      }
     }
     // draw tooltips over everything else
     for (const selectableArea of this.selectableAreas) {
@@ -413,68 +416,86 @@ class SelectableArea {
   draw() {
     this.p.push();
 
-    // update timed animation frames
-    if (this.selected) {
-      this.selectedFrames = Math.min(
-          this.selectedFrames + 1, this.widgetController.hoverEffectDuration);
-    } else {
-      this.selectedFrames = Math.max(this.selectedFrames - 2, 0);
-    };
-    if (this.keyboardFocused || this.mouseFocused) {
-      this.focusedFrames = Math.min(
-          this.focusedFrames + 1, this.widgetController.hoverEffectDuration);
-    } else {
-      this.focusedFrames = Math.max(this.focusedFrames - 2, 0)
-    };
-    let focusProgress =
-        this.focusedFrames / this.widgetController.hoverEffectDuration;
-    let selectedProgress =
-        this.selectedFrames / this.widgetController.hoverEffectDuration;
-
-
     // base styling
     this.p.strokeWeight(this.widgetController.areaStrokeWeight);
     this.strokeColor.setAlpha(255);
     this.p.stroke(this.strokeColor);
-    this.p.drawingContext.setLineDash([
-      this.widgetController.lineDashLength, this.widgetController.lineGapLength
-    ]);
 
-    // set the fill based on selection progress
-    if (selectedProgress == 0) {
-      this.p.noFill();
-    } else {
-      this.fillColor.setAlpha(
-          selectedProgress * this.widgetController.selectedFillOpacity);
-      this.p.fill(this.fillColor);
-    }
+    if (this.widgetController.interactive) {
+      // update timed animation frames
+      if (this.selected) {
+        this.selectedFrames = Math.min(
+            this.selectedFrames + 1, this.widgetController.hoverEffectDuration);
+      } else {
+        this.selectedFrames = Math.max(this.selectedFrames - 2, 0);
+      };
+      if (this.keyboardFocused || this.mouseFocused) {
+        this.focusedFrames = Math.min(
+            this.focusedFrames + 1, this.widgetController.hoverEffectDuration);
+      } else {
+        this.focusedFrames = Math.max(this.focusedFrames - 2, 0)
+      };
+      let focusProgress =
+          this.focusedFrames / this.widgetController.hoverEffectDuration;
+      let selectedProgress =
+          this.selectedFrames / this.widgetController.hoverEffectDuration;
 
-    // draw shape with fill
-    this.p.beginShape();
-    for (const areaVertex of this.vertices) {
-      this.p.vertex(areaVertex.x, areaVertex.y);
-    }
-    this.p.endShape(this.p.CLOSE);
 
-    // fade in solid stroke
-    this.p.drawingContext.setLineDash([]);
-    this.strokeColor.setAlpha(Math.max(focusProgress, selectedProgress) * 255);
-    this.p.stroke(this.strokeColor);
-    this.p.noFill();
-    this.p.beginShape();
+      // set the fill based on selection progress
+      if (selectedProgress == 0) {
+        this.p.noFill();
+      } else {
+        this.fillColor.setAlpha(
+            selectedProgress * this.widgetController.selectedFillOpacity);
+        this.p.fill(this.fillColor);
+      }
 
-    // override stroke color and weight for keyboard focus
-    if (this.keyboardFocused) {
-      this.p.stroke('#FFA500');
-      this.p.strokeWeight(
-          this.widgetController.keyboardFocusedAreaStrokeWeight);
+      // draw shape with fill and dahsed stroke
+      this.p.drawingContext.setLineDash([
+        this.widgetController.lineDashLength,
+        this.widgetController.lineGapLength
+      ]);
+      this.p.beginShape();
+      for (const areaVertex of this.vertices) {
+        this.p.vertex(areaVertex.x, areaVertex.y);
+      }
+      this.p.endShape(this.p.CLOSE);
+
+      // set the fade of solid stroke while hovered/selected
       this.p.drawingContext.setLineDash([]);
+      this.strokeColor.setAlpha(
+          Math.max(focusProgress, selectedProgress) * 255);
+      this.p.stroke(this.strokeColor);
+
+      // override stroke color and weight for keyboard focus
+      if (this.keyboardFocused) {
+        this.p.stroke('#FFA500');
+        this.p.strokeWeight(
+            this.widgetController.keyboardFocusedAreaStrokeWeight);
+        this.p.drawingContext.setLineDash([]);
+      }
+
+      // draw the shape with solid stroke and no fill
+      this.p.noFill();
+
+      this.p.beginShape();
+      for (const areaVertex of this.vertices) {
+        this.p.vertex(areaVertex.x, areaVertex.y);
+      }
+      this.p.endShape(this.p.CLOSE);
+    } else if (
+        typeof this.iconMarkType !== 'undefined' &&
+        this.iconMarkType !== 'none' && this.iconMarkType !== null) {
+      this.fillColor.setAlpha(this.widgetController.selectedFillOpacity);
+      this.p.fill(this.fillColor);
+
+      this.p.beginShape();
+      for (const areaVertex of this.vertices) {
+        this.p.vertex(areaVertex.x, areaVertex.y);
+      }
+      this.p.endShape(this.p.CLOSE);
     }
 
-    for (const areaVertex of this.vertices) {
-      this.p.vertex(areaVertex.x, areaVertex.y);
-    }
-    this.p.endShape(this.p.CLOSE);
 
     this.p.pop();
   }
@@ -508,6 +529,64 @@ class SelectableArea {
     this.p.fill(255);
     this.p.text(message, this.tooltipVertex.x, this.tooltipVertex.y);
 
+    this.p.pop();
+  }
+
+  drawIconMark() {
+    this.p.push();
+    this.p.stroke(this.strokeColor);
+    this.p.fill(255);
+    let vertex = this.vertices[this.iconMarkVertexIndex];
+    let rad = 10;
+
+    switch (this.iconMarkType) {
+      case 'correct': {
+        // draw green circle with checkmark inside
+        let checkOffset = rad / 5;
+        // this.p.stroke('#63C616');
+        this.p.ellipse(vertex.x, vertex.y, rad);
+        let checkLeftVetex = {x: vertex.x - checkOffset, y: vertex.y};
+        let checkCenterVertex = {x: vertex.x, y: vertex.y + checkOffset};
+        let checkRightVertext = {
+          x: vertex.x + checkOffset,
+          y: vertex.y - checkOffset
+        };
+
+        this.p.beginShape();
+        this.p.vertex(checkLeftVetex.x, checkLeftVetex.y);
+        this.p.vertex(checkCenterVertex.x, checkCenterVertex.y);
+        this.p.vertex(checkRightVertext.x, checkRightVertext.y);
+        this.p.endShape();
+        break;
+      }
+      case 'incorrect': {
+        // draw red circle with a crossmark inside
+        let vertex = this.vertices[this.iconMarkVertexIndex];
+        let rad = 10;
+        let crossOffset = rad / 5;
+        this.p.ellipse(vertex.x, vertex.y, rad);
+        let crossTL = {x: vertex.x - crossOffset, y: vertex.y - crossOffset};
+        let crossTR = {x: vertex.x + crossOffset, y: vertex.y - crossOffset};
+        let crossBL = {x: vertex.x - crossOffset, y: vertex.y + crossOffset};
+        let crossBR = {x: vertex.x + crossOffset, y: vertex.y + crossOffset};
+
+        this.p.line(crossTL.x, crossTL.y, crossBR.x, crossBR.y);
+        this.p.line(crossTR.x, crossTR.y, crossBL.x, crossBL.y);
+        break;
+      }
+      case 'missed': {
+        // draw orange circle with dash inside
+        let vertex = this.vertices[this.iconMarkVertexIndex];
+        let rad = 10;
+        let dashOffset = rad / 5;
+        this.p.ellipse(vertex.x, vertex.y, rad);
+
+        this.p.line(
+            vertex.x - dashOffset, vertex.y, vertex.x + dashOffset, vertex.y)
+
+        break;
+      }
+    }
     this.p.pop();
   }
 
