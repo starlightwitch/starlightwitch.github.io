@@ -60,18 +60,13 @@ const runSelectableOptionsWidget =
         // create the option card div
         let card = document.createElement('div');
         card.className = 'selectableOptionCard';
-        let cardContent = document.createElement('div');
-        cardContent.className = 'selectableOptionCardContent';
 
         // create and append the option's image
         if (typeof optionData.imagePath !== 'undefined' &&
             optionData.imagePath != null && optionData.imagePath != '') {
           let optionImage = document.createElement('img');
           optionImage.className = 'optionCardImage';
-
-
           optionImage.src = optionData.imagePath;
-
 
           card.classList.add('optionWithImage')
           card.append(optionImage);
@@ -87,12 +82,55 @@ const runSelectableOptionsWidget =
           card.append(optionParagraph);
         }
 
-        // card.append(cardContent);
-        card.tabIndex = 0;
+        if (interactive) {
+          // make it keyboard accesible
+          card.tabIndex = 0;
 
-        // link to the selection state manager
-        card.addEventListener(
-            'click', () => {toggleSelection(optionData.optionIndex)});
+          // add the hover effect css class
+          card.classList.add('interactiveCard');
+
+          // link to the selection state manager
+          card.addEventListener(
+              'click', () => {toggleSelection(optionData.optionIndex)});
+          card.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+              toggleSelection(optionData.optionIndex)
+            }
+          });
+        } else if (
+            typeof optionData.iconMarkType !== 'undefined' &&
+            optionData.iconMarkType !== '' && optionData.iconMarkType != null) {
+          let iconMarkDiv = document.createElement('div');
+          iconMarkDiv.classList.add('iconMarkContainer')
+          let iconMarkText = document.createElement('p');
+          iconMarkText.classList.add('iconMarkText')
+
+          iconMarkDiv.append(iconMarkText)
+
+          // add the CSS class to display the option's score
+          switch (optionData.iconMarkType) {
+            case 'correct':
+              card.classList.add('cardScoredCorrect');
+              iconMarkText.innerHTML = '\u2713';
+              iconMarkText.style.color = '#009444'
+              iconMarkDiv.style.borderColor = '#009444'
+              break;
+            case 'incorrect':
+              card.classList.add('cardScoredIncorrect');
+              iconMarkText.innerHTML = '\u2715';
+              iconMarkText.style.color = '#BE1E2D'
+              iconMarkDiv.style.borderColor = '#BE1E2D'
+              break;
+            case 'missed':
+              card.classList.add('cardScoredMissed');
+              iconMarkText.innerHTML = '\u2014';
+              iconMarkText.style.color = '#F15A29'
+              iconMarkDiv.style.borderColor = '#F15A29'
+              break;
+          };
+
+          card.prepend(iconMarkDiv)
+        };
 
         return card;
       };

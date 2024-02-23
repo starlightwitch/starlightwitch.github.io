@@ -6,7 +6,7 @@
 
 const widgetConfig = {
   container: 'answer-visual-container',
-  interactive: true,
+  interactive: false,
   cardMargin: 20,  // in pixels
   maxSelections: 3,
   options: [
@@ -14,19 +14,19 @@ const widgetConfig = {
       imagePath: 'assets/img/microscope.png',
       optionText: 'Microscope',
       colorHexCode: '',
-      iconMarkType: '',
+      iconMarkType: 'incorrect',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'A Scanning Electron Microscope',
       colorHexCode: '',
-      iconMarkType: '',
+      iconMarkType: 'correct',
     },
     {
       imagePath: 'assets/img/beaker.png',
       optionText: '',
       colorHexCode: '',
-      iconMarkType: '',
+      iconMarkType: 'missed',
     },
     {
       imagePath: null,
