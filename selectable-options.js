@@ -67,13 +67,15 @@ const runSelectableOptionsWidget =
         if (typeof optionData.imagePath !== 'undefined' &&
             optionData.imagePath != null && optionData.imagePath != '') {
           let optionImage = document.createElement('img');
-          optionImage.src = optionData.imagePath;
           optionImage.className = 'optionCardImage';
 
 
+          optionImage.src = optionData.imagePath;
+
+
           card.classList.add('optionWithImage')
-          cardContent.append(optionImage);
-        }
+          card.append(optionImage);
+        };
 
         // create and append the option's text
         if (typeof optionData.optionText !== 'undefined' &&
@@ -82,10 +84,10 @@ const runSelectableOptionsWidget =
           optionParagraph.innerHTML = optionData.optionText;
           optionParagraph.className = 'optionParagraph'
 
-          cardContent.append(optionParagraph);
+          card.append(optionParagraph);
         }
 
-        card.append(cardContent);
+        // card.append(cardContent);
         card.tabIndex = 0;
 
         // link to the selection state manager
@@ -144,12 +146,35 @@ const runSelectableOptionsWidget =
         });
       };
 
+
+      const resizeGridItems = () => {
+        let grid = node;
+        const rowHeight = getStyleValue(grid, 'grid-auto-rows');
+        const rowGap = getStyleValue(grid, 'grid-row-gap');
+        grid.style.gridAutoRows = 'auto';
+        grid.style.alignItems = 'self-start';
+        let gridItems = grid.childNodes;
+        for (const item of gridItems) {
+          item.style.gridRowEnd = `span ${
+              Math.ceil((item.clientHeight + rowGap) / (rowHeight + rowGap))}`;
+        }
+        grid.removeAttribute('style');
+      };
+
+      const getStyleValue = (element, style) => {
+        return parseInt(
+            window.getComputedStyle(element).getPropertyValue(style));
+      };
+
       // initialize the widget
       let selections = [];
       node.classList.add('selectableOptionsGridContainer');
       indexOptions();
       populateGrid(node);
-      resizeAllGridItems();
+
+      window.addEventListener('load', resizeGridItems)
+      window.addEventListener('resize', resizeGridItems)
+
 
       // cleanup on widget close
       const removeSelectableOptionsWidget = () => {
