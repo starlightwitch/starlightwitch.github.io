@@ -60,7 +60,8 @@ const widgetConfig = {
     },
     {
       imagePath: null,
-      optionText: 'Another text option.',
+      optionText:
+          'A very long text option, designed to really test the limits of the auto layout. An option that needs no introduction.',
       colorHexCode: '',
       iconMarkType: '',
     },
