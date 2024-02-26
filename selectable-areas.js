@@ -196,14 +196,18 @@ class SelectableAreasWidget {
     this.hoveredAreaStrokeWeight = 3;
     this.keyboardFocusedAreaStrokeWeight = 4;
     this.selectedAreaStrokeWeight = 3;
+    this.iconMarkStrokeWeight = 2;
 
-    this.tooltipDuration = 120;      // number of frames
+    this.tooltipTextHeight = 14;  // height in pixels
+    this.tooltipDuration = 120;   // number of frames
+
     this.hoverEffectDuration = 20;   // number of frames
     this.selectedFillOpacity = 100;  // 0-255, 0 is clear and 255 fully opaque
     this.lineDashLength = 5;         // length in pixels
     this.lineGapLength = 10;         // length in pixels
 
-    this.tooltipTextHeight = 14;  // height in pixels
+    this.iconMarkDiameter = 20;                            // in pixels
+    this.iconCharacterOffset = this.iconMarkDiameter / 5;  // in pixels
     /* end control panel */
 
     // read configuration data
@@ -537,14 +541,15 @@ class SelectableArea {
   drawIconMark() {
     this.p.push();
     this.p.stroke(this.strokeColor);
+    this.p.strokeWeight(this.widgetController.iconMarkStrokeWeight);
     this.p.fill(255);
     let vertex = this.vertices[this.iconMarkVertexIndex];
-    let rad = 10;
+    let rad = this.widgetController.iconMarkDiameter;
 
     switch (this.iconMarkType) {
       case 'correct': {
         // draw green circle with checkmark inside
-        let checkOffset = rad / 5;
+        let checkOffset = this.widgetController.iconCharacterOffset;
         // this.p.stroke('#63C616');
         this.p.ellipse(vertex.x, vertex.y, rad);
         let checkLeftVetex = {x: vertex.x - checkOffset, y: vertex.y};
@@ -564,8 +569,7 @@ class SelectableArea {
       case 'incorrect': {
         // draw red circle with a crossmark inside
         let vertex = this.vertices[this.iconMarkVertexIndex];
-        let rad = 10;
-        let crossOffset = rad / 5;
+        let crossOffset = this.widgetController.iconCharacterOffset;
         this.p.ellipse(vertex.x, vertex.y, rad);
         let crossTL = {x: vertex.x - crossOffset, y: vertex.y - crossOffset};
         let crossTR = {x: vertex.x + crossOffset, y: vertex.y - crossOffset};
@@ -579,8 +583,7 @@ class SelectableArea {
       case 'missed': {
         // draw orange circle with dash inside
         let vertex = this.vertices[this.iconMarkVertexIndex];
-        let rad = 10;
-        let dashOffset = rad / 5;
+        let dashOffset = this.widgetController.iconCharacterOffset;
         this.p.ellipse(vertex.x, vertex.y, rad);
 
         this.p.line(
