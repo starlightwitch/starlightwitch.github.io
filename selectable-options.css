@@ -20,6 +20,10 @@
     transition: background-color 0.3s;
 }
 
+.interactiveCard {
+    cursor: pointer;
+}
+
 .interactiveCard:hover {
     background-color: #E4E4E4;
 }

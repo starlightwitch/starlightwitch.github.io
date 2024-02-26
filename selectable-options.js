@@ -1,5 +1,5 @@
 const runSelectableOptionsWidget =
-    ({container, interactive, cardMargin, maxSelections, options}) => {
+    ({container, interactive, maxSelections, options}) => {
       // organize theme colors
       const defaultTheme = 'light';
       const getThemeColors =
@@ -111,21 +111,21 @@ const runSelectableOptionsWidget =
           switch (optionData.iconMarkType) {
             case 'correct':
               card.classList.add('cardScoredCorrect');
-              iconMarkText.innerHTML = '\u2713';
-              iconMarkText.style.color = '#009444'
-              iconMarkDiv.style.borderColor = '#009444'
+              iconMarkText.innerHTML = '\u2713';  // checkmark unicode character
+              iconMarkText.style.color = optionData.colorHexCode;
+              iconMarkDiv.style.borderColor = optionData.colorHexCode;
               break;
             case 'incorrect':
               card.classList.add('cardScoredIncorrect');
-              iconMarkText.innerHTML = '\u2715';
-              iconMarkText.style.color = '#BE1E2D'
-              iconMarkDiv.style.borderColor = '#BE1E2D'
+              iconMarkText.innerHTML = '\u2715';  // cross unicode character
+              iconMarkText.style.color = optionData.colorHexCode;
+              iconMarkDiv.style.borderColor = optionData.colorHexCode;
               break;
             case 'missed':
               card.classList.add('cardScoredMissed');
-              iconMarkText.innerHTML = '\u2014';
-              iconMarkText.style.color = '#F15A29'
-              iconMarkDiv.style.borderColor = '#F15A29'
+              iconMarkText.innerHTML = '\u2014';  // dash unicode character
+              iconMarkText.style.color = optionData.colorHexCode;
+              iconMarkDiv.style.borderColor = optionData.colorHexCode;
               break;
           };
 

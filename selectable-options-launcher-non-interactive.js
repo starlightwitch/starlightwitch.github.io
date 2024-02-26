@@ -7,25 +7,24 @@
 const widgetConfig = {
   container: 'answer-visual-container',
   interactive: false,
-  cardMargin: 20,  // in pixels
   maxSelections: 3,
   options: [
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'Microscope',
-      colorHexCode: '',
+      colorHexCode: '#FF1616',
       iconMarkType: 'incorrect',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'A Scanning Electron Microscope',
-      colorHexCode: '',
+      colorHexCode: '#63C616',
       iconMarkType: 'correct',
     },
     {
       imagePath: 'assets/img/beaker.png',
       optionText: '',
-      colorHexCode: '',
+      colorHexCode: '#FF5C00',
       iconMarkType: 'missed',
     },
     {

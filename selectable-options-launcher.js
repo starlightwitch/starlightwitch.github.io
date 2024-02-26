@@ -7,7 +7,6 @@
 const widgetConfig = {
   container: 'answer-visual-container',
   interactive: true,
-  cardMargin: 20,  // in pixels
   maxSelections: 3,
   options: [
     {
