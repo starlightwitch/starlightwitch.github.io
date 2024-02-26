@@ -248,7 +248,7 @@ class SelectableAreasWidget {
         this.p.height);
 
     // respond to the mosue
-    this.updateHoverEffects();
+    if (this.interactive) this.updateHoverEffects();
 
     // draw the selectable areas
     for (const selectableArea of this.selectableAreas) {
@@ -292,6 +292,8 @@ class SelectableAreasWidget {
   }
 
   handleClickStart() {
+    if (!this.interactive) return;
+
     // register click with widget state
     this.lastInputFrame = this.p.frameCount;
     this.mouseVec.x = this.p.mouseX;
