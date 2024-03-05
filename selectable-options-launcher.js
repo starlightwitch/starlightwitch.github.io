@@ -53,8 +53,8 @@ const widgetConfig = {
     },
     {
       imagePath: null,
-      optionText: 'A text option.',
-      colorHexCode: '',
+      optionText: 'A text option, which turns purple when selected.',
+      colorHexCode: '#b4a7d6',
       iconMarkType: '',
     },
     {
