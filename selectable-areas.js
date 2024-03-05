@@ -75,6 +75,30 @@ const runSelectableAreasWidget =
             return {w: sketchWidth, h: sketchHeight};
           }
 
+      const inferColors = () => {
+        for (const area of hotspots) {
+          // use existing color
+          if (area.colorHexCode) continue;
+
+          // infer otherwise
+          if (interactive) {
+            area.colorHexCode = '#50DFFF';
+          } else {
+            switch (area.iconMarkType) {
+              case 'correct':
+                area.colorHexCode = '#63C616';
+                break;
+              case 'incorrect':
+                area.colorHexCode = '#FF1616';
+                break;
+              case 'missed':
+                area.colorHexCode = '#FF5C00';
+                break;
+            }
+          }
+        }
+      };
+
       // Define the p5 sketch methods
       const sketch = (p) => {
         let backgroundImage;
@@ -153,6 +177,7 @@ const runSelectableAreasWidget =
       };  // end sketch instance methods
 
       // Create the canvas and run the sketch in the html node.
+      inferColors();
       const sketchInstance = new p5(sketch, node);
 
       const removeAtomicStructure = () => {

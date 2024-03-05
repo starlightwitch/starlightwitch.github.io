@@ -18,7 +18,7 @@ const widgetConfig = {
         [0.451875, 0.37423071663019697], [0.425625, 0.4508171498905908],
         [0.361875, 0.43987623085339167], [0.346875, 0.3764189004376368]
       ],
-      colorHexCode: '#50DFFF',
+      colorHexCode: '',
       iconMarkVertexIndex: 1,
       iconMarkType: 'correct',
       tooltipID: 'Venus'
@@ -30,7 +30,7 @@ const widgetConfig = {
         [0.634375, 0.5799199945295405], [0.561875, 0.5186508479212254],
         [0.543125, 0.38954800328227573], [0.578125, 0.310773386214442]
       ],
-      colorHexCode: '#50DFFF',
+      colorHexCode: '',
       iconMarkVertexIndex: 1,
       iconMarkType: 'incorrect',
       tooltipID: 'Jupiter'
@@ -46,7 +46,7 @@ const widgetConfig = {
         [0.7870111731843575, 0.6762000820568927],
         [0.7981843575418994, 0.6149309354485777]
       ],
-      colorHexCode: '#50DFFF',
+      colorHexCode: '',
       iconMarkVertexIndex: 1,
       iconMarkType: 'missed',
       tooltipID: 'Uranus'
