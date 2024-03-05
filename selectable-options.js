@@ -82,6 +82,7 @@ const runSelectableOptionsWidget =
           card.append(optionParagraph);
         }
 
+        // style the card
         if (interactive) {
           // make it keyboard accesible
           card.tabIndex = 0;
@@ -101,33 +102,30 @@ const runSelectableOptionsWidget =
             typeof optionData.iconMarkType !== 'undefined' &&
             optionData.iconMarkType !== '' && optionData.iconMarkType != null) {
           let iconMarkDiv = document.createElement('div');
-          iconMarkDiv.classList.add('iconMarkContainer')
+          iconMarkDiv.classList.add('iconMarkContainer');
           let iconMarkText = document.createElement('p');
-          iconMarkText.classList.add('iconMarkText')
+          iconMarkText.classList.add('iconMarkText');
 
-          iconMarkDiv.append(iconMarkText)
+          iconMarkDiv.append(iconMarkText);
 
-          // add the CSS class to display the option's score
+          // add the correct icon mark
           switch (optionData.iconMarkType) {
             case 'correct':
-              card.classList.add('cardScoredCorrect');
-              iconMarkText.innerHTML = '\u2713';  // checkmark unicode character
-              iconMarkText.style.color = optionData.colorHexCode;
-              iconMarkDiv.style.borderColor = optionData.colorHexCode;
+              iconMarkText.innerHTML = '\u2713';
               break;
             case 'incorrect':
-              card.classList.add('cardScoredIncorrect');
-              iconMarkText.innerHTML = '\u2715';  // cross unicode character
-              iconMarkText.style.color = optionData.colorHexCode;
-              iconMarkDiv.style.borderColor = optionData.colorHexCode;
+              iconMarkText.innerHTML = '\u2715';
               break;
             case 'missed':
-              card.classList.add('cardScoredMissed');
-              iconMarkText.innerHTML = '\u2014';  // dash unicode character
-              iconMarkText.style.color = optionData.colorHexCode;
-              iconMarkDiv.style.borderColor = optionData.colorHexCode;
+              iconMarkText.innerHTML = '\u2014';
               break;
           };
+
+          // color the icon mark and card
+          iconMarkText.style.color = optionData.colorHexCode;
+          iconMarkDiv.style.borderColor = optionData.colorHexCode;
+          card.style.borderColor = optionData.colorHexCode;
+          card.style.backgroundColor = optionData.colorHexCode + '60';
 
           card.prepend(iconMarkDiv)
         };
@@ -177,13 +175,38 @@ const runSelectableOptionsWidget =
       const styleSelectedCards = () => {
         let cards = document.getElementsByClassName('selectableOptionCard')
         Array.prototype.forEach.call(cards, (card, i) => {
-          card.classList.remove('selectedCard')
+          card.style.backgroundColor = '';
           if (selections.includes(i)) {
-            card.classList.add('selectedCard')
+            let optionData = options.find(option => option.optionIndex == i);
+            card.style.backgroundColor = optionData.colorHexCode;
           };
         });
       };
 
+      const inferColors = () => {
+        for (const option of options) {
+          // use supplied color
+          if (option.colorHexCode) continue;
+
+          // infer the color otherwise
+          if (interactive) {
+            option.colorHexCode = '#A9EAFF';
+            continue;
+          } else {
+            switch (option.iconMarkType) {
+              case 'correct':
+                option.colorHexCode = '#009444';
+                break;
+              case 'incorrect':
+                option.colorHexCode = '#BE1E2D';
+                break;
+              case 'missed':
+                option.colorHexCode = '#F15A29';
+                break;
+            }
+          }
+        }
+      };
 
       const resizeGridItems = () => {
         let grid = node;
@@ -208,6 +231,7 @@ const runSelectableOptionsWidget =
       let selections = [];
       node.classList.add('selectableOptionsGridContainer');
       indexOptions();
+      inferColors();
       populateGrid(node);
 
       window.addEventListener('load', resizeGridItems)

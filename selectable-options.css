@@ -12,7 +12,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* max-height: 30vh; */
     min-height: 60px;
     padding: 0px 10px;
     border-style: solid;
@@ -37,10 +36,6 @@
     border-width: 3px;
 }
 
-.selectedCard {
-    background-color: #A9EAFF !important;
-}
-
 .optionCardImage {
     display: inline-block;
     width: 100%;
@@ -52,22 +47,6 @@
 .optionParagraph {
     text-align: center;
     margin: 0 !important;
-}
-
-.cardScoredCorrect {
-    border-color: #009444;
-    background-color: #B9DCAB;
-}
-
-.cardScoredIncorrect {
-    border-color: #BE1E2D;
-    background-color: #F597A5;
-}
-
-
-.cardScoredMissed {
-    border-color: #F15A29;
-    background-color: #F79A89;
 }
 
 .iconMarkText {
