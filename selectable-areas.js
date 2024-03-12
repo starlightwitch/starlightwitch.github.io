@@ -94,6 +94,9 @@ const runSelectableAreasWidget =
               case 'missed':
                 area.colorHexCode = '#FF5C00';
                 break;
+              case 'none':
+                area.colorHexCode = '#00000000'
+                break
             }
           }
         }
