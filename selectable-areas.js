@@ -89,10 +89,10 @@ const runSelectableAreasWidget =
                 area.colorHexCode = '#63C616';
                 break;
               case 'incorrect':
-                area.colorHexCode = '#FF1616';
+                area.colorHexCode = '#FC002A';
                 break;
               case 'missed':
-                area.colorHexCode = '#FF5C00';
+                area.colorHexCode = '#FF8700';
                 break;
               case 'none':
                 area.colorHexCode = '#00000000'
