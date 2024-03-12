@@ -203,6 +203,9 @@ const runSelectableOptionsWidget =
               case 'missed':
                 option.colorHexCode = '#F15A29';
                 break;
+              case 'none':
+                option.colorHexCode = '#00000000';
+                break;
             }
           }
         }
