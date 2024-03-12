@@ -260,6 +260,17 @@ class SelectableAreasWidget {
 
   // used for canvas-size-dependent elements
   resize() {
+    // get current selections if they exist
+    let selectedIndices = [];
+    if (typeof this.selectableAreas !== 'undefined' &&
+        this.selectableAreas.length > 0) {
+      for (const [index, area] of this.selectableAreas.entries()) {
+        if (area.selected) {
+          selectedIndices.push(index);
+        }
+      }
+    }
+
     // create selectable area objects
     this.selectableAreas = [];
     for (const hotspot of this.hotspots) {
@@ -267,6 +278,12 @@ class SelectableAreasWidget {
           hotspot.area, hotspot.colorHexCode, hotspot.iconMarkVertexIndex,
           hotspot.iconMarkType, hotspot.tooltipID, this));
     };
+
+    // apply any existing selections
+    for (const index of selectedIndices) {
+      this.selectableAreas[index].selected = true;
+      this.selectableAreas[index].selectedFrames = this.hoverEffectDuration;
+    }
 
     // set text size
     this.p.textSize(this.tooltipTextHeight);
