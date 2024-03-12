@@ -212,17 +212,16 @@ const runSelectableOptionsWidget =
       };
 
       const resizeGridItems = () => {
-        let grid = node;
-        const rowHeight = getStyleValue(grid, 'grid-auto-rows');
-        const rowGap = getStyleValue(grid, 'grid-row-gap');
-        grid.style.gridAutoRows = 'auto';
-        grid.style.alignItems = 'self-start';
-        let gridItems = grid.childNodes;
+        const rowHeight = getStyleValue(gridNode, 'grid-auto-rows');
+        const rowGap = getStyleValue(gridNode, 'grid-row-gap');
+        gridNode.style.gridAutoRows = 'auto';
+        gridNode.style.alignItems = 'self-start';
+        let gridItems = gridNode.childNodes;
         for (const item of gridItems) {
           item.style.gridRowEnd = `span ${
               Math.ceil((item.clientHeight + rowGap) / (rowHeight + rowGap))}`;
         }
-        grid.removeAttribute('style');
+        gridNode.removeAttribute('style');
       };
 
       const getStyleValue = (element, style) => {
@@ -232,10 +231,12 @@ const runSelectableOptionsWidget =
 
       // initialize the widget
       let selections = [];
-      node.classList.add('selectableOptionsGridContainer');
+      let gridNode = document.createElement('div');
+      gridNode.classList.add('selectableOptionsGridContainer');
+      node.append(gridNode);
       indexOptions();
       inferColors();
-      populateGrid(node);
+      populateGrid(gridNode);
 
       window.addEventListener('load', resizeGridItems)
       window.addEventListener('resize', resizeGridItems)
