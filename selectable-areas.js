@@ -148,10 +148,6 @@ const runSelectableAreasWidget =
           p.widgetObject.handleClickStart();
         };
 
-        p.mouseReleased = () => {
-          p.widgetObject.handleClickEnd();
-        };
-
         p.keyPressed = () => {
           if (!p.focused) return true;
 
@@ -253,6 +249,7 @@ class SelectableAreasWidget {
     this.mouseVec = this.p.createVector();
     this.keyboardFocusIndex = -1;
     this.shiftDown = false;
+    this.sweetAlertShowing = false;
 
     // complete setup in the resize function
     this.resize();
@@ -342,6 +339,7 @@ class SelectableAreasWidget {
 
   handleClickStart() {
     if (!this.interactive) return;
+    if (this.sweetAlertShowing) return;
 
     // register click with widget state
     this.lastInputFrame = this.p.frameCount;
@@ -356,9 +354,7 @@ class SelectableAreasWidget {
     }
   }
 
-  handleClickEnd() {
-    return true;
-  }
+
 
   handleTab() {
     // increment the focused element index
@@ -403,11 +399,15 @@ class SelectableAreasWidget {
         selectableArea.selected = true;
         selectableArea.tooltipFrames = 0;
       } else {
+        this.sweetAlertShowing = true;
         Swal.fire({
-          title: 'Maximum Selections Exceeded',
-          text: 'Please unselect an area before selecting another.',
-          icon: 'warning'
-        });
+              title: 'Maximum Selections Exceeded',
+              text: 'Please unselect an area before selecting another.',
+              icon: 'warning'
+            })
+            .then(() => {
+              this.sweetAlertShowing = false;
+            });
       }
     }
 
