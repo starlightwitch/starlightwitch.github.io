@@ -59,7 +59,11 @@ const runSelectableOptionsWidget =
       const createOptionCard = (optionData) => {
         // create the option card div
         let card = document.createElement('div');
-        card.className = 'selectableOptionCard';
+        if (textOnly) {
+          card.className = 'selectableTextOptionCard';
+        } else {
+          card.className = 'selectableOptionCard';
+        }
 
         // create and append the option's image
         if (typeof optionData.imagePath !== 'undefined' &&
@@ -173,7 +177,7 @@ const runSelectableOptionsWidget =
 
       // assigns the CSS class 'selectedCard' to currently selected options
       const styleSelectedCards = () => {
-        let cards = document.getElementsByClassName('selectableOptionCard')
+        let cards = gridNode.childNodes;
         Array.prototype.forEach.call(cards, (card, i) => {
           card.style.backgroundColor = '';
           if (selections.includes(i)) {
@@ -231,16 +235,22 @@ const runSelectableOptionsWidget =
 
       // initialize the widget
       let selections = [];
-      let gridNode = document.createElement('div');
-      gridNode.classList.add('selectableOptionsGridContainer');
+      const gridNode = document.createElement('div');
+      const textOnly = !options.some(option => {return option.imagePath});
+      if (textOnly) {
+        gridNode.classList.add('selectableTextOptionsGridContainer');
+      } else {
+        gridNode.classList.add('selectableOptionsGridContainer');
+      }
       node.append(gridNode);
       indexOptions();
       inferColors();
       populateGrid(gridNode);
 
-      window.addEventListener('load', resizeGridItems)
-      window.addEventListener('resize', resizeGridItems)
-
+      if (!textOnly) {
+        window.addEventListener('load', resizeGridItems)
+        window.addEventListener('resize', resizeGridItems)
+      }
 
       // cleanup on widget close
       const removeSelectableOptionsWidget = () => {

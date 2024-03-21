@@ -149,6 +149,7 @@ const runSelectableAreasWidget =
         };
 
         p.keyPressed = () => {
+          if (!interactive) return true;
           if (!p.focused) return true;
 
           if (p.keyCode == p.SHIFT) {
