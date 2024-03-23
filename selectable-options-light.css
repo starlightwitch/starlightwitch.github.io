@@ -43,10 +43,6 @@
     cursor: pointer;
 }
 
-.interactiveCard:hover {
-    background-color: #E4E4E4;
-}
-
 .selectableOptionCard:focus,
 .selectableTextOptionCard:focus {
     outline: none;
@@ -88,4 +84,14 @@
     justify-content: center;
     border-radius: 50%;
     border-style: solid;
+}
+
+
+/* specific to light mode */
+.interactiveCard:hover {
+    background-color: #E4E4E4;
+}
+
+.selectedOptionCard {
+    background-color: #A9EAFF !important;
 }

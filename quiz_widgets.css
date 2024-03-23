@@ -1079,194 +1079,195 @@ li:last-of-type:not(:only-of-type) div.widget-method-wrapper {
 
 
 
-/* DRAG AND DROP WIDGETS (PARAGRAPH AND TABLE) */ 
+/* DRAG AND DROP WIDGETS (PARAGRAPH AND TABLE) */
 .VW_container video {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .VW_container .VW_overlay.active {
-  display: block !important;
+	display: block !important;
 }
 
 .VW_container .VW_overlay {
-  color: azure;
+	color: azure;
 
-  display: none;
-  position: relative;
-  top: -102%;
-  width: calc(100% - 8vw);
-  height: calc(100% - 8vh);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 4vh 4vw;
+	display: none;
+	position: relative;
+	top: -102%;
+	width: calc(100% - 8vw);
+	height: calc(100% - 8vh);
+	background: rgba(0, 0, 0, 0.3);
+	padding: 4vh 4vw;
 }
 
 .VW_container .VW_overlay button {
-  background: auto;
-  pointer-events: all !important;
-  padding: 5px;
-  margin: 5px;
+	background: auto;
+	pointer-events: all !important;
+	padding: 5px;
+	margin: 5px;
 
-  border-radius: 15px;
-  border: none;
-  filter: drop-shadow(0 2px 0 gray);
+	border-radius: 15px;
+	border: none;
+	filter: drop-shadow(0 2px 0 gray);
 
-  transition: background 0.5s ease-in-out;
+	transition: background 0.5s ease-in-out;
 }
 
 .VW_container .VW_overlay button:hover {
-  background-color: #9c9c9c;
-  transition: background 0.15s ease-in-out;
+	background-color: #9c9c9c;
+	transition: background 0.15s ease-in-out;
 }
 
 .VW_container .VW_overlay button.selected.correct {
-  background: lime;
+	background: lime;
 }
 
 .VW_container .VW_overlay button.selected.incorrect {
-  background: red;
+	background: red;
 }
 
 .VW_container .VW_overlay h3 {
-  margin-top: 0px;
+	margin-top: 0px;
 }
 
 .VW_container .VW_overlay h2 {
-  position: absolute;
-  text-align: center;
-  top: calc(40% - 4vh);
-  width: calc(100% - 8vw);
-  margin: 0;
+	position: absolute;
+	text-align: center;
+	top: calc(40% - 4vh);
+	width: calc(100% - 8vw);
+	margin: 0;
 }
 
 .VW_container .VW_overlay div {
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 4vh);
-  width: calc(100% - 8vw);
-  margin: 0;
+	position: absolute;
+	text-align: center;
+	top: calc(50% - 4vh);
+	width: calc(100% - 8vw);
+	margin: 0;
 }
 
 .VW_continueButton {
-  bottom: 4vh;
-  right: 4vw;
-  position: absolute;
+	bottom: 4vh;
+	right: 4vw;
+	position: absolute;
 }
 
 .VW_completeButton {
-  bottom: 4vh;
-  right: 4vw;
-  position: absolute;
+	bottom: 4vh;
+	right: 4vw;
+	position: absolute;
 }
 
 .DADTW_drop_field {
-  position: relative;
-  display: block;
-  background-color: #d5e6f6;
-  line-height: 100%;
-  font-size: 16px;
+	position: relative;
+	display: block;
+	background-color: #d5e6f6;
+	line-height: 100%;
+	font-size: 16px;
 
-  text-align: center;
+	text-align: center;
 
-  min-width: 100%;
-  min-height: 24px;
-  width: fit-content;
-  height: 100%;
+	min-width: 100%;
+	min-height: 24px;
+	width: fit-content;
+	height: 100%;
 
-  border-radius: 3px;
+	border-radius: 3px;
 
-  transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
 }
 
 .DADTW_drop_field:hover {
-  background-color: lightskyblue;
+	background-color: lightskyblue;
 }
 
 .DADTW_drag_block {
-  position: relative;
-  display: inline-flex;
-  background-color: #d5e6f6;
-  line-height: 100%;
+	position: relative;
+	display: inline-flex;
+	background-color: #d5e6f6;
+	line-height: 100%;
 
-  cursor: pointer;
+	cursor: pointer;
 
-  height: 1rem;
-  min-width: 0px;
-  width: fit-content;
-  height: fit-content;
+	height: 1rem;
+	min-width: 0px;
+	width: fit-content;
+	height: fit-content;
 
-  border-radius: 3px;
-  padding: 5px;
-  margin: 5px;
+	border-radius: 3px;
+	padding: 5px;
+	margin: 5px;
 }
 
 .DADTW_drag_block:hover {
-  background-color: #abcced;
+	background-color: #abcced;
 }
 
 .DADTW_drag_block img,
 td img {
-  pointer-events: none;
-  vertical-align: middle;
+	pointer-events: none;
+	vertical-align: middle;
 }
 
 .DADTW_drop_field .DADTW_drag_block {
-  position: relative;
-  display: flex;
-  background-color: #d5e6f6;
-  font-size: 16px;
+	position: relative;
+	display: flex;
+	background-color: #d5e6f6;
+	font-size: 16px;
 
-  text-align: center;
+	text-align: center;
 
-  min-width: 100%;
-  min-height: 100%;
-  width: fit-content;
-  height: fit-content;
+	min-width: 100%;
+	min-height: 100%;
+	width: fit-content;
+	height: fit-content;
 
-  border-radius: 3px;
-  padding: 2px;
+	border-radius: 3px;
+	padding: 2px;
 
-  margin: auto;
-  align-items: center;
-  justify-content: center;
+	margin: auto;
+	align-items: center;
+	justify-content: center;
 }
 
 .DADTW_widgetTable,
 .DADTW_widgetTable tr,
 .DADTW_widgetTable tr td,
 .DADTW_widgetTable tr th {
-  border: 1px solid black;
-  text-align: center;
+	border: 1px solid black;
+	text-align: center;
 }
 
 .DADTW_widgetTable {
-  row-gap: 0px;
-  column-gap: 0px;
-  width: 100%;
+	row-gap: 0px;
+	column-gap: 0px;
+	width: 100%;
 }
 
 /** Mozilla Firefox */
 @-moz-document url-prefix() {
-  .DADTW_widgetTable tr,
-  .DADTW_widgetTable tr td,
-  .DADTW_widgetTable tr th {
-    height: 100% !important;
-  }
+
+	.DADTW_widgetTable tr,
+	.DADTW_widgetTable tr td,
+	.DADTW_widgetTable tr th {
+		height: 100% !important;
+	}
 }
 
 /** Chrominum */
 @media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
-  .DADTW_widgetTable tr {
-    height: 1px;
-  }
+	.DADTW_widgetTable tr {
+		height: 1px;
+	}
 
-  .DADTW_widgetTable tr td {
-    height: inherit;
-  }
+	.DADTW_widgetTable tr td {
+		height: inherit;
+	}
 
-  .DADTW_widgetTable tr th {
-    height: 100%;
-  }
+	.DADTW_widgetTable tr th {
+		height: 100%;
+	}
 }
 
 .DADPW_paragraph {
@@ -1275,75 +1276,76 @@ td img {
 }
 
 .DADPW_drop_field {
-  position: relative;
-  display: inline-flex;
-  background-color: #d5e6f6;
-  line-height: 100%;
-  font-size: 20px;
+	position: relative;
+	display: inline-flex;
+	background-color: #d5e6f6;
+	line-height: 100%;
+	font-size: 20px;
 
-  min-height: 25px;
-  min-width: 0px;
-  width: fit-content;
-  height: fit-content;
+	min-height: 25px;
+	min-width: 0px;
+	width: fit-content;
+	height: fit-content;
 
-  border-radius: 3px;
-  margin: 0 5px;
+	border-radius: 3px;
+	margin: 0 5px;
 
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .DADPW_drop_field:empty {
-  min-width: 100px;
+	min-width: 100px;
 }
 
 .DADPW_drop_field:hover {
-  background-color: #abcced;
+	background-color: #abcced;
 }
 
 .DADPW_drag_block {
-  position: relative;
-  display: inline-flex;
-  background-color: #d5e6f6;
-  line-height: 100%;
+	position: relative;
+	display: inline-flex;
+	background-color: #d5e6f6;
+	line-height: 100%;
 
-  transition: opacity 0.3s ease-in-out;
-  cursor: pointer;
+	transition: opacity 0.3s ease-in-out;
+	cursor: pointer;
 
-  height: 1rem;
-  min-width: 0px;
-  width: fit-content;
-  height: fit-content;
+	height: 1rem;
+	min-width: 0px;
+	width: fit-content;
+	height: fit-content;
 
-  border-radius: 3px;
-  padding: 5px;
-  margin: 5px;
+	border-radius: 3px;
+	padding: 5px;
+	margin: 5px;
 
-  white-space: nowrap;
-  text-align: center;
+	white-space: nowrap;
+	text-align: center;
 }
 
 .DADPW_drag_block:hover {
-  background-color: #abcced;
+	background-color: #abcced;
 }
 
 .DADPW_drop_field .DADPW_drag_block {
-  position: relative;
-  display: inline-block;
-  background-color: #d5e6f6;
-  font-size: 16px;
+	position: relative;
+	display: inline-block;
+	background-color: #d5e6f6;
+	font-size: 16px;
 
-  min-width: calc(100% - 4px);
-  min-height: calc(100% - 4px);
-  width: fit-content;
-  height: fit-content;
+	min-width: calc(100% - 4px);
+	min-height: calc(100% - 4px);
+	width: fit-content;
+	height: fit-content;
 
-  border-radius: 3px;
-  padding: 5px;
-  margin: 0px;
+	border-radius: 3px;
+	padding: 5px;
+	margin: 0px;
 }
 
 /* Touchscreen */
 @media (hover: none) {
+
 	.DADPW_drag_block,
 	.DADTW_drag_block {
 		min-width: 44px;
@@ -1354,32 +1356,43 @@ td img {
 .DADPW_drop_field.hover .DADPW_drag_block,
 .DADTW_drop_field.hover,
 .DADTW_drop_field.hover .DADTW_drag_block {
-  background-color: #abcced;
+	background-color: #abcced;
 }
 
 .DAD-blocks-container .DADPW_drag_block,
 .DAD-blocks-container .DADTW_drag_block {
-  vertical-align: top;
-  transition: opacity 1s ease, top 1s ease, left 1s ease;
+	vertical-align: top;
+	transition: opacity 1s ease, top 1s ease, left 1s ease;
 }
 
 .DADPW_paragraph .DADPW_drop_field:first-child {
-  margin-left: 0;
+	margin-left: 0;
 }
 
 .DAD-blocks-container {
-  min-height: 6rem;
-  margin-top: 25px;
-  padding: 10px 0 10px 10px;
-  background-color: #f8fcff;
-  border-radius: 5px;
-  border: 1px solid #000;
-  font-size: 16px !important;
-  color: #000;
+	min-height: 6rem;
+	margin-top: 25px;
+	padding: 10px 0 10px 10px;
+	background-color: #f8fcff;
+	border-radius: 5px;
+	border: 1px solid #000;
+	font-size: 16px !important;
+	color: #000;
 }
 
 .DAD-options-title {
-  margin: 5px;
-  margin-bottom: 0 !important;
-  font-weight: 600;
+	margin: 5px;
+	margin-bottom: 0 !important;
+	font-weight: 600;
 }
+
+
+/* BEGIN Jett's Widget CSS */
+
+/* Selectable Options */
+
+
+
+
+
+/* END Jett's Widget CSS */

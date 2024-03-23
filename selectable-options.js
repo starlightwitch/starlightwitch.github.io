@@ -156,10 +156,20 @@ const runSelectableOptionsWidget =
         if (selections.includes(index)) {
           // remove the index from selections
           selections = selections.filter(entry => {return entry != index})
+          // remove selected stlye
+          gridNode.childNodes[index].classList.remove('selectedOptionCard')
+          gridNode.childNodes[index].style.backgroundColor = '';
         } else {
           if (selections.length < maxSelections) {
             // add the index to the selections
             selections.push(index);
+            // add selected style to card
+            if (options[index].colorHexCode) {
+              gridNode.childNodes[index].style.backgroundColor =
+                  options[index].colorHexCode;
+            } else {
+              gridNode.childNodes[index].classList.add('selectedOptionCard')
+            }
           } else {
             // fire a sweet alert to the user
             Swal.fire({
@@ -172,19 +182,6 @@ const runSelectableOptionsWidget =
 
         // update the DOM elements with current selections
         updateHiddenInputs(selections);
-        styleSelectedCards();
-      };
-
-      // assigns the CSS class 'selectedCard' to currently selected options
-      const styleSelectedCards = () => {
-        let cards = gridNode.childNodes;
-        Array.prototype.forEach.call(cards, (card, i) => {
-          card.style.backgroundColor = '';
-          if (selections.includes(i)) {
-            let optionData = options.find(option => option.optionIndex == i);
-            card.style.backgroundColor = optionData.colorHexCode;
-          };
-        });
       };
 
       const inferColors = () => {
@@ -193,10 +190,7 @@ const runSelectableOptionsWidget =
           if (option.colorHexCode) continue;
 
           // infer the color otherwise
-          if (interactive) {
-            option.colorHexCode = '#A9EAFF';
-            continue;
-          } else {
+          if (!interactive) {
             switch (option.iconMarkType) {
               case 'correct':
                 option.colorHexCode = '#009444';

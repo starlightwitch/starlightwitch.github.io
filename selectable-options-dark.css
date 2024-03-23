@@ -1,0 +1,101 @@
+.selectableOptionsGridContainer {
+    display: grid;
+    gap: 20px;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 2px;
+}
+
+.selectableOptionCard {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+    width: 100%;
+    padding: 0px 10px;
+    border-style: solid;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+}
+
+.selectableTextOptionsGridContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.selectableTextOptionCard {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    margin: 10px;
+    border-style: solid;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    flex-grow: 1;
+}
+
+.interactiveCard {
+    cursor: pointer;
+}
+
+.selectableOptionCard:focus,
+.selectableTextOptionCard:focus {
+    outline: none;
+}
+
+.selectableOptionCard:focus-visible,
+.selectableTextOptionCard:focus-visible {
+    border-color: #FFA500 !important;
+    border-width: 3px;
+}
+
+.optionCardImage {
+    display: inline-block;
+    width: 100%;
+    height: 80%;
+    min-height: 200px;
+    object-fit: contain;
+}
+
+.optionParagraph {
+    text-align: center;
+    margin: 0 !important;
+}
+
+.iconMarkText {
+    margin: 0 !important;
+    font-weight: 700;
+}
+
+.iconMarkContainer {
+    position: absolute;
+    display: flex;
+    top: -15px;
+    left: -15px;
+    background-color: white;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border-style: solid;
+}
+
+
+/* specific to dark mode */
+.interactiveCard:hover {
+    background-color: #505050;
+}
+
+.selectedOptionCard {
+    background-color: #52707a !important;
+}
+
+.optionCardImage {
+    filter: invert();
+}

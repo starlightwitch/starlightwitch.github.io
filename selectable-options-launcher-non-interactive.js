@@ -12,19 +12,16 @@ const widgetConfig = {
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'Microscope',
-      colorHexCode: '#FF1616',
       iconMarkType: 'incorrect',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'A Scanning Electron Microscope',
-      colorHexCode: '#63C616',
       iconMarkType: 'correct',
     },
     {
       imagePath: 'assets/img/beaker.png',
       optionText: '',
-      colorHexCode: '#FF5C00',
       iconMarkType: 'missed',
     },
     {
