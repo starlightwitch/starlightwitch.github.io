@@ -1,6 +1,6 @@
 const widgetConfig = {
   container: 'answer-visual-container',
-  interactive: false,
+  interactive: true,
   selectionMode: 'groups',  // options: elements | groups | periods
   maxSelections: 3,
   displayData: {

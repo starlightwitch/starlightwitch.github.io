@@ -179,8 +179,12 @@ const runPeriodicTableWidget = ({
       displayData.chemicalName, displayData.chemicalSymbol,
       displayData.atomicNumber, displayData.atomicMass
     ];
-    tableElements.push(new TableElement(
-        elementData, elementDisplayData, tableVersion, mouseManager));
+
+    let currElement = new TableElement(
+        elementData, elementDisplayData, tableVersion, mouseManager);
+    if (interactive) currElement.setInteractive();
+
+    tableElements.push(currElement);
   }
 
   initializeTable(node, tableElements);
@@ -282,26 +286,27 @@ class TableElement {
       elementDiv.append(elementNumber);
     }
 
-    // set event listeners
-    elementDiv.addEventListener('mouseenter', (e) => {
-      this.mouseManager('enter', this.number, this.group, this.period);
-    });
-    elementDiv.addEventListener('mouseleave', (e) => {
-      this.mouseManager('leave', this.number, this.group, this.period);
-    });
-    elementDiv.addEventListener('click', (e) => {
-      this.mouseManager('click', this.number, this.group, this.period);
-    });
-
     return elementDiv;
-  }
+  };
 
   asDiv() {
     return this.elementDiv;
   };
 
   setInteractive() {
+    // set interactive cursor
     this.elementDiv.style.cursor = 'pointer';
+
+    // set event listeners
+    this.elementDiv.addEventListener('mouseenter', (e) => {
+      this.mouseManager('enter', this.number, this.group, this.period);
+    });
+    this.elementDiv.addEventListener('mouseleave', (e) => {
+      this.mouseManager('leave', this.number, this.group, this.period);
+    });
+    this.elementDiv.addEventListener('click', (e) => {
+      this.mouseManager('click', this.number, this.group, this.period);
+    });
   }
 
   setHovered() {
