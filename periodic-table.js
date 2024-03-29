@@ -88,6 +88,33 @@ const runPeriodicTableWidget = ({
     }
     tableContainer.append(elementGrid);
 
+    // create table key
+    let tableKey = document.createElement('div');
+    tableKey.classList.add('tableKey');
+    // mass
+    let keyMass = document.createElement('p');
+    keyMass.innerHTML = 'relative atomic mass';
+    keyMass.classList.add('elementMass');
+    tableKey.append(keyMass);
+    // atomic symbol
+    let keySymbol = document.createElement('p');
+    keySymbol.innerHTML = 'atomic symbol';
+    keySymbol.classList.add('elementSymbol');
+    tableKey.append(keySymbol);
+    // chemical name
+    let keyName = document.createElement('p');
+    keyName.innerHTML = 'name';
+    keyName.classList.add('elementName');
+    tableKey.append(keyName);
+    // atomic number
+    let keyNumber = document.createElement('p');
+    keyNumber.innerHTML = 'atomic (proton) number';
+    keyNumber.classList.add('elementNumber');
+    tableKey.append(keyNumber);
+
+    elementGrid.append(tableKey);
+
+
     widgetNode.append(tableContainer)
   };
 
@@ -327,7 +354,7 @@ class TableElement {
     if (this.showChemicalName) {
       elementName.innerHTML = this.name;
       let nameCSSClass =
-          this.name.length > 7 ? 'elementLongName' : 'elementName';
+          this.name.length > 9 ? 'elementLongName' : 'elementName';
       elementName.classList.add(nameCSSClass);
       elementDiv.append(elementName);
     }
