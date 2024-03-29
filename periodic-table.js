@@ -56,12 +56,37 @@ const runPeriodicTableWidget = ({
 
   /* begin periodic table code */
   const initializeTable = (widgetNode, tableElements) => {
+    // create outermost container
     let tableContainer = document.createElement('div');
-    tableContainer.classList.add('tableContainer')
+    tableContainer.classList.add('tableContainer');
+    let emptyDiv = document.createElement('div');
+    tableContainer.append(emptyDiv);
 
-    for (const tableElement of tableElements) {
-      tableContainer.append(tableElement.asDiv());
+    // add group numbers
+    for (let group = 1; group <= 18; group++) {
+      let groupLabel = document.createElement('p');
+      groupLabel.innerHTML = group;
+      groupLabel.style.gridRow = 1;
+      groupLabel.style.gridColumn = group + 1;
+      tableContainer.append(groupLabel);
     }
+
+    // add period numbers
+    for (let period = 1; period <= 7; period++) {
+      let periodLabel = document.createElement('p');
+      periodLabel.innerHTML = period;
+      periodLabel.style.gridRow = 1 + period;
+      periodLabel.style.gridColumn = 1;
+      tableContainer.append(periodLabel);
+    }
+
+    // create element grid
+    let elementGrid = document.createElement('div');
+    elementGrid.classList.add('elementGrid');
+    for (const tableElement of tableElements) {
+      elementGrid.append(tableElement.asDiv());
+    }
+    tableContainer.append(elementGrid);
 
     widgetNode.append(tableContainer)
   };
@@ -195,8 +220,6 @@ const runPeriodicTableWidget = ({
       }
     }
   };
-
-
 
   // initialize the widget
   let selections = [];
