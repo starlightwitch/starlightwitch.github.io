@@ -175,8 +175,12 @@ const runPeriodicTableWidget = ({
     let elementData = periodicTableData[elementTag];
     if (elementData.number >= 119) break;
 
-    tableElements.push(
-        new TableElement(elementData, tableVersion, mouseManager));
+    let elementDisplayData = [
+      displayData.chemicalName, displayData.chemicalSymbol,
+      displayData.atomicNumber, displayData.atomicMass
+    ];
+    tableElements.push(new TableElement(
+        elementData, elementDisplayData, tableVersion, mouseManager));
   }
 
   initializeTable(node, tableElements);
@@ -195,6 +199,7 @@ const runPeriodicTableWidget = ({
 class TableElement {
   constructor(
       {name, atomic_mass, number, symbol, group, period, category},
+      [showChemicalName, showChemicalSymbol, showAtomicNumber, showAtomicMass],
       tableVersion, mouseManager) {
     this.name = name;
     this.atomic_mass = atomic_mass;
@@ -203,6 +208,12 @@ class TableElement {
     this.group = group;
     this.period = period;
     this.category = category;
+
+    this.showChemicalName = showChemicalName;
+    this.showChemicalSymbol = showChemicalSymbol;
+    this.showAtomicNumber = showAtomicNumber;
+    this.showAtomicMass = showAtomicMass;
+
     this.tableVersion = tableVersion;
     this.mouseManager = mouseManager;
 
@@ -230,37 +241,46 @@ class TableElement {
     }
 
     // set and stylize the element mass, then append to element div
-    let roundedMass;
-    if (this.tableVersion === 'alevel') {
-      roundedMass = this.atomic_mass.toFixed(1);
-    } else if (this.tableVersion === 'gcse') {
-      roundedMass = '' + Math.round(this.atomic_mass);
-      if (this.number == 29) {
-        roundedMass = '63.5';
+    if (this.showAtomicMass) {
+      let roundedMass;
+      if (this.tableVersion === 'alevel') {
+        roundedMass = this.atomic_mass.toFixed(1);
+      } else if (this.tableVersion === 'gcse') {
+        roundedMass = '' + Math.round(this.atomic_mass);
+        if (this.number == 29) {
+          roundedMass = '63.5';
+        }
+        if (this.number == 17) {
+          roundedMass = '35.5';
+        }
       }
-      if (this.number == 17) {
-        roundedMass = '35.5';
-      }
+      elementMass.innerHTML = roundedMass;
+      elementMass.classList.add('elementMass');
+      elementDiv.append(elementMass);
     }
-    elementMass.innerHTML = roundedMass;
-    elementMass.classList.add('elementMass');
-    elementDiv.append(elementMass);
 
     // set and stylize element symbol, then append to element div
-    elementSymbol.innerHTML = this.symbol;
-    elementSymbol.classList.add('elementSymbol');
-    elementDiv.append(elementSymbol);
+    if (this.showChemicalSymbol) {
+      elementSymbol.innerHTML = this.symbol;
+      elementSymbol.classList.add('elementSymbol');
+      elementDiv.append(elementSymbol);
+    }
 
     // set and stylize element name, then append to element div
-    elementName.innerHTML = this.name;
-    let nameCSSClass = this.name.length > 7 ? 'elementLongName' : 'elementName';
-    elementName.classList.add(nameCSSClass);
-    elementDiv.append(elementName);
+    if (this.showChemicalName) {
+      elementName.innerHTML = this.name;
+      let nameCSSClass =
+          this.name.length > 7 ? 'elementLongName' : 'elementName';
+      elementName.classList.add(nameCSSClass);
+      elementDiv.append(elementName);
+    }
 
     // set and stylize element number, then append to element div
-    elementNumber.innerHTML = this.number;
-    elementNumber.classList.add('elementNumber');
-    elementDiv.append(elementNumber);
+    if (this.showAtomicNumber) {
+      elementNumber.innerHTML = this.number;
+      elementNumber.classList.add('elementNumber');
+      elementDiv.append(elementNumber);
+    }
 
     // set event listeners
     elementDiv.addEventListener('mouseenter', (e) => {
@@ -279,6 +299,10 @@ class TableElement {
   asDiv() {
     return this.elementDiv;
   };
+
+  setInteractive() {
+    this.elementDiv.style.cursor = 'pointer';
+  }
 
   setHovered() {
     this.elementDiv.classList.add(this.category + '-hovered')
