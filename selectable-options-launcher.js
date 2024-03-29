@@ -12,43 +12,36 @@ const widgetConfig = {
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'Microscope',
-      colorHexCode: '',
       iconMarkType: 'incorrect',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'A Scanning Electron Microscope',
-      colorHexCode: '',
       iconMarkType: 'correct',
     },
     {
       imagePath: 'assets/img/beaker.png',
       optionText: '',
-      colorHexCode: '',
       iconMarkType: 'missed',
     },
     {
       imagePath: null,
       optionText: 'An option without a picture.',
-      colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: 'assets/img/beaker.png',
       optionText: 'Beaker',
-      colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'Another Scanning Electron Microscope',
-      colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: 'assets/img/microscope.png',
       optionText: 'A laboratory microscope',
-      colorHexCode: '',
       iconMarkType: '',
     },
     {
@@ -61,13 +54,11 @@ const widgetConfig = {
       imagePath: null,
       optionText:
           'A very long text option, designed to really test the limits of the auto layout. An option that needs no introduction.',
-      colorHexCode: '',
       iconMarkType: '',
     },
     {
       imagePath: null,
       optionText: 'A laboratory microscope, pictureless.',
-      colorHexCode: '',
       iconMarkType: '',
     },
   ]

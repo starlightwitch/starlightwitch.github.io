@@ -1,0 +1,162 @@
+.tableContainer {
+    min-width: 1100px;
+    overflow: scroll;
+    display: grid;
+    gap: 2px;
+    grid-template-columns: repeat(18, minmax(0, 1fr));
+}
+
+
+.tableContainer>div:nth-child(n+58):nth-last-child(n+48) {
+    grid-row-start: 8;
+}
+
+.tableContainer>div:nth-child(n+90):nth-last-child(n+16) {
+    grid-row-start: 9;
+}
+
+.tableContainer:before {
+    display: block;
+    content: '';
+    grid-row: 8 / 10;
+    grid-column: 1 / 4;
+}
+
+
+.elementContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    border: 1px solid;
+    border-radius: 6px;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.elementMass {
+    font-size: 12px;
+    margin: 0px !important;
+}
+
+.elementSymbol {
+    font-size: 20px;
+    margin: 0px !important;
+
+}
+
+.elementName {
+    font-size: 10px;
+    margin: 0px !important;
+
+}
+
+.elementLongName {
+    font-size: 8px;
+    margin: 2px 0px !important;
+}
+
+.elementNumber {
+    font-size: 12px;
+    margin: 0px !important;
+}
+
+/* specific to dark mode */
+
+.elementContainer {
+    color: black;
+    border-color: white;
+}
+
+.selectedElement {
+    background-color: #124d60 !important;
+    color: white
+}
+
+.diatomic-nonmetal {
+    background-color: #C5E99B;
+}
+
+.diatomic-nonmetal-hovered {
+    background-color: #E2F4CD;
+}
+
+.noble-gas {
+    background-color: #FF9292;
+}
+
+.noble-gas-hovered {
+    background-color: #FCAFAF;
+}
+
+.alkali-metal {
+    background-color: #FFD16D;
+}
+
+.alkali-metal-hovered {
+    background-color: #EDD8AB;
+}
+
+.alkaline-earth-metal {
+    background-color: #FFBCAD;
+}
+
+.alkaline-earth-metal-hovered {
+    background-color: #FBD4CB;
+}
+
+.metalloid {
+    background-color: #D7E7ED;
+}
+
+.metalloid-hovered {
+    background-color: #EBF4F7;
+}
+
+.polyatomic-nonmetal {
+    background-color: #4ADDDD;
+}
+
+.polyatomic-nonmetal-hovered {
+    background-color: #A4EEEE;
+}
+
+.post-transition-metal {
+    background-color: #D1D3FF;
+}
+
+.post-transition-metal-hovered {
+    background-color: #E3E4FF;
+}
+
+.transition-metal {
+    background-color: #80D4F6;
+}
+
+.transition-metal-hovered {
+    background-color: #BFE9FB;
+}
+
+.lanthanide {
+    background-color: #ff759f;
+}
+
+.lanthanide-hovered {
+    background-color: #f7b6c9;
+}
+
+.actinide {
+    background-color: #B5A7F9;
+}
+
+.actinide-hovered {
+    background-color: #DAD3FC;
+}
+
+.unknown {
+    background-color: #cccccc;
+}
+
+.unknown-hovered {
+    background-color: #e3e3e3;
+}
