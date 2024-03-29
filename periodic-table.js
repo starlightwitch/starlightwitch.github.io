@@ -55,7 +55,7 @@ const runPeriodicTableWidget = ({
   if (interactive) node.append(answerHiddenInput);
 
   /* begin periodic table code */
-  const initializeTable = (widgetNode, tableElements) => {
+  const initializeTable = (widgetNode, tableElements, dynamicElement) => {
     // create outermost container
     let tableContainer = document.createElement('div');
     tableContainer.classList.add('tableContainer');
@@ -114,6 +114,7 @@ const runPeriodicTableWidget = ({
 
     elementGrid.append(tableKey);
 
+    elementGrid.append(dynamicElement);
 
     widgetNode.append(tableContainer)
   };
@@ -123,9 +124,11 @@ const runPeriodicTableWidget = ({
     // dispatch the appropriate response
     switch (type) {
       case 'leave':
+        clearDynamicElement();
         tableElements.forEach(e => e.removeHovered());
         break;
       case 'enter':
+        updateDynamicElement(elementNumber);
         switch (selectionMode) {
           case 'elements':
             focusElement(elementNumber);
@@ -248,8 +251,20 @@ const runPeriodicTableWidget = ({
     }
   };
 
+  const updateDynamicElement = (elementNumber) => {
+    dynamicElement.innerHTML = '';
+    let elementDiv = tableElements[elementNumber - 1].createDiv();
+    dynamicElement.append(elementDiv);
+  };
+
+  const clearDynamicElement = () => {
+    dynamicElement.innerHTML = '';
+  };
+
   // initialize the widget
+  // clear selections
   let selections = [];
+  // create element objects
   let tableElements = [];
   for (const elementTag of periodicTableData.order) {
     let elementData = periodicTableData[elementTag];
@@ -266,8 +281,14 @@ const runPeriodicTableWidget = ({
 
     tableElements.push(currElement);
   }
+  // create dynmic element div
+  let dynamicElement = document.createElement('div');
+  dynamicElement.classList.add('tableDynamicElement');
 
-  initializeTable(node, tableElements);
+  // setup and propogate table
+  initializeTable(node, tableElements, dynamicElement);
+
+
 
   // cleanup on widget close
   const removePeriodicTableWidget = () => {
