@@ -29,7 +29,7 @@
     align-items: center;
     justify-content: start;
     border: 1px solid;
-    border-radius: 6px;
+    border-radius: 2px;
     width: 100%;
     transition: background-color 0.3s;
 }
@@ -79,6 +79,8 @@
 
 .diatomic-nonmetal-hovered {
     background-color: #E2F4CD;
+    border-color: #FFA500 !important;
+
 }
 
 .noble-gas {
@@ -87,6 +89,8 @@
 
 .noble-gas-hovered {
     background-color: #FCAFAF;
+    border-color: #FFA500 !important;
+
 }
 
 .alkali-metal {
@@ -95,6 +99,8 @@
 
 .alkali-metal-hovered {
     background-color: #EDD8AB;
+    border-color: #FFA500 !important;
+
 }
 
 .alkaline-earth-metal {
@@ -103,6 +109,8 @@
 
 .alkaline-earth-metal-hovered {
     background-color: #FBD4CB;
+    border-color: #FFA500 !important;
+
 }
 
 .metalloid {
@@ -111,6 +119,7 @@
 
 .metalloid-hovered {
     background-color: #EBF4F7;
+    border-color: #FFA500 !important;
 }
 
 .polyatomic-nonmetal {
@@ -119,6 +128,7 @@
 
 .polyatomic-nonmetal-hovered {
     background-color: #A4EEEE;
+    border-color: #FFA500 !important;
 }
 
 .post-transition-metal {
@@ -127,6 +137,7 @@
 
 .post-transition-metal-hovered {
     background-color: #E3E4FF;
+    border-color: #FFA500 !important;
 }
 
 .transition-metal {
@@ -135,6 +146,7 @@
 
 .transition-metal-hovered {
     background-color: #BFE9FB;
+    border-color: #FFA500 !important;
 }
 
 .lanthanide {
@@ -143,6 +155,7 @@
 
 .lanthanide-hovered {
     background-color: #f7b6c9;
+    border-color: #FFA500 !important;
 }
 
 .actinide {
@@ -151,6 +164,7 @@
 
 .actinide-hovered {
     background-color: #DAD3FC;
+    border-color: #FFA500 !important;
 }
 
 .unknown {
@@ -159,4 +173,5 @@
 
 .unknown-hovered {
     background-color: #e3e3e3;
+    border-color: #FFA500 !important;
 }

@@ -67,7 +67,8 @@ const runPeriodicTableWidget = ({
   };
 
   // event listener callback for indivdiual elements responding to the mouse
-  const mouseManager = (type, elementNumber, elementGroup, elementPeriod) => {
+  const eventManager = (type, elementNumber, elementGroup, elementPeriod) => {
+    // dispatch the appropriate response
     switch (type) {
       case 'leave':
         tableElements.forEach(e => e.removeHovered());
@@ -75,98 +76,127 @@ const runPeriodicTableWidget = ({
       case 'enter':
         switch (selectionMode) {
           case 'elements':
-            tableElements[elementNumber - 1].setHovered();
+            focusElement(elementNumber);
             break;
-          case 'groups': {
-            let groupElements =
-                tableElements.filter(e => e.group == elementGroup);
-            groupElements.forEach(e => e.setHovered());
-          } break;
-          case 'periods': {
-            let periodElements =
-                tableElements.filter(e => e.period == elementPeriod);
-            periodElements.forEach(e => e.setHovered());
-          } break;
+          case 'groups':
+            focusGroup(elementGroup);
+            break;
+          case 'periods':
+            focusPeriod(elementPeriod);
+            break;
         }
         break;
       case 'click': {
         switch (selectionMode) {
           case 'elements':
-            if (selections.includes(elementNumber)) {
-              // remove from selections
-              selections =
-                  selections.filter(selection => selection != elementNumber);
-              // remove styling from element
-              tableElements[elementNumber - 1].removeSelected();
-            } else {
-              if (selections.length < maxSelections) {
-                // add to selections
-                selections.push(elementNumber);
-                // add styling to element
-                tableElements[elementNumber - 1].setSelected();
-              } else {
-                Swal.fire({
-                  title: 'Maximum Selections Exceeded',
-                  text: 'Please unselect an element before selecting another.',
-                  icon: 'warning'
-                });
-              }
-            }
+            toggleElementSelection(elementNumber);
             break;
-          case 'groups': {
-            let groupElements =
-                tableElements.filter(e => e.group == elementGroup);
-            if (selections.includes(elementGroup)) {
-              // remove from selections
-              selections =
-                  selections.filter(selection => selection != elementGroup);
-              // remove styling from group elements
-              groupElements.forEach(e => e.removeSelected());
-            } else {
-              if (selections.length < maxSelections) {
-                // add to selections
-                selections.push(elementGroup);
-                // add styling to element
-                groupElements.forEach(e => e.setSelected());
-              } else {
-                Swal.fire({
-                  title: 'Maximum Selections Exceeded',
-                  text: 'Please unselect a group before selecting another.',
-                  icon: 'warning'
-                });
-              }
-            }
-          } break;
-          case 'periods': {
-            let periodElements =
-                tableElements.filter(e => e.period == elementPeriod);
-            if (selections.includes(elementPeriod)) {
-              // remove from selections
-              selections =
-                  selections.filter(selection => selection != elementPeriod);
-              // remove styling from group elements
-              periodElements.forEach(e => e.removeSelected());
-            } else {
-              if (selections.length < maxSelections) {
-                // add to selections
-                selections.push(elementPeriod);
-                // add styling to element
-                periodElements.forEach(e => e.setSelected());
-              } else {
-                Swal.fire({
-                  title: 'Maximum Selections Exceeded',
-                  text: 'Please unselect a period before selecting another.',
-                  icon: 'warning'
-                });
-              }
-            }
-          } break;
+          case 'groups':
+            toggleGroupSelection(elementGroup);
+            break;
+          case 'periods':
+            togglePeriodSelection(elementPeriod);
+            break;
         }
       }
     }
 
+    // output the model state to the DOM
     updateHiddenInputs(selections);
   };
+
+  const toggleElementSelection = (elementNumber) => {
+    if (selections.includes(elementNumber)) {
+      // remove from selections
+      selections = selections.filter(selection => selection != elementNumber);
+      // remove styling from element
+      tableElements[elementNumber - 1].removeSelected();
+    } else {
+      if (selections.length < maxSelections) {
+        // add to selections
+        selections.push(elementNumber);
+        // add styling to element
+        tableElements[elementNumber - 1].setSelected();
+      } else {
+        Swal.fire({
+          title: 'Maximum Selections Exceeded',
+          text: 'Please unselect an element before selecting another.',
+          icon: 'warning'
+        });
+      }
+    }
+  };
+
+  const toggleGroupSelection = (groupNumber) => {
+    let groupElements = tableElements.filter(e => e.group == groupNumber);
+    if (selections.includes(groupNumber)) {
+      // remove from selections
+      selections = selections.filter(selection => selection != groupNumber);
+      // remove styling from group elements
+      groupElements.forEach(e => e.removeSelected());
+    } else {
+      if (selections.length < maxSelections) {
+        // add to selections
+        selections.push(groupNumber);
+        // add styling to element
+        groupElements.forEach(e => e.setSelected());
+      } else {
+        Swal.fire({
+          title: 'Maximum Selections Exceeded',
+          text: 'Please unselect a group before selecting another.',
+          icon: 'warning'
+        });
+      }
+    }
+  };
+
+  const togglePeriodSelection = (periodNumber) => {
+    let periodElements = tableElements.filter(e => e.period == periodNumber);
+    if (selections.includes(periodNumber)) {
+      // remove from selections
+      selections = selections.filter(selection => selection != periodNumber);
+      // remove styling from group elements
+      periodElements.forEach(e => e.removeSelected());
+    } else {
+      if (selections.length < maxSelections) {
+        // add to selections
+        selections.push(periodNumber);
+        // add styling to element
+        periodElements.forEach(e => e.setSelected());
+      } else {
+        Swal.fire({
+          title: 'Maximum Selections Exceeded',
+          text: 'Please unselect a period before selecting another.',
+          icon: 'warning'
+        });
+      }
+    }
+  };
+
+  const focusElement = (elementNumber) => {
+    // focus on the sepcified element
+    tableElements[elementNumber - 1].setHovered();
+  };
+
+  const focusGroup = (groupNumber) => {
+    // apply focus to each element with matching groupNumber
+    for (const element of tableElements) {
+      if (element.group == groupNumber) {
+        element.setHovered();
+      }
+    }
+  };
+
+  const focusPeriod = (periodNumber) => {
+    // apply focus to each element with matching periodNumber
+    for (const element of tableElements) {
+      if (element.period == periodNumber) {
+        element.setHovered();
+      }
+    }
+  };
+
+
 
   // initialize the widget
   let selections = [];
@@ -181,7 +211,7 @@ const runPeriodicTableWidget = ({
     ];
 
     let currElement = new TableElement(
-        elementData, elementDisplayData, tableVersion, mouseManager);
+        elementData, elementDisplayData, tableVersion, eventManager);
     if (interactive) currElement.setInteractive();
 
     tableElements.push(currElement);
@@ -204,7 +234,7 @@ class TableElement {
   constructor(
       {name, atomic_mass, number, symbol, group, period, category},
       [showChemicalName, showChemicalSymbol, showAtomicNumber, showAtomicMass],
-      tableVersion, mouseManager) {
+      tableVersion, eventManager) {
     this.name = name;
     this.atomic_mass = atomic_mass;
     this.number = number;
@@ -219,7 +249,7 @@ class TableElement {
     this.showAtomicMass = showAtomicMass;
 
     this.tableVersion = tableVersion;
-    this.mouseManager = mouseManager;
+    this.eventManager = eventManager;
 
     this.elementDiv = this.createDiv();
   };
@@ -297,15 +327,29 @@ class TableElement {
     // set interactive cursor
     this.elementDiv.style.cursor = 'pointer';
 
+    // make tab-able
+    this.elementDiv.tabIndex = '0';
+
     // set event listeners
     this.elementDiv.addEventListener('mouseenter', (e) => {
-      this.mouseManager('enter', this.number, this.group, this.period);
+      this.eventManager('enter', this.number, this.group, this.period);
     });
     this.elementDiv.addEventListener('mouseleave', (e) => {
-      this.mouseManager('leave', this.number, this.group, this.period);
+      this.eventManager('leave', this.number, this.group, this.period);
     });
     this.elementDiv.addEventListener('click', (e) => {
-      this.mouseManager('click', this.number, this.group, this.period);
+      this.eventManager('click', this.number, this.group, this.period);
+    });
+    this.elementDiv.addEventListener('keyup', (e) => {
+      if (e.key === 'Tab') {
+        this.eventManager('leave', this.number, this.group, this.period);
+        this.eventManager('enter', this.number, this.group, this.period);
+      }
+    });
+    this.elementDiv.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        this.eventManager('click', this.number, this.group, this.period);
+      }
     });
   }
 
