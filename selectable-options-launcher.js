@@ -16,7 +16,8 @@ const widgetConfig = {
     },
     {
       imagePath: 'assets/img/microscope.png',
-      optionText: 'A Scanning Electron Microscope',
+      optionText:
+          'A Scanning Electron Microscope with a very long option text, written to force the text to display in multiple lines. This was done to test a multi-line padding issue.',
       iconMarkType: 'correct',
     },
     {

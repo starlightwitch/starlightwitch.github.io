@@ -1,11 +1,10 @@
-/* for running with images */
-
+/* images/mixed text-and-images container & cards */
 .selectableOptionsGridContainer {
     display: grid;
     gap: 20px;
     grid-auto-flow: dense;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-auto-rows: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-auto-rows: 1px;
 }
 
 .selectableOptionCard {
@@ -16,14 +15,13 @@
     justify-content: center;
     min-height: 60px;
     width: 100%;
-    padding: 0px 10px;
+    padding: 10px;
     border-style: solid;
     border-radius: 10px;
     transition: background-color 0.3s;
 }
 
-/* for text only mode */
-
+/* text only mode container & cards */
 .selectableTextOptionsGridContainer {
     display: flex;
     flex-direction: row;
@@ -42,6 +40,7 @@
     transition: background-color 0.3s;
 }
 
+/* cards' style */
 .interactiveCard {
     cursor: pointer;
 }
@@ -57,11 +56,11 @@
     border-width: 3px;
 }
 
+/* card content style */
 .optionCardImage {
     display: inline-block;
-    width: 100%;
-    height: 80%;
-    min-height: 200px;
+    padding: 8px;
+    max-width: 75%;
     object-fit: contain;
 }
 
@@ -70,6 +69,19 @@
     margin: 0 !important;
 }
 
+.textOnlyOptionParagraph {
+    font-size: 18px;
+}
+
+.imageOnlyOptionParagraph {
+    font-size: 12px;
+}
+
+.mixedTextAndImageOptionsParagraph {
+    font-size: 14px;
+}
+
+/* scoring icon marks */
 .iconMarkText {
     margin: 0 !important;
     font-weight: 700;
@@ -88,7 +100,6 @@
     border-radius: 50%;
     border-style: solid;
 }
-
 
 /* specific to light mode */
 .interactiveCard:hover {

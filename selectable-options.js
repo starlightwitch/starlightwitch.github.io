@@ -81,7 +81,15 @@ const runSelectableOptionsWidget =
             optionData.optionText != null && optionData.optionText != '') {
           let optionParagraph = document.createElement('p');
           optionParagraph.innerHTML = optionData.optionText;
-          optionParagraph.className = 'optionParagraph'
+          optionParagraph.classList.add('optionParagraph');
+
+          if (textOnly) {
+            optionParagraph.classList.add('textOnlyOptionParagraph');
+          } else if (imageOnly) {
+            optionParagraph.classList.add('imageOnlyOptionParagraph');
+          } else {
+            optionParagraph.classList.add('mixedTextAndImageOptionsParagraph');
+          };
 
           card.append(optionParagraph);
         }
@@ -217,7 +225,7 @@ const runSelectableOptionsWidget =
         let gridItems = gridNode.childNodes;
         for (const item of gridItems) {
           item.style.gridRowEnd = `span ${
-              Math.ceil((item.clientHeight + rowGap) / (rowHeight + rowGap))}`;
+              Math.ceil((item.offsetHeight + rowGap) / (rowHeight + rowGap))}`;
         }
         gridNode.removeAttribute('style');
       };
@@ -231,6 +239,7 @@ const runSelectableOptionsWidget =
       let selections = [];
       const gridNode = document.createElement('div');
       const textOnly = !options.some(option => {return option.imagePath});
+      const imageOnly = options.every(option => {return option.imagePath});
       if (textOnly) {
         gridNode.classList.add('selectableTextOptionsGridContainer');
       } else {
