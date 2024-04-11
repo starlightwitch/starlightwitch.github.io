@@ -100,30 +100,32 @@ const runPeriodicTableWidget = ({
     tableContainer.append(elementGrid);
 
     // create table key
-    let tableKey = document.createElement('div');
-    tableKey.classList.add('tableKey');
-    // mass
-    let keyMass = document.createElement('p');
-    keyMass.innerHTML = 'relative atomic mass';
-    keyMass.classList.add('elementMass');
-    tableKey.append(keyMass);
-    // atomic symbol
-    let keySymbol = document.createElement('p');
-    keySymbol.innerHTML = 'atomic symbol';
-    keySymbol.classList.add('elementSymbol');
-    tableKey.append(keySymbol);
-    // chemical name
-    let keyName = document.createElement('p');
-    keyName.innerHTML = 'name';
-    keyName.classList.add('elementName');
-    tableKey.append(keyName);
-    // atomic number
-    let keyNumber = document.createElement('p');
-    keyNumber.innerHTML = 'atomic (proton) number';
-    keyNumber.classList.add('elementNumber');
-    tableKey.append(keyNumber);
+    if (displayData.key) {
+      let tableKey = document.createElement('div');
+      tableKey.classList.add('tableKey');
+      // mass
+      let keyMass = document.createElement('p');
+      keyMass.innerHTML = 'relative atomic mass';
+      keyMass.classList.add('elementMass');
+      tableKey.append(keyMass);
+      // atomic symbol
+      let keySymbol = document.createElement('p');
+      keySymbol.innerHTML = 'atomic symbol';
+      keySymbol.classList.add('elementSymbol');
+      tableKey.append(keySymbol);
+      // chemical name
+      let keyName = document.createElement('p');
+      keyName.innerHTML = 'name';
+      keyName.classList.add('elementName');
+      tableKey.append(keyName);
+      // atomic number
+      let keyNumber = document.createElement('p');
+      keyNumber.innerHTML = 'atomic (proton) number';
+      keyNumber.classList.add('elementNumber');
 
-    elementGrid.append(tableKey);
+      tableKey.append(keyNumber);
+      elementGrid.append(tableKey);
+    }
 
     elementGrid.append(dynamicElement);
 
@@ -262,7 +264,6 @@ const runPeriodicTableWidget = ({
   };
 
   const updateDynamicElement = (elementNumber) => {
-    if (!displayData.key) return;
     dynamicElement.innerHTML = '';
     let elementDiv = tableElements[elementNumber - 1].createDiv();
     dynamicElement.append(elementDiv);
