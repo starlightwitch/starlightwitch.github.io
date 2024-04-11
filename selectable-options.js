@@ -241,6 +241,8 @@ const runSelectableOptionsWidget =
       const gridNode = document.createElement('div');
       const textOnly = !options.some(option => {return option.imagePath});
       const imageOnly = options.every(option => {return option.imagePath});
+
+      // initialize option grid
       if (textOnly) {
         gridNode.classList.add('selectableTextOptionsGridContainer');
       } else {
@@ -251,10 +253,12 @@ const runSelectableOptionsWidget =
       inferColors();
       populateGrid(gridNode);
 
+      // handle sizing;
       if (!textOnly) {
         window.addEventListener('load', resizeGridItems)
         window.addEventListener('resize', resizeGridItems)
       }
+      resizeGridItems();
 
       // cleanup on widget close
       const removeSelectableOptionsWidget = () => {
