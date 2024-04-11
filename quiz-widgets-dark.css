@@ -1471,3 +1471,197 @@ td img {
 .invertibleOptionImage {
 	filter: invert();
 }
+
+/* PERIODIC TABLE */
+.tableContainer {
+	min-width: 1100px;
+	display: grid;
+	grid-template-columns: 40px repeat(auto-fit, minmax(60px, 1fr));
+	grid-template-rows: 20px repeat(8, 1fr);
+	place-items: center;
+}
+
+.elementGrid {
+	display: grid;
+	gap: 2px;
+	grid-template-columns: subgrid;
+	grid-template-rows: subgrid;
+	grid-row: 2 / span 9;
+	grid-column: 2 / span 18;
+}
+
+.elementGrid>div:nth-child(n+58):nth-last-child(n+50) {
+	grid-row-start: 8;
+}
+
+.elementGrid>div:nth-child(n+90):nth-last-child(n+18) {
+	grid-row-start: 9;
+}
+
+.elementGrid:before {
+	display: block;
+	content: '';
+	grid-row: 8 / 10;
+	grid-column: 1 / 4;
+}
+
+.tableKey {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid;
+	border-radius: 2px;
+	grid-row: 2 / span 1;
+	grid-column: 4/ span 3;
+}
+
+.tableDynamicElement {
+	grid-row: 2;
+	grid-column: 8 / span 2;
+}
+
+.elementContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: start;
+	border: 1px solid;
+	border-radius: 2px;
+	width: 100%;
+	transition: background-color 0.3s;
+}
+
+.elementMass {
+	font-size: 12px;
+	margin: 0px !important;
+}
+
+.elementSymbol {
+	font-size: 20px;
+	margin: 0px !important;
+}
+
+.elementName {
+	font-size: 10px;
+	margin: 0px !important;
+}
+
+.elementLongName {
+	font-size: 8px;
+	margin: 2px 0px !important;
+}
+
+.elementNumber {
+	font-size: 12px;
+	margin: 0px !important;
+}
+
+/* specific to dark mode */
+.elementContainer {
+	color: black;
+	border-color: white;
+}
+
+.selectedElement {
+	background-color: #124d60 !important;
+	color: white
+}
+
+.diatomic-nonmetal {
+	background-color: #C5E99B;
+}
+
+.diatomic-nonmetal-hovered {
+	background-color: #E2F4CD;
+	border-color: #FFA500 !important;
+}
+
+.noble-gas {
+	background-color: #FF9292;
+}
+
+.noble-gas-hovered {
+	background-color: #FCAFAF;
+	border-color: #FFA500 !important;
+}
+
+.alkali-metal {
+	background-color: #FFD16D;
+}
+
+.alkali-metal-hovered {
+	background-color: #EDD8AB;
+	border-color: #FFA500 !important;
+}
+
+.alkaline-earth-metal {
+	background-color: #FFBCAD;
+}
+
+.alkaline-earth-metal-hovered {
+	background-color: #FBD4CB;
+	border-color: #FFA500 !important;
+}
+
+.metalloid {
+	background-color: #D7E7ED;
+}
+
+.metalloid-hovered {
+	background-color: #EBF4F7;
+	border-color: #FFA500 !important;
+}
+
+.polyatomic-nonmetal {
+	background-color: #4ADDDD;
+}
+
+.polyatomic-nonmetal-hovered {
+	background-color: #A4EEEE;
+	border-color: #FFA500 !important;
+}
+
+.post-transition-metal {
+	background-color: #D1D3FF;
+}
+
+.post-transition-metal-hovered {
+	background-color: #E3E4FF;
+	border-color: #FFA500 !important;
+}
+
+.transition-metal {
+	background-color: #80D4F6;
+}
+
+.transition-metal-hovered {
+	background-color: #BFE9FB;
+	border-color: #FFA500 !important;
+}
+
+.lanthanide {
+	background-color: #ff759f;
+}
+
+.lanthanide-hovered {
+	background-color: #f7b6c9;
+	border-color: #FFA500 !important;
+}
+
+.actinide {
+	background-color: #B5A7F9;
+}
+
+.actinide-hovered {
+	background-color: #DAD3FC;
+	border-color: #FFA500 !important;
+}
+
+.unknown {
+	background-color: #cccccc;
+}
+
+.unknown-hovered {
+	background-color: #e3e3e3;
+	border-color: #FFA500 !important;
+}

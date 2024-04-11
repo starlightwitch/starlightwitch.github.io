@@ -15,8 +15,7 @@
 	<link type="text/css" href="assets/css/fontawesome.css" rel="stylesheet">
 	<link type="text/css" href="assets/css/preloader.css" rel="stylesheet">
 	<link type="text/css" href="assets/css/app-dark.css" rel="stylesheet">
-	<link type="text/css" href="quiz_widgets.css" rel="stylesheet">
-	<link type="text/css" href="periodic-table-dark.css" rel="stylesheet">
+	<link type="text/css" href="quiz-widgets-dark.css" rel="stylesheet">
 </head>
 
 
@@ -157,7 +156,28 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="p5.min.js"></script>
 	<script src="periodic-table.js"></script>
-	<script src="periodic-table-launcher.js"></script>
+	<script>
+		const widgetConfig = {
+			container: 'answer-visual-container',
+			interactive: true,
+			selectionMode: 'groups',  // options: elements | groups | periods
+			maxSelections: 3,
+			displayData: {
+				chemicalName: true,
+				chemicalSymbol: true,
+				atomicNumber: true,
+				atomicMass: true,
+				periodNumbers: true,
+				groupNumbers: true,
+				key: true
+			},
+			showPeriods: [],       // indices of periods to show, empty array for all
+			showGroups: [],        // indices of groups to show, empty array for all
+			tableVersion: 'gcse',  // options: gsce | alevel
+		}
+
+		let removeWidget = runPeriodicTableWidget(widgetConfig);
+	</script>
 </body>
 
 </html>
