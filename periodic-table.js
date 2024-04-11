@@ -1,6 +1,7 @@
 const runPeriodicTableWidget = ({
   container,
   interactive,
+  scores,
   selectionMode,
   maxSelections,
   displayData,
@@ -50,6 +51,12 @@ const runPeriodicTableWidget = ({
   answerHiddenInput.name = 'answers[]';
   answerHiddenInput.value = '';
   const updateHiddenInputs = (output) => {
+    output.sort((a, b) => a - b);
+    if (selectionMode === 'elements') {
+      output = output.map(atomicNumber => {
+        return periodicTableData.order[atomicNumber - 1];
+      })
+    };
     answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
   };
   if (interactive) node.append(answerHiddenInput);
@@ -153,11 +160,10 @@ const runPeriodicTableWidget = ({
             togglePeriodSelection(elementPeriod);
             break;
         }
+        // output the model state to the DOM
+        updateHiddenInputs(selections);
       }
     }
-
-    // output the model state to the DOM
-    updateHiddenInputs(selections);
   };
 
   const toggleElementSelection = (elementNumber) => {
@@ -287,8 +293,6 @@ const runPeriodicTableWidget = ({
 
   // setup and propogate table
   initializeTable(node, tableElements, dynamicElement);
-
-
 
   // cleanup on widget close
   const removePeriodicTableWidget = () => {
