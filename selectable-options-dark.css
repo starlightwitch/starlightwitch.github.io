@@ -112,6 +112,6 @@
     background-color: #52707a !important;
 }
 
-.optionCardImage {
+.invertibleOptionImage {
     filter: invert();
 }

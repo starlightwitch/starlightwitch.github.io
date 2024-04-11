@@ -70,7 +70,10 @@ const runSelectableOptionsWidget =
         if (typeof optionData.imagePath !== 'undefined' &&
             optionData.imagePath != null && optionData.imagePath != '') {
           let optionImage = document.createElement('img');
-          optionImage.className = 'optionCardImage';
+          optionImage.classList.add('optionCardImage');
+          if (optionData.imageInvertible ||
+              typeof optionData.imageInvertible === 'undefined')
+            optionImage.classList.add('invertibleOptionImage');
           optionImage.src = optionData.imagePath;
 
           card.classList.add('optionWithImage')
