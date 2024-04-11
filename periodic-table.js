@@ -72,6 +72,7 @@ const runPeriodicTableWidget = ({
     // add group numbers
     if (displayData.groupNumbers) {
       for (let group = 1; group <= 18; group++) {
+        if (showGroups.length && !showGroups.includes(group)) continue;
         let groupLabel = document.createElement('p');
         groupLabel.innerHTML = group;
         groupLabel.style.gridRow = 1;
@@ -83,6 +84,7 @@ const runPeriodicTableWidget = ({
     // add period numbers
     if (displayData.periodNumbers) {
       for (let period = 1; period <= 7; period++) {
+        if (showPeriods.length && !showPeriods.includes(period)) continue;
         let periodLabel = document.createElement('p');
         periodLabel.innerHTML = period;
         periodLabel.style.gridRow = 1 + period;
@@ -289,7 +291,19 @@ const runPeriodicTableWidget = ({
 
     let currElement = new TableElement(
         elementData, elementDisplayData, tableVersion, eventManager);
-    if (interactive) currElement.setInteractive();
+
+    let visible = true;
+    if (showGroups.length && !showGroups.includes(elementData.group)) {
+      currElement.setInvisible();
+      visible = false;
+    }
+    if (showPeriods.length && !showPeriods.includes(elementData.period)) {
+      currElement.setInvisible();
+      visible = false;
+    }
+    if (interactive && visible) currElement.setInteractive();
+
+
 
     tableElements.push(currElement);
   }
@@ -443,11 +457,15 @@ class TableElement {
   }
 
   setSelected() {
-    this.elementDiv.classList.add('selectedElement')
+    this.elementDiv.classList.add('selectedElement');
   }
 
   removeSelected() {
-    this.elementDiv.classList.remove('selectedElement')
+    this.elementDiv.classList.remove('selectedElement');
+  }
+
+  setInvisible() {
+    this.elementDiv.classList.add('invisible-element');
   }
 
   clearEffects() {

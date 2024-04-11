@@ -1556,6 +1556,10 @@ td img {
 	margin: 0px !important;
 }
 
+.invisible-element {
+	visibility: hidden;
+}
+
 /* specific to dark mode */
 .elementContainer {
 	color: black;

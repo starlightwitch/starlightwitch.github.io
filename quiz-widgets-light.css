@@ -1552,6 +1552,10 @@ td img {
 	margin: 0px !important;
 }
 
+.invisible-element {
+	visibility: hidden;
+}
+
 /* specific to light mode */
 .selectedElement {
 	background-color: #124d60 !important;
