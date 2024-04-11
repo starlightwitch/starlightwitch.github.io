@@ -91,7 +91,7 @@ const runSelectableOptionsWidget = ({
       optionParagraph.innerHTML = optionData.optionText;
       optionParagraph.classList.add('optionParagraph');
 
-      if (textOnly) {
+      if (textOnly || !optionData.imagePath) {
         optionParagraph.classList.add('textOnlyOptionParagraph');
       } else if (imageOnly) {
         optionParagraph.classList.add('imageOnlyOptionParagraph');
@@ -140,10 +140,10 @@ const runSelectableOptionsWidget = ({
       };
 
       // color the icon mark and card
-      iconMarkText.style.color = optionData.colorHexCode;
-      iconMarkDiv.style.borderColor = optionData.colorHexCode;
-      card.style.borderColor = optionData.colorHexCode;
-      card.style.backgroundColor = optionData.colorHexCode + '60';
+      iconMarkText.style.color = optionData.borderHexCode;
+      iconMarkDiv.style.borderColor = optionData.borderHexCode;
+      card.style.borderColor = optionData.borderHexCode;
+      card.style.backgroundColor = optionData.backgroundHexCode;
 
       card.prepend(iconMarkDiv)
     };
@@ -204,19 +204,26 @@ const runSelectableOptionsWidget = ({
   const inferColors = () => {
     for (const option of options) {
       // use supplied color
-      if (option.colorHexCode) continue;
+      if (option.colorHexCode) {
+        option.backgroundHexCode = option.colorHexCode;
+        option.borderHexCode = '#000000';
+        continue;
+      }
 
       // infer the color otherwise
       if (!interactive) {
         switch (option.iconMarkType) {
           case 'correct':
-            option.colorHexCode = '#009444';
+            option.borderHexCode = '#009444';
+            option.backgroundHexCode = '#bde3bd';
             break;
           case 'incorrect':
-            option.colorHexCode = '#BE1E2D';
+            option.borderHexCode = '#BE1E2D';
+            option.backgroundHexCode = '#ffa3a3'
             break;
           case 'missed':
-            option.colorHexCode = '#F15A29';
+            option.borderHexCode = '#F15A29';
+            option.backgroundHexCode = '#ffdcb5';
             break;
         }
       }
