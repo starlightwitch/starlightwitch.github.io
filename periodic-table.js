@@ -70,21 +70,25 @@ const runPeriodicTableWidget = ({
     tableContainer.append(emptyDiv);
 
     // add group numbers
-    for (let group = 1; group <= 18; group++) {
-      let groupLabel = document.createElement('p');
-      groupLabel.innerHTML = group;
-      groupLabel.style.gridRow = 1;
-      groupLabel.style.gridColumn = group + 1;
-      tableContainer.append(groupLabel);
+    if (displayData.groupNumbers) {
+      for (let group = 1; group <= 18; group++) {
+        let groupLabel = document.createElement('p');
+        groupLabel.innerHTML = group;
+        groupLabel.style.gridRow = 1;
+        groupLabel.style.gridColumn = group + 1;
+        tableContainer.append(groupLabel);
+      }
     }
 
     // add period numbers
-    for (let period = 1; period <= 7; period++) {
-      let periodLabel = document.createElement('p');
-      periodLabel.innerHTML = period;
-      periodLabel.style.gridRow = 1 + period;
-      periodLabel.style.gridColumn = 1;
-      tableContainer.append(periodLabel);
+    if (displayData.periodNumbers) {
+      for (let period = 1; period <= 7; period++) {
+        let periodLabel = document.createElement('p');
+        periodLabel.innerHTML = period;
+        periodLabel.style.gridRow = 1 + period;
+        periodLabel.style.gridColumn = 1;
+        tableContainer.append(periodLabel);
+      }
     }
 
     // create element grid
@@ -258,6 +262,7 @@ const runPeriodicTableWidget = ({
   };
 
   const updateDynamicElement = (elementNumber) => {
+    if (!displayData.key) return;
     dynamicElement.innerHTML = '';
     let elementDiv = tableElements[elementNumber - 1].createDiv();
     dynamicElement.append(elementDiv);
