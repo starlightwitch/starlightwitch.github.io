@@ -281,32 +281,54 @@ const runPeriodicTableWidget = ({
   // create element objects
   let tableElements = [];
   for (const elementTag of periodicTableData.order) {
+    // gather and format element data
     let elementData = periodicTableData[elementTag];
     if (elementData.number >= 119) break;
-
     let elementDisplayData = [
       displayData.chemicalName, displayData.chemicalSymbol,
       displayData.atomicNumber, displayData.atomicMass
     ];
 
+    // make the element
     let currElement = new TableElement(
         elementData, elementDisplayData, tableVersion, eventManager);
 
+    // make groups/periods invisible if not in list to show
     let visible = true;
     if (showGroups.length && !showGroups.includes(elementData.group)) {
       currElement.setInvisible();
       visible = false;
-    }
+    };
     if (showPeriods.length && !showPeriods.includes(elementData.period)) {
       currElement.setInvisible();
       visible = false;
-    }
+    };
+    // apply event callbacks if interactive and not invisible
     if (interactive && visible) currElement.setInteractive();
 
+    // apply scoring if not interactive
 
+    if (!interactive) {
+      // set which piece of data to score by
+      let scoringData = elementTag;
+      if (selectionMode === 'groups') scoringData = elementData.group;
+      if (selectionMode === 'periods') scoringData = elementData.period;
 
+      // apply scores
+      if (scores.correct.includes(scoringData)) {
+        currElement.setScore('correct')
+      } else if (scores.incorrect.includes(scoringData)) {
+        currElement.setScore('incorrect')
+      } else if (scores.missed.includes(scoringData)) {
+        currElement.setScore('missed')
+      }
+    }
+
+    // append the element to internal storage array
     tableElements.push(currElement);
   }
+
+
   // create dynmic element div
   let dynamicElement = document.createElement('div');
   dynamicElement.classList.add('tableDynamicElement');
@@ -468,11 +490,53 @@ class TableElement {
     this.elementDiv.classList.add('invisible-element');
   }
 
+  setScore(score = 'correct') {
+    let iconMarkDiv = document.createElement('div');
+    iconMarkDiv.classList.add('iconMarkContainer');
+    iconMarkDiv.style.zIndex = 1;
+
+
+    let iconMarkText = document.createElement('p');
+    iconMarkText.classList.add('iconMarkText');
+
+    iconMarkDiv.append(iconMarkText);
+
+    // add the correct icon mark & colors
+    let borderHexCode;
+    let backgroundHexCode;
+    switch (score) {
+      case 'correct':
+        iconMarkText.innerHTML = '\u2713';
+        borderHexCode = '#009444';
+        backgroundHexCode = '#bde3bd';
+        break;
+      case 'incorrect':
+        borderHexCode = '#BE1E2D';
+        backgroundHexCode = '#ffa3a3'
+        iconMarkText.innerHTML = '\u2715';
+        break;
+      case 'missed':
+        borderHexCode = '#F15A29';
+        backgroundHexCode = '#ffdcb5';
+        iconMarkText.innerHTML = '\u2014';
+        break;
+    };
+
+    // color the icon mark and card
+    iconMarkText.style.color = borderHexCode;
+    iconMarkDiv.style.borderColor = borderHexCode;
+    this.elementDiv.style.borderColor = borderHexCode;
+    this.elementDiv.style.backgroundColor = backgroundHexCode;
+
+    this.elementDiv.append(iconMarkDiv)
+  }
+
   clearEffects() {
     this.elementDiv.classList.remove(this.category + '-hovered');
     this.elementDiv.classList.remove('selectedElement');
   }
 }
+
 
 
 const periodicTableData = {

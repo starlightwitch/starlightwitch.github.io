@@ -14,8 +14,8 @@
 	<link type="text/css" href="assets/css/material-icons.css" rel="stylesheet">
 	<link type="text/css" href="assets/css/fontawesome.css" rel="stylesheet">
 	<link type="text/css" href="assets/css/preloader.css" rel="stylesheet">
-	<link type="text/css" href="assets/css/app.css" rel="stylesheet">
-	<link type="text/css" href="quiz-widgets-light.css" rel="stylesheet">
+	<link type="text/css" href="assets/css/app-dark.css" rel="stylesheet">
+	<link type="text/css" href="quiz-widgets-dark.css" rel="stylesheet">
 </head>
 
 
@@ -159,13 +159,13 @@
 	<script>
 		const widgetConfig = {
 			container: 'answer-visual-container',
-			interactive: true,
+			interactive: false,
 			scores: {
-				correct: [],
-				incorrect: [],
-				missed: [],
+				correct: ['helium', 'sulfur'],
+				incorrect: ['hydrogen'],
+				missed: ['bismuth'],
 			},
-			selectionMode: 'groups',  // options: elements | groups | periods
+			selectionMode: 'elements',  // options: elements | groups | periods
 			maxSelections: 3,
 			displayData: {
 				chemicalName: true,
