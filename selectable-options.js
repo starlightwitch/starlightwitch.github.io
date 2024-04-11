@@ -42,7 +42,8 @@ const runSelectableOptionsWidget =
       answerHiddenInput.name = 'answers[]';
       answerHiddenInput.value = '';
       const updateHiddenInputs = (output) => {
-        answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
+        answerHiddenInput.value =
+            encodeURIComponent(JSON.stringify(output.toSorted()));
       };
 
       // Insert the hidden input into the html
