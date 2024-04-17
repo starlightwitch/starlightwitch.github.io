@@ -105,27 +105,31 @@ const runPeriodicTableWidget = ({
     if (displayData.key) {
       let tableKey = document.createElement('div');
       tableKey.classList.add('tableKey');
+      let keyElement = document.createElement('div');
+      keyElement.classList.add('elementContainer');
+
       // mass
       let keyMass = document.createElement('p');
       keyMass.innerHTML = 'relative atomic mass';
-      keyMass.classList.add('elementMass');
-      tableKey.append(keyMass);
+      keyMass.classList.add('dynamicElementMass');
+      keyElement.append(keyMass);
       // atomic symbol
       let keySymbol = document.createElement('p');
       keySymbol.innerHTML = 'atomic symbol';
-      keySymbol.classList.add('elementSymbol');
-      tableKey.append(keySymbol);
+      keySymbol.classList.add('dynamicElementSymbol');
+      keyElement.append(keySymbol);
       // chemical name
       let keyName = document.createElement('p');
       keyName.innerHTML = 'name';
-      keyName.classList.add('elementName');
-      tableKey.append(keyName);
+      keyName.classList.add('dynamicElementName');
+      keyElement.append(keyName);
       // atomic number
       let keyNumber = document.createElement('p');
       keyNumber.innerHTML = 'atomic (proton) number';
-      keyNumber.classList.add('elementNumber');
+      keyNumber.classList.add('dynamicElementNumber');
+      keyElement.append(keyNumber);
 
-      tableKey.append(keyNumber);
+      tableKey.append(keyElement);
       elementGrid.append(tableKey);
     }
 
@@ -266,8 +270,13 @@ const runPeriodicTableWidget = ({
   };
 
   const updateDynamicElement = (elementNumber) => {
+    if (!(displayData.chemicalName || displayData.chemicalSymbol ||
+          displayData.atomicNumber || displayData.atomicMass))
+      return;
+
     dynamicElement.innerHTML = '';
-    let elementDiv = tableElements[elementNumber - 1].createDiv();
+    let elementDiv =
+        tableElements[elementNumber - 1].createDiv(forDynamicElement = true);
     dynamicElement.append(elementDiv);
   };
 
@@ -371,7 +380,7 @@ class TableElement {
     this.elementDiv = this.createDiv();
   };
 
-  createDiv() {
+  createDiv(forDynamicElement = false) {
     let elementDiv = document.createElement('div');
     let elementMass = document.createElement('p');
     let elementSymbol = document.createElement('p');
@@ -406,14 +415,22 @@ class TableElement {
         }
       }
       elementMass.innerHTML = roundedMass;
-      elementMass.classList.add('elementMass');
+      if (forDynamicElement) {
+        elementMass.classList.add('dynamicElementMass');
+      } else {
+        elementMass.classList.add('elementMass');
+      }
       elementDiv.append(elementMass);
     }
 
     // set and stylize element symbol, then append to element div
     if (this.showChemicalSymbol) {
       elementSymbol.innerHTML = this.symbol;
-      elementSymbol.classList.add('elementSymbol');
+      if (forDynamicElement) {
+        elementSymbol.classList.add('dynamicElementSymbol');
+      } else {
+        elementSymbol.classList.add('elementSymbol');
+      }
       elementDiv.append(elementSymbol);
     }
 
@@ -422,6 +439,7 @@ class TableElement {
       elementName.innerHTML = this.name;
       let nameCSSClass =
           this.name.length > 9 ? 'elementLongName' : 'elementName';
+      if (forDynamicElement) nameCSSClass = 'dynamicElementName';
       elementName.classList.add(nameCSSClass);
       elementDiv.append(elementName);
     }
@@ -429,7 +447,11 @@ class TableElement {
     // set and stylize element number, then append to element div
     if (this.showAtomicNumber) {
       elementNumber.innerHTML = this.number;
-      elementNumber.classList.add('elementNumber');
+      if (forDynamicElement) {
+        elementNumber.classList.add('dynamicElementNumber');
+      } else {
+        elementNumber.classList.add('elementNumber');
+      }
       elementDiv.append(elementNumber);
     }
 
