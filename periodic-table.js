@@ -107,6 +107,7 @@ const runPeriodicTableWidget = ({
       tableKey.classList.add('tableKey');
       let keyElement = document.createElement('div');
       keyElement.classList.add('elementContainer');
+      keyElement.classList.add('unknown');
 
       // mass
       let keyMass = document.createElement('p');
@@ -148,19 +149,26 @@ const runPeriodicTableWidget = ({
         break;
       case 'enter':
         updateDynamicElement(elementNumber);
-        switch (selectionMode) {
-          case 'elements':
-            focusElement(elementNumber);
-            break;
-          case 'groups':
-            focusGroup(elementGroup);
-            break;
-          case 'periods':
-            focusPeriod(elementPeriod);
-            break;
+        if (interactive) {
+          switch (selectionMode) {
+            case 'elements':
+              focusElement(elementNumber);
+              break;
+            case 'groups':
+              focusGroup(elementGroup);
+              break;
+            case 'periods':
+              focusPeriod(elementPeriod);
+              break;
+          }
         }
         break;
       case 'click': {
+        if (!interactive) {
+          fireInfoPopUp(elementNumber);
+          break;
+        }
+
         switch (selectionMode) {
           case 'elements':
             toggleElementSelection(elementNumber);
@@ -176,6 +184,25 @@ const runPeriodicTableWidget = ({
         updateHiddenInputs(selections);
       }
     }
+  };
+
+  const fireInfoPopUp = (elementNumber) => {
+    let elementData =
+        periodicTableData[periodicTableData.order[elementNumber - 1]];
+
+    let elementInfo = `${elementData.name} has atomic number ${
+        elementData.number} and an atomic mass of ${
+        elementData.atomic_mass.toFixed(
+            2)} Da. It is represented by the symbol ${
+        elementData.symbol}, and it's electron configuration is ${
+        elementData.electron_configuration}.`;
+
+    if (elementData.popUpText) {
+      elementInfo += '<br><br>';
+      elementInfo += elementData.popUpText;
+    }
+
+    Swal.fire({title: elementData.name, html: elementInfo, icon: 'info'});
   };
 
   const toggleElementSelection = (elementNumber) => {
@@ -313,10 +340,9 @@ const runPeriodicTableWidget = ({
       visible = false;
     };
     // apply event callbacks if interactive and not invisible
-    if (interactive && visible) currElement.setInteractive();
+    if (visible) currElement.setInteractive();
 
     // apply scoring if not interactive
-
     if (!interactive) {
       // set which piece of data to score by
       let scoringData = elementTag;
@@ -559,8 +585,6 @@ class TableElement {
   }
 }
 
-
-
 const periodicTableData = {
   'order': [
     'hydrogen',    'helium',       'lithium',      'beryllium',
@@ -601,6 +625,8 @@ const periodicTableData = {
     'symbol': 'H',
     'group': 1,
     'period': 1,
+    'electron_configuration': '1s1',
+    'popUpText': 'Hydrogen is the most abundant element in the universe.',
     'category': 'diatomic-nonmetal'
   },
   'helium': {
@@ -610,6 +636,7 @@ const periodicTableData = {
     'symbol': 'He',
     'group': 18,
     'period': 1,
+    'electron_configuration': '1s2',
     'category': 'noble-gas'
   },
   'lithium': {
@@ -619,6 +646,7 @@ const periodicTableData = {
     'symbol': 'Li',
     'group': 1,
     'period': 2,
+    'electron_configuration': '1s2 2s1',
     'category': 'alkali-metal'
   },
   'beryllium': {
@@ -628,6 +656,7 @@ const periodicTableData = {
     'symbol': 'Be',
     'group': 2,
     'period': 2,
+    'electron_configuration': '1s2 2s2',
     'category': 'alkaline-earth-metal'
   },
   'boron': {
@@ -637,6 +666,7 @@ const periodicTableData = {
     'symbol': 'B',
     'group': 13,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p1',
     'category': 'metalloid'
   },
   'carbon': {
@@ -646,6 +676,7 @@ const periodicTableData = {
     'symbol': 'C',
     'group': 14,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p2',
     'category': 'polyatomic-nonmetal'
   },
   'nitrogen': {
@@ -655,6 +686,7 @@ const periodicTableData = {
     'symbol': 'N',
     'group': 15,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p3',
     'category': 'diatomic-nonmetal'
   },
   'oxygen': {
@@ -664,6 +696,7 @@ const periodicTableData = {
     'symbol': 'O',
     'group': 16,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p4',
     'category': 'diatomic-nonmetal'
   },
   'fluorine': {
@@ -673,6 +706,7 @@ const periodicTableData = {
     'symbol': 'F',
     'group': 17,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p5',
     'category': 'diatomic-nonmetal'
   },
   'neon': {
@@ -682,6 +716,7 @@ const periodicTableData = {
     'symbol': 'Ne',
     'group': 18,
     'period': 2,
+    'electron_configuration': '1s2 2s2 2p6',
     'category': 'noble-gas'
   },
   'sodium': {
@@ -691,6 +726,7 @@ const periodicTableData = {
     'symbol': 'Na',
     'group': 1,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s1',
     'category': 'alkali-metal'
   },
   'magnesium': {
@@ -700,6 +736,7 @@ const periodicTableData = {
     'symbol': 'Mg',
     'group': 2,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2',
     'category': 'alkaline-earth-metal'
   },
   'aluminium': {
@@ -709,6 +746,7 @@ const periodicTableData = {
     'symbol': 'Al',
     'group': 13,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p1',
     'category': 'post-transition-metal'
   },
   'silicon': {
@@ -718,6 +756,7 @@ const periodicTableData = {
     'symbol': 'Si',
     'group': 14,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p2',
     'category': 'metalloid'
   },
   'phosphorus': {
@@ -727,6 +766,7 @@ const periodicTableData = {
     'symbol': 'P',
     'group': 15,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p3',
     'category': 'polyatomic-nonmetal'
   },
   'sulfur': {
@@ -736,6 +776,7 @@ const periodicTableData = {
     'symbol': 'S',
     'group': 16,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p4',
     'category': 'polyatomic-nonmetal'
   },
   'chlorine': {
@@ -745,6 +786,7 @@ const periodicTableData = {
     'symbol': 'Cl',
     'group': 17,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p5',
     'category': 'diatomic-nonmetal'
   },
   'argon': {
@@ -754,6 +796,7 @@ const periodicTableData = {
     'symbol': 'Ar',
     'group': 18,
     'period': 3,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6',
     'category': 'noble-gas'
   },
   'potassium': {
@@ -763,6 +806,7 @@ const periodicTableData = {
     'symbol': 'K',
     'group': 1,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1',
     'category': 'alkali-metal'
   },
   'calcium': {
@@ -772,6 +816,7 @@ const periodicTableData = {
     'symbol': 'Ca',
     'group': 2,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2',
     'category': 'alkaline-earth-metal'
   },
   'scandium': {
@@ -781,6 +826,7 @@ const periodicTableData = {
     'symbol': 'Sc',
     'group': 3,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d1',
     'category': 'transition-metal'
   },
   'titanium': {
@@ -790,6 +836,7 @@ const periodicTableData = {
     'symbol': 'Ti',
     'group': 4,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d2',
     'category': 'transition-metal'
   },
   'vanadium': {
@@ -799,6 +846,7 @@ const periodicTableData = {
     'symbol': 'V',
     'group': 5,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d3',
     'category': 'transition-metal'
   },
   'chromium': {
@@ -808,6 +856,7 @@ const periodicTableData = {
     'symbol': 'Cr',
     'group': 6,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1 3d5',
     'category': 'transition-metal'
   },
   'manganese': {
@@ -817,6 +866,7 @@ const periodicTableData = {
     'symbol': 'Mn',
     'group': 7,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d5',
     'category': 'transition-metal'
   },
   'iron': {
@@ -826,6 +876,7 @@ const periodicTableData = {
     'symbol': 'Fe',
     'group': 8,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d6',
     'category': 'transition-metal'
   },
   'cobalt': {
@@ -835,6 +886,7 @@ const periodicTableData = {
     'symbol': 'Co',
     'group': 9,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d7',
     'category': 'transition-metal'
   },
   'nickel': {
@@ -844,6 +896,7 @@ const periodicTableData = {
     'symbol': 'Ni',
     'group': 10,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d8',
     'category': 'transition-metal'
   },
   'copper': {
@@ -853,6 +906,7 @@ const periodicTableData = {
     'symbol': 'Cu',
     'group': 11,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1 3d10',
     'category': 'transition-metal'
   },
   'zinc': {
@@ -862,6 +916,7 @@ const periodicTableData = {
     'symbol': 'Zn',
     'group': 12,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10',
     'category': 'transition-metal'
   },
   'gallium': {
@@ -871,6 +926,7 @@ const periodicTableData = {
     'symbol': 'Ga',
     'group': 13,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p1',
     'category': 'post-transition-metal'
   },
   'germanium': {
@@ -880,6 +936,7 @@ const periodicTableData = {
     'symbol': 'Ge',
     'group': 14,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p2',
     'category': 'metalloid'
   },
   'arsenic': {
@@ -889,6 +946,7 @@ const periodicTableData = {
     'symbol': 'As',
     'group': 15,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p3',
     'category': 'metalloid'
   },
   'selenium': {
@@ -898,6 +956,7 @@ const periodicTableData = {
     'symbol': 'Se',
     'group': 16,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p4',
     'category': 'polyatomic-nonmetal'
   },
   'bromine': {
@@ -907,6 +966,7 @@ const periodicTableData = {
     'symbol': 'Br',
     'group': 17,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p5',
     'category': 'diatomic-nonmetal'
   },
   'krypton': {
@@ -916,6 +976,7 @@ const periodicTableData = {
     'symbol': 'Kr',
     'group': 18,
     'period': 4,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6',
     'category': 'noble-gas'
   },
   'rubidium': {
@@ -925,6 +986,7 @@ const periodicTableData = {
     'symbol': 'Rb',
     'group': 1,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1',
     'category': 'alkali-metal'
   },
   'strontium': {
@@ -934,6 +996,7 @@ const periodicTableData = {
     'symbol': 'Sr',
     'group': 2,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2',
     'category': 'alkaline-earth-metal'
   },
   'yttrium': {
@@ -943,6 +1006,7 @@ const periodicTableData = {
     'symbol': 'Y',
     'group': 3,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d1',
     'category': 'transition-metal'
   },
   'zirconium': {
@@ -952,6 +1016,7 @@ const periodicTableData = {
     'symbol': 'Zr',
     'group': 4,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d2',
     'category': 'transition-metal'
   },
   'niobium': {
@@ -961,6 +1026,7 @@ const periodicTableData = {
     'symbol': 'Nb',
     'group': 5,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d4',
     'category': 'transition-metal'
   },
   'molybdenum': {
@@ -970,6 +1036,7 @@ const periodicTableData = {
     'symbol': 'Mo',
     'group': 6,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d5',
     'category': 'transition-metal'
   },
   'technetium': {
@@ -979,6 +1046,7 @@ const periodicTableData = {
     'symbol': 'Tc',
     'group': 7,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d5',
     'category': 'transition-metal'
   },
   'ruthenium': {
@@ -988,6 +1056,7 @@ const periodicTableData = {
     'symbol': 'Ru',
     'group': 8,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d7',
     'category': 'transition-metal'
   },
   'rhodium': {
@@ -997,6 +1066,7 @@ const periodicTableData = {
     'symbol': 'Rh',
     'group': 9,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d8',
     'category': 'transition-metal'
   },
   'palladium': {
@@ -1006,6 +1076,7 @@ const periodicTableData = {
     'symbol': 'Pd',
     'group': 10,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 4d10',
     'category': 'transition-metal'
   },
   'silver': {
@@ -1015,6 +1086,7 @@ const periodicTableData = {
     'symbol': 'Ag',
     'group': 11,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d10',
     'category': 'transition-metal'
   },
   'cadmium': {
@@ -1024,6 +1096,7 @@ const periodicTableData = {
     'symbol': 'Cd',
     'group': 12,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10',
     'category': 'transition-metal'
   },
   'indium': {
@@ -1033,6 +1106,7 @@ const periodicTableData = {
     'symbol': 'In',
     'group': 13,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p1',
     'category': 'post-transition-metal'
   },
   'tin': {
@@ -1042,6 +1116,7 @@ const periodicTableData = {
     'symbol': 'Sn',
     'group': 14,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p2',
     'category': 'post-transition-metal'
   },
   'antimony': {
@@ -1051,6 +1126,7 @@ const periodicTableData = {
     'symbol': 'Sb',
     'group': 15,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p3',
     'category': 'metalloid'
   },
   'tellurium': {
@@ -1060,6 +1136,7 @@ const periodicTableData = {
     'symbol': 'Te',
     'group': 16,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p4',
     'category': 'metalloid'
   },
   'iodine': {
@@ -1069,6 +1146,7 @@ const periodicTableData = {
     'symbol': 'I',
     'group': 17,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p5',
     'category': 'diatomic-nonmetal'
   },
   'xenon': {
@@ -1078,6 +1156,7 @@ const periodicTableData = {
     'symbol': 'Xe',
     'group': 18,
     'period': 5,
+    'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6',
     'category': 'noble-gas'
   },
   'cesium': {
@@ -1087,6 +1166,8 @@ const periodicTableData = {
     'symbol': 'Cs',
     'group': 1,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1',
     'category': 'alkali-metal'
   },
   'barium': {
@@ -1096,6 +1177,8 @@ const periodicTableData = {
     'symbol': 'Ba',
     'group': 2,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2',
     'category': 'alkaline-earth-metal'
   },
   'lanthanum': {
@@ -1105,6 +1188,8 @@ const periodicTableData = {
     'symbol': 'La',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 5d1',
     'category': 'lanthanide'
   },
   'cerium': {
@@ -1114,6 +1199,8 @@ const periodicTableData = {
     'symbol': 'Ce',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 5d1 4f1',
     'category': 'lanthanide'
   },
   'praseodymium': {
@@ -1123,6 +1210,8 @@ const periodicTableData = {
     'symbol': 'Pr',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f3',
     'category': 'lanthanide'
   },
   'neodymium': {
@@ -1132,6 +1221,8 @@ const periodicTableData = {
     'symbol': 'Nd',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f4',
     'category': 'lanthanide'
   },
   'promethium': {
@@ -1141,6 +1232,8 @@ const periodicTableData = {
     'symbol': 'Pm',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f5',
     'category': 'lanthanide'
   },
   'samarium': {
@@ -1150,6 +1243,8 @@ const periodicTableData = {
     'symbol': 'Sm',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f6',
     'category': 'lanthanide'
   },
   'europium': {
@@ -1159,6 +1254,8 @@ const periodicTableData = {
     'symbol': 'Eu',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7',
     'category': 'lanthanide'
   },
   'gadolinium': {
@@ -1168,6 +1265,8 @@ const periodicTableData = {
     'symbol': 'Gd',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7 5d1',
     'category': 'lanthanide'
   },
   'terbium': {
@@ -1177,6 +1276,8 @@ const periodicTableData = {
     'symbol': 'Tb',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f9',
     'category': 'lanthanide'
   },
   'dysprosium': {
@@ -1186,6 +1287,8 @@ const periodicTableData = {
     'symbol': 'Dy',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f10',
     'category': 'lanthanide'
   },
   'holmium': {
@@ -1195,6 +1298,8 @@ const periodicTableData = {
     'symbol': 'Ho',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f11',
     'category': 'lanthanide'
   },
   'erbium': {
@@ -1204,6 +1309,8 @@ const periodicTableData = {
     'symbol': 'Er',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f12',
     'category': 'lanthanide'
   },
   'thulium': {
@@ -1213,6 +1320,8 @@ const periodicTableData = {
     'symbol': 'Tm',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f13',
     'category': 'lanthanide'
   },
   'ytterbium': {
@@ -1222,6 +1331,8 @@ const periodicTableData = {
     'symbol': 'Yb',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14',
     'category': 'lanthanide'
   },
   'lutetium': {
@@ -1231,6 +1342,8 @@ const periodicTableData = {
     'symbol': 'Lu',
     'group': 3,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d1',
     'category': 'lanthanide'
   },
   'hafnium': {
@@ -1240,6 +1353,8 @@ const periodicTableData = {
     'symbol': 'Hf',
     'group': 4,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d2',
     'category': 'transition-metal'
   },
   'tantalum': {
@@ -1249,6 +1364,8 @@ const periodicTableData = {
     'symbol': 'Ta',
     'group': 5,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d3',
     'category': 'transition-metal'
   },
   'tungsten': {
@@ -1258,6 +1375,8 @@ const periodicTableData = {
     'symbol': 'W',
     'group': 6,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d4',
     'category': 'transition-metal'
   },
   'rhenium': {
@@ -1267,6 +1386,8 @@ const periodicTableData = {
     'symbol': 'Re',
     'group': 7,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d5',
     'category': 'transition-metal'
   },
   'osmium': {
@@ -1276,6 +1397,8 @@ const periodicTableData = {
     'symbol': 'Os',
     'group': 8,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d6',
     'category': 'transition-metal'
   },
   'iridium': {
@@ -1285,6 +1408,8 @@ const periodicTableData = {
     'symbol': 'Ir',
     'group': 9,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d7',
     'category': 'transition-metal'
   },
   'platinum': {
@@ -1294,6 +1419,8 @@ const periodicTableData = {
     'symbol': 'Pt',
     'group': 10,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1 4f14 5d9',
     'category': 'transition-metal'
   },
   'gold': {
@@ -1303,6 +1430,8 @@ const periodicTableData = {
     'symbol': 'Au',
     'group': 11,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1 4f14 5d10',
     'category': 'transition-metal'
   },
   'mercury': {
@@ -1312,6 +1441,8 @@ const periodicTableData = {
     'symbol': 'Hg',
     'group': 12,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10',
     'category': 'transition-metal'
   },
   'thallium': {
@@ -1321,6 +1452,8 @@ const periodicTableData = {
     'symbol': 'Tl',
     'group': 13,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p1',
     'category': 'post-transition-metal'
   },
   'lead': {
@@ -1330,6 +1463,8 @@ const periodicTableData = {
     'symbol': 'Pb',
     'group': 14,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p2',
     'category': 'post-transition-metal'
   },
   'bismuth': {
@@ -1339,6 +1474,8 @@ const periodicTableData = {
     'symbol': 'Bi',
     'group': 15,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p3',
     'category': 'post-transition-metal'
   },
   'polonium': {
@@ -1348,6 +1485,8 @@ const periodicTableData = {
     'symbol': 'Po',
     'group': 16,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p4',
     'category': 'post-transition-metal'
   },
   'astatine': {
@@ -1357,6 +1496,8 @@ const periodicTableData = {
     'symbol': 'At',
     'group': 17,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p5',
     'category': 'metalloid'
   },
   'radon': {
@@ -1366,6 +1507,8 @@ const periodicTableData = {
     'symbol': 'Rn',
     'group': 18,
     'period': 6,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6',
     'category': 'noble-gas'
   },
   'francium': {
@@ -1375,6 +1518,8 @@ const periodicTableData = {
     'symbol': 'Fr',
     'group': 1,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s1',
     'category': 'alkali-metal'
   },
   'radium': {
@@ -1384,6 +1529,8 @@ const periodicTableData = {
     'symbol': 'Ra',
     'group': 2,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2',
     'category': 'alkaline-earth-metal'
   },
   'actinium': {
@@ -1393,6 +1540,8 @@ const periodicTableData = {
     'symbol': 'Ac',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 6d1',
     'category': 'actinide'
   },
   'thorium': {
@@ -1402,6 +1551,8 @@ const periodicTableData = {
     'symbol': 'Th',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 6d2',
     'category': 'actinide'
   },
   'protactinium': {
@@ -1411,6 +1562,8 @@ const periodicTableData = {
     'symbol': 'Pa',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f2 6d1',
     'category': 'actinide'
   },
   'uranium': {
@@ -1420,6 +1573,8 @@ const periodicTableData = {
     'symbol': 'U',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f3 6d1',
     'category': 'actinide'
   },
   'neptunium': {
@@ -1429,6 +1584,8 @@ const periodicTableData = {
     'symbol': 'Np',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f4 6d1',
     'category': 'actinide'
   },
   'plutonium': {
@@ -1438,6 +1595,8 @@ const periodicTableData = {
     'symbol': 'Pu',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f6',
     'category': 'actinide'
   },
   'americium': {
@@ -1447,6 +1606,8 @@ const periodicTableData = {
     'symbol': 'Am',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7',
     'category': 'actinide'
   },
   'curium': {
@@ -1456,6 +1617,8 @@ const periodicTableData = {
     'symbol': 'Cm',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7 6d1',
     'category': 'actinide'
   },
   'berkelium': {
@@ -1465,6 +1628,8 @@ const periodicTableData = {
     'symbol': 'Bk',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f9',
     'category': 'actinide'
   },
   'californium': {
@@ -1474,6 +1639,8 @@ const periodicTableData = {
     'symbol': 'Cf',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f10',
     'category': 'actinide'
   },
   'einsteinium': {
@@ -1483,6 +1650,8 @@ const periodicTableData = {
     'symbol': 'Es',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f11',
     'category': 'actinide'
   },
   'fermium': {
@@ -1492,6 +1661,8 @@ const periodicTableData = {
     'symbol': 'Fm',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f12',
     'category': 'actinide'
   },
   'mendelevium': {
@@ -1501,6 +1672,8 @@ const periodicTableData = {
     'symbol': 'Md',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f13',
     'category': 'actinide'
   },
   'nobelium': {
@@ -1510,6 +1683,8 @@ const periodicTableData = {
     'symbol': 'No',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14',
     'category': 'actinide'
   },
   'lawrencium': {
@@ -1519,6 +1694,8 @@ const periodicTableData = {
     'symbol': 'Lr',
     'group': 3,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 7p1',
     'category': 'actinide'
   },
   'rutherfordium': {
@@ -1528,6 +1705,8 @@ const periodicTableData = {
     'symbol': 'Rf',
     'group': 4,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d2',
     'category': 'transition-metal'
   },
   'dubnium': {
@@ -1537,6 +1716,8 @@ const periodicTableData = {
     'symbol': 'Db',
     'group': 5,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d3',
     'category': 'transition-metal'
   },
   'seaborgium': {
@@ -1546,6 +1727,8 @@ const periodicTableData = {
     'symbol': 'Sg',
     'group': 6,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d4',
     'category': 'transition-metal'
   },
   'bohrium': {
@@ -1555,6 +1738,8 @@ const periodicTableData = {
     'symbol': 'Bh',
     'group': 7,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d5',
     'category': 'transition-metal'
   },
   'hassium': {
@@ -1564,6 +1749,8 @@ const periodicTableData = {
     'symbol': 'Hs',
     'group': 8,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d6',
     'category': 'transition-metal'
   },
   'meitnerium': {
@@ -1573,6 +1760,8 @@ const periodicTableData = {
     'symbol': 'Mt',
     'group': 9,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d7',
     'category': 'unknown'
   },
   'darmstadtium': {
@@ -1582,6 +1771,8 @@ const periodicTableData = {
     'symbol': 'Ds',
     'group': 10,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d8',
     'category': 'unknown'
   },
   'roentgenium': {
@@ -1591,6 +1782,8 @@ const periodicTableData = {
     'symbol': 'Rg',
     'group': 11,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d9',
     'category': 'unknown'
   },
   'copernicium': {
@@ -1600,6 +1793,8 @@ const periodicTableData = {
     'symbol': 'Cn',
     'group': 12,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10',
     'category': 'transition-metal'
   },
   'nihonium': {
@@ -1609,6 +1804,8 @@ const periodicTableData = {
     'symbol': 'Nh',
     'group': 13,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p1',
     'category': 'unknown'
   },
   'flerovium': {
@@ -1618,6 +1815,8 @@ const periodicTableData = {
     'symbol': 'Fl',
     'group': 14,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p2',
     'category': 'post-transition-metal'
   },
   'moscovium': {
@@ -1627,6 +1826,8 @@ const periodicTableData = {
     'symbol': 'Mc',
     'group': 15,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p3',
     'category': 'unknown'
   },
   'livermorium': {
@@ -1636,6 +1837,8 @@ const periodicTableData = {
     'symbol': 'Lv',
     'group': 16,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p4',
     'category': 'unknown'
   },
   'tennessine': {
@@ -1645,6 +1848,8 @@ const periodicTableData = {
     'symbol': 'Ts',
     'group': 17,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p5',
     'category': 'unknown'
   },
   'oganesson': {
@@ -1654,6 +1859,8 @@ const periodicTableData = {
     'symbol': 'Og',
     'group': 18,
     'period': 7,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6',
     'category': 'unknown'
   },
   'ununennium': {
@@ -1663,6 +1870,8 @@ const periodicTableData = {
     'symbol': 'Uue',
     'group': 1,
     'period': 8,
+    'electron_configuration':
+        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6 8s1',
     'category': 'unknown'
   }
 };
