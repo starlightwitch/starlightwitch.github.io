@@ -517,6 +517,18 @@ class TableElement {
         } else {
           return 'unknown';
         }
+      case 'shell_blocks':
+        if (this.group <= 2 || this.number == 2) {
+          return 'polyatomic-nonmetal';
+        } else if (this.group >= 13) {
+          return 'diatomic-nonmetal'
+        } else if (
+            (this.number >= 58 && this.number <= 71) ||
+            (this.number >= 90 && this.number <= 103)) {
+          return 'alkali-metal';
+        } else {
+          return 'alkaline-earth-metal';
+        }
     }
   }
 
