@@ -427,8 +427,6 @@ class TableElement {
       elementDiv.style.gridColumnStart = 4;
     }
 
-
-
     // set and stylize the element mass, then append to element div
     if (this.showAtomicMass) {
       let roundedMass;
@@ -504,6 +502,20 @@ class TableElement {
           return 'alkali-metal';
         } else {
           return 'lanthanide';
+        };
+      case 'basic_groups':
+        if (this.category === 'alkali-metal' || this.category === 'noble-gas' ||
+            this.category === 'halogen' ||
+            this.category === 'transition-metal') {
+          return this.category;
+        } else if (
+            this.category === 'lanthanide' || this.category === 'actinide' ||
+            (this.number >= 109 && this.number <= 111)) {
+          return 'transition-metal';
+        } else if (this.group == 17 && this.number != 117) {
+          return 'diatomic-nonmetal';
+        } else {
+          return 'unknown';
         }
     }
   }
