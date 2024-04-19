@@ -7,7 +7,8 @@ const runPeriodicTableWidget = ({
   displayData,
   showPeriods,
   showGroups,
-  tableVersion
+  tableVersion,
+  colorScheme
 }) => {
   // organize theme colors
   const defaultTheme = 'light';
@@ -327,7 +328,8 @@ const runPeriodicTableWidget = ({
 
     // make the element
     let currElement = new TableElement(
-        elementData, elementDisplayData, tableVersion, eventManager);
+        elementData, elementDisplayData, tableVersion, colorScheme,
+        eventManager);
 
     // make groups/periods invisible if not in list to show
     let visible = true;
@@ -386,7 +388,7 @@ class TableElement {
   constructor(
       {name, atomic_mass, number, symbol, group, period, category},
       [showChemicalName, showChemicalSymbol, showAtomicNumber, showAtomicMass],
-      tableVersion, eventManager) {
+      tableVersion, colorScheme, eventManager) {
     this.name = name;
     this.atomic_mass = atomic_mass;
     this.number = number;
@@ -401,6 +403,7 @@ class TableElement {
     this.showAtomicMass = showAtomicMass;
 
     this.tableVersion = tableVersion;
+    this.colorScheme = colorScheme;
     this.eventManager = eventManager;
 
     this.elementDiv = this.createDiv();
@@ -415,16 +418,16 @@ class TableElement {
 
     // stylize container
     elementDiv.classList.add('elementContainer');
-    elementDiv.classList.add(this.category)
+    elementDiv.classList.add(this.colorSchemeClass());
     if (this.name === 'Helium') {
       elementDiv.style.gridColumnStart = 18;
-    }
-    else if (this.name === 'Boron' || this.name === 'Aluminium') {
+    } else if (this.name === 'Boron' || this.name === 'Aluminium') {
       elementDiv.style.gridColumnStart = 13;
-    }
-    else if (this.name === 'Cerium' || this.name === 'Throium') {
+    } else if (this.name === 'Cerium' || this.name === 'Throium') {
       elementDiv.style.gridColumnStart = 4;
     }
+
+
 
     // set and stylize the element mass, then append to element div
     if (this.showAtomicMass) {
@@ -488,6 +491,23 @@ class TableElement {
     return this.elementDiv;
   };
 
+  colorSchemeClass() {
+    // get CSS class for container according to colorScheme
+    switch (this.colorScheme) {
+      case 'original':
+        return this.category;
+      case 'metals':
+        if (this.category === 'metalloid' ||
+            this.category === 'polyatomic-nonmetal' ||
+            this.category === 'diatomic-nonmetal' ||
+            this.category === 'noble-gas' || this.name === 'Oganesson') {
+          return 'alkali-metal';
+        } else {
+          return 'lanthanide';
+        }
+    }
+  }
+
   setInteractive() {
     // set interactive cursor
     this.elementDiv.style.cursor = 'pointer';
@@ -519,11 +539,11 @@ class TableElement {
   }
 
   setHovered() {
-    this.elementDiv.classList.add(this.category + '-hovered')
+    this.elementDiv.classList.add(this.colorSchemeClass() + '-hovered')
   }
 
   removeHovered() {
-    this.elementDiv.classList.remove(this.category + '-hovered');
+    this.elementDiv.classList.remove(this.colorSchemeClass() + '-hovered');
   }
 
   setSelected() {
@@ -580,7 +600,7 @@ class TableElement {
   }
 
   clearEffects() {
-    this.elementDiv.classList.remove(this.category + '-hovered');
+    this.elementDiv.classList.remove(this.colorSchemeClass() + '-hovered');
     this.elementDiv.classList.remove('selectedElement');
   }
 }

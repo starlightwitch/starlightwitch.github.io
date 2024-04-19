@@ -1577,15 +1577,15 @@ td img {
 	visibility: hidden;
 }
 
-.selectedElement {
-	background-color: #124d60 !important;
-	color: white
-}
-
 /* specific to dark mode */
 .elementContainer {
 	color: black;
 	border-color: white;
+}
+
+.selectedElement {
+	background-color: #124d60 !important;
+	color: white
 }
 
 .diatomic-nonmetal {
