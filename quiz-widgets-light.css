@@ -1569,6 +1569,7 @@ td img {
 
 .invisibleElement {
 	visibility: hidden;
+	/* display: none; */
 }
 
 .focusedElement {

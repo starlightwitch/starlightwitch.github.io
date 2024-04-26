@@ -677,12 +677,12 @@ class TableElement {
         backgroundHexCode = '#bde3bd';
         break;
       case 'incorrect':
-        borderHexCode = '#BE1E2D';
+        borderHexCode = '#ff7070';
         backgroundHexCode = '#ffa3a3'
         iconMarkText.innerHTML = '\u2715';
         break;
       case 'missed':
-        borderHexCode = '#F15A29';
+        borderHexCode = '#FF66CC';
         backgroundHexCode = '#ffdcb5';
         iconMarkText.innerHTML = '\u2014';
         break;
