@@ -111,25 +111,33 @@ const runPeriodicTableWidget = ({
       keyElement.classList.add('unknown');
 
       // mass
-      let keyMass = document.createElement('p');
-      keyMass.innerHTML = 'relative atomic mass';
-      keyMass.classList.add('dynamicElementMass');
-      keyElement.append(keyMass);
-      // atomic symbol
-      let keySymbol = document.createElement('p');
-      keySymbol.innerHTML = 'atomic symbol';
-      keySymbol.classList.add('dynamicElementSymbol');
-      keyElement.append(keySymbol);
+      if (displayData.atomicMass) {
+        let keyMass = document.createElement('p');
+        keyMass.innerHTML = 'relative atomic mass';
+        keyMass.classList.add('dynamicElementMass');
+        keyElement.append(keyMass);
+      }
+      // chemical symbol
+      if (displayData.chemicalSymbol) {
+        let keySymbol = document.createElement('p');
+        keySymbol.innerHTML = 'atomic symbol';
+        keySymbol.classList.add('dynamicElementSymbol');
+        keyElement.append(keySymbol);
+      }
       // chemical name
-      let keyName = document.createElement('p');
-      keyName.innerHTML = 'name';
-      keyName.classList.add('dynamicElementName');
-      keyElement.append(keyName);
+      if (displayData.chemicalName) {
+        let keyName = document.createElement('p');
+        keyName.innerHTML = 'name';
+        keyName.classList.add('dynamicElementName');
+        keyElement.append(keyName);
+      }
       // atomic number
-      let keyNumber = document.createElement('p');
-      keyNumber.innerHTML = 'atomic (proton) number';
-      keyNumber.classList.add('dynamicElementNumber');
-      keyElement.append(keyNumber);
+      if (displayData.atomicNumber) {
+        let keyNumber = document.createElement('p');
+        keyNumber.innerHTML = 'atomic (proton) number';
+        keyNumber.classList.add('dynamicElementNumber');
+        keyElement.append(keyNumber);
+      }
 
       tableKey.append(keyElement);
       elementGrid.append(tableKey);
