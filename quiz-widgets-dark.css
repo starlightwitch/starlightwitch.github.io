@@ -1483,7 +1483,6 @@ td img {
 
 .elementGrid {
 	display: grid;
-	gap: 2px;
 	grid-template-columns: subgrid;
 	grid-template-rows: subgrid;
 	grid-row: 2 / span 9;
@@ -1511,8 +1510,6 @@ td img {
 	flex-direction: column;
 	align-items: center;
 	justify-content: space-around;
-	border: 1px solid;
-	border-radius: 2px;
 	width: 100%;
 	transition: background-color 0.3s;
 	outline: none;
@@ -1579,7 +1576,8 @@ td img {
 }
 
 .focusedElement {
-	border-color: #FFA500 !important;
+	z-index: 1;
+	outline: 1px solid #FFA500 !important;
 }
 
 .selectedElement {
@@ -1594,13 +1592,15 @@ td img {
 }
 
 .exam-color {
-	background: none;
-	color: white !important
+	background-color: none;
+	outline: 1px solid grey;
+	outline-offset: -0.5px;
+	color: white;
 }
 
 .exam-color-hovered {
 	background: #545454;
-	color: white !important
+	color: white;
 }
 
 .diatomic-nonmetal {
