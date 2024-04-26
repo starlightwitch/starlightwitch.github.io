@@ -160,18 +160,20 @@ const runPeriodicTableWidget = ({
         break;
       case 'enter':
         updateDynamicElement(elementNumber);
-        if (interactive) {
-          switch (selectionMode) {
-            case 'elements':
-              focusElement(elementNumber);
-              break;
-            case 'groups':
-              focusGroup(elementGroup);
-              break;
-            case 'periods':
-              focusPeriod(elementPeriod);
-              break;
-          }
+        if (!interactive) {
+          focusElement(elementNumber);
+          break;
+        }
+        switch (selectionMode) {
+          case 'elements':
+            focusElement(elementNumber);
+            break;
+          case 'groups':
+            focusGroup(elementGroup);
+            break;
+          case 'periods':
+            focusPeriod(elementPeriod);
+            break;
         }
         break;
       case 'click': {
@@ -201,19 +203,22 @@ const runPeriodicTableWidget = ({
     let elementData =
         periodicTableData[periodicTableData.order[elementNumber - 1]];
 
-    let elementInfo = `${elementData.name} has atomic number ${
-        elementData.number} and an atomic mass of ${
-        elementData.atomic_mass.toFixed(
-            2)} Da. It is represented by the symbol ${
-        elementData.symbol}, and it's electron configuration is ${
-        elementData.electron_configuration}.`;
+    let elementInfo = `<b>Atomic Number:</b> ${elementData.number}<br><br>`;
+    elementInfo += `<b>Atomic Mass:</b> ${elementData.atomic_mass}<br><br>`;
+    elementInfo += `<b>Symbol:</b> ${elementData.symbol}<br><br>`;
+    elementInfo += `<b>Electron Configuration:</b> ${
+        elementData.electron_configuration}<br><br>`;
+    elementInfo += `<b>Shells:</b> ${elementData.shells}<br><br>`;
 
-    if (elementData.popUpText) {
-      elementInfo += '<br><br>';
-      elementInfo += elementData.popUpText;
-    }
+    let elementInfoDiv =
+        '<div style="text-align:left">' + elementInfo + '</div>';
 
-    Swal.fire({title: elementData.name, html: elementInfo, icon: 'info'});
+    Swal.fire({
+      title: elementData.name,
+      html: elementInfoDiv,
+      animation: false,
+      imageUrl: elementData.bohr_model_image
+    });
   };
 
   const toggleElementSelection = (elementNumber) => {
@@ -360,7 +365,7 @@ const runPeriodicTableWidget = ({
       visible = false;
     }
 
-    // apply event callbacks if interactive and not invisible
+    // apply event callbacks if visible
     if (visible) currElement.setInteractive();
 
     // apply scoring if not interactive
@@ -693,7 +698,9 @@ const periodicTableData = {
     'group': 1,
     'period': 1,
     'electron_configuration': '1s1',
-    'popUpText': 'Hydrogen is the most abundant element in the universe.',
+    'shells': [1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_001_hydrogen/element_001_hydrogen_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'helium': {
@@ -704,6 +711,9 @@ const periodicTableData = {
     'group': 18,
     'period': 1,
     'electron_configuration': '1s2',
+    'shells': [2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_002_helium/element_002_helium_srp_th.png',
     'category': 'noble-gas'
   },
   'lithium': {
@@ -714,6 +724,9 @@ const periodicTableData = {
     'group': 1,
     'period': 2,
     'electron_configuration': '1s2 2s1',
+    'shells': [2, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_003_lithium/element_003_lithium_srp_th.png',
     'category': 'alkali-metal'
   },
   'beryllium': {
@@ -724,6 +737,9 @@ const periodicTableData = {
     'group': 2,
     'period': 2,
     'electron_configuration': '1s2 2s2',
+    'shells': [2, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_004_beryllium/element_004_beryllium_srp_th.png',
     'category': 'alkaline-earth-metal'
   },
   'boron': {
@@ -734,6 +750,9 @@ const periodicTableData = {
     'group': 13,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p1',
+    'shells': [2, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_005_boron/element_005_boron_srp_th.png',
     'category': 'metalloid'
   },
   'carbon': {
@@ -744,6 +763,9 @@ const periodicTableData = {
     'group': 14,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p2',
+    'shells': [2, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_006_carbon/element_006_carbon_srp_th.png',
     'category': 'polyatomic-nonmetal'
   },
   'nitrogen': {
@@ -754,6 +776,9 @@ const periodicTableData = {
     'group': 15,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p3',
+    'shells': [2, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_007_nitrogen/element_007_nitrogen_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'oxygen': {
@@ -764,6 +789,9 @@ const periodicTableData = {
     'group': 16,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p4',
+    'shells': [2, 6],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_008_oxygen/element_008_oxygen_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'fluorine': {
@@ -774,6 +802,9 @@ const periodicTableData = {
     'group': 17,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p5',
+    'shells': [2, 7],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_009_fluorine/element_009_fluorine_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'neon': {
@@ -784,6 +815,9 @@ const periodicTableData = {
     'group': 18,
     'period': 2,
     'electron_configuration': '1s2 2s2 2p6',
+    'shells': [2, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_010_neon/element_010_neon_srp_th.png',
     'category': 'noble-gas'
   },
   'sodium': {
@@ -794,6 +828,9 @@ const periodicTableData = {
     'group': 1,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s1',
+    'shells': [2, 8, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_011_sodium/element_011_sodium_srp_th.png',
     'category': 'alkali-metal'
   },
   'magnesium': {
@@ -804,6 +841,9 @@ const periodicTableData = {
     'group': 2,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2',
+    'shells': [2, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_012_magnesium/element_012_magnesium_srp_th.png',
     'category': 'alkaline-earth-metal'
   },
   'aluminium': {
@@ -814,6 +854,9 @@ const periodicTableData = {
     'group': 13,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p1',
+    'shells': [2, 8, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_013_aluminum/element_013_aluminum_srp_th.png',
     'category': 'post-transition-metal'
   },
   'silicon': {
@@ -824,6 +867,9 @@ const periodicTableData = {
     'group': 14,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p2',
+    'shells': [2, 8, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_014_silicon/element_014_silicon_srp_th.png',
     'category': 'metalloid'
   },
   'phosphorus': {
@@ -834,6 +880,9 @@ const periodicTableData = {
     'group': 15,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p3',
+    'shells': [2, 8, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_015_phosphorus/element_015_phosphorus_srp_th.png',
     'category': 'polyatomic-nonmetal'
   },
   'sulfur': {
@@ -844,6 +893,9 @@ const periodicTableData = {
     'group': 16,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p4',
+    'shells': [2, 8, 6],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_016_sulfur/element_016_sulfur_srp_th.png',
     'category': 'polyatomic-nonmetal'
   },
   'chlorine': {
@@ -854,6 +906,9 @@ const periodicTableData = {
     'group': 17,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p5',
+    'shells': [2, 8, 7],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_017_chlorine/element_017_chlorine_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'argon': {
@@ -864,6 +919,9 @@ const periodicTableData = {
     'group': 18,
     'period': 3,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6',
+    'shells': [2, 8, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_018_argon/element_018_argon_srp_th.png',
     'category': 'noble-gas'
   },
   'potassium': {
@@ -874,6 +932,9 @@ const periodicTableData = {
     'group': 1,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1',
+    'shells': [2, 8, 8, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_019_potassium/element_019_potassium_srp_th.png',
     'category': 'alkali-metal'
   },
   'calcium': {
@@ -884,6 +945,9 @@ const periodicTableData = {
     'group': 2,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2',
+    'shells': [2, 8, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_020_calcium/element_020_calcium_srp_th.png',
     'category': 'alkaline-earth-metal'
   },
   'scandium': {
@@ -894,6 +958,9 @@ const periodicTableData = {
     'group': 3,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d1',
+    'shells': [2, 8, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_021_scandium/element_021_scandium_srp_th.png',
     'category': 'transition-metal'
   },
   'titanium': {
@@ -904,6 +971,9 @@ const periodicTableData = {
     'group': 4,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d2',
+    'shells': [2, 8, 10, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_022_titanium/element_022_titanium_srp_th.png',
     'category': 'transition-metal'
   },
   'vanadium': {
@@ -914,6 +984,9 @@ const periodicTableData = {
     'group': 5,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d3',
+    'shells': [2, 8, 11, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_023_vanadium/element_023_vanadium_srp_th.png',
     'category': 'transition-metal'
   },
   'chromium': {
@@ -924,6 +997,9 @@ const periodicTableData = {
     'group': 6,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1 3d5',
+    'shells': [2, 8, 13, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_024_chromium/element_024_chromium_srp_th.png',
     'category': 'transition-metal'
   },
   'manganese': {
@@ -934,6 +1010,9 @@ const periodicTableData = {
     'group': 7,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d5',
+    'shells': [2, 8, 13, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_025_manganese/element_025_manganese_srp_th.png',
     'category': 'transition-metal'
   },
   'iron': {
@@ -944,6 +1023,9 @@ const periodicTableData = {
     'group': 8,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d6',
+    'shells': [2, 8, 14, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_026_iron/element_026_iron_srp_th.png',
     'category': 'transition-metal'
   },
   'cobalt': {
@@ -954,6 +1036,9 @@ const periodicTableData = {
     'group': 9,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d7',
+    'shells': [2, 8, 15, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_027_cobalt/element_027_cobalt_srp_th.png',
     'category': 'transition-metal'
   },
   'nickel': {
@@ -964,6 +1049,9 @@ const periodicTableData = {
     'group': 10,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d8',
+    'shells': [2, 8, 16, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_028_nickel/element_028_nickel_srp_th.png',
     'category': 'transition-metal'
   },
   'copper': {
@@ -974,6 +1062,9 @@ const periodicTableData = {
     'group': 11,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s1 3d10',
+    'shells': [2, 8, 18, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_029_copper/element_029_copper_srp_th.png',
     'category': 'transition-metal'
   },
   'zinc': {
@@ -984,6 +1075,9 @@ const periodicTableData = {
     'group': 12,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10',
+    'shells': [2, 8, 18, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_030_zinc/element_030_zinc_srp_th.png',
     'category': 'transition-metal'
   },
   'gallium': {
@@ -994,6 +1088,9 @@ const periodicTableData = {
     'group': 13,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p1',
+    'shells': [2, 8, 18, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_031_gallium/element_031_gallium_srp_th.png',
     'category': 'post-transition-metal'
   },
   'germanium': {
@@ -1004,6 +1101,9 @@ const periodicTableData = {
     'group': 14,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p2',
+    'shells': [2, 8, 18, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_032_germanium/element_032_germanium_srp_th.png',
     'category': 'metalloid'
   },
   'arsenic': {
@@ -1014,6 +1114,9 @@ const periodicTableData = {
     'group': 15,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p3',
+    'shells': [2, 8, 18, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_033_arsenic/element_033_arsenic_srp_th.png',
     'category': 'metalloid'
   },
   'selenium': {
@@ -1024,6 +1127,9 @@ const periodicTableData = {
     'group': 16,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p4',
+    'shells': [2, 8, 18, 6],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_034_selenium/element_034_selenium_srp_th.png',
     'category': 'polyatomic-nonmetal'
   },
   'bromine': {
@@ -1034,6 +1140,9 @@ const periodicTableData = {
     'group': 17,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p5',
+    'shells': [2, 8, 18, 7],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_035_bromine/element_035_bromine_srp_th.png',
     'category': 'diatomic-nonmetal'
   },
   'krypton': {
@@ -1044,6 +1153,9 @@ const periodicTableData = {
     'group': 18,
     'period': 4,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6',
+    'shells': [2, 8, 18, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_036_krypton/element_036_krypton_srp_th.png',
     'category': 'noble-gas'
   },
   'rubidium': {
@@ -1054,6 +1166,9 @@ const periodicTableData = {
     'group': 1,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1',
+    'shells': [2, 8, 18, 8, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_037_rubidium/element_037_rubidium_srp_th.png',
     'category': 'alkali-metal'
   },
   'strontium': {
@@ -1064,6 +1179,9 @@ const periodicTableData = {
     'group': 2,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2',
+    'shells': [2, 8, 18, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_038_strontium/element_038_strontium_srp_th.png',
     'category': 'alkaline-earth-metal'
   },
   'yttrium': {
@@ -1074,6 +1192,9 @@ const periodicTableData = {
     'group': 3,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d1',
+    'shells': [2, 8, 18, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_039_yttrium/element_039_yttrium_srp_th.png',
     'category': 'transition-metal'
   },
   'zirconium': {
@@ -1084,6 +1205,9 @@ const periodicTableData = {
     'group': 4,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d2',
+    'shells': [2, 8, 18, 10, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_040_zirconium/element_040_zirconium_srp_th.png',
     'category': 'transition-metal'
   },
   'niobium': {
@@ -1094,6 +1218,9 @@ const periodicTableData = {
     'group': 5,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d4',
+    'shells': [2, 8, 18, 12, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_041_niobium/element_041_niobium_srp_th.png',
     'category': 'transition-metal'
   },
   'molybdenum': {
@@ -1104,6 +1231,9 @@ const periodicTableData = {
     'group': 6,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d5',
+    'shells': [2, 8, 18, 13, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_042_molybdenum/element_042_molybdenum_srp_th.png',
     'category': 'transition-metal'
   },
   'technetium': {
@@ -1114,6 +1244,9 @@ const periodicTableData = {
     'group': 7,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d5',
+    'shells': [2, 8, 18, 13, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_043_technetium/element_043_technetium_srp_th.png',
     'category': 'transition-metal'
   },
   'ruthenium': {
@@ -1124,6 +1257,9 @@ const periodicTableData = {
     'group': 8,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d7',
+    'shells': [2, 8, 18, 15, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_044_ruthenium/element_044_ruthenium_srp_th.png',
     'category': 'transition-metal'
   },
   'rhodium': {
@@ -1134,6 +1270,9 @@ const periodicTableData = {
     'group': 9,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d8',
+    'shells': [2, 8, 18, 16, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_045_rhodium/element_045_rhodium_srp_th.png',
     'category': 'transition-metal'
   },
   'palladium': {
@@ -1144,6 +1283,9 @@ const periodicTableData = {
     'group': 10,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 4d10',
+    'shells': [2, 8, 18, 18],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_046_palladium/element_046_palladium_srp_th.png',
     'category': 'transition-metal'
   },
   'silver': {
@@ -1154,6 +1296,9 @@ const periodicTableData = {
     'group': 11,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s1 4d10',
+    'shells': [2, 8, 18, 18, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_047_silver/element_047_silver_srp_th.png',
     'category': 'transition-metal'
   },
   'cadmium': {
@@ -1164,6 +1309,9 @@ const periodicTableData = {
     'group': 12,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10',
+    'shells': [2, 8, 18, 18, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_048_cadmium/element_048_cadmium_srp_th.png',
     'category': 'transition-metal'
   },
   'indium': {
@@ -1174,6 +1322,9 @@ const periodicTableData = {
     'group': 13,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p1',
+    'shells': [2, 8, 18, 18, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_049_indium/element_049_indium_srp_th.png',
     'category': 'post-transition-metal'
   },
   'tin': {
@@ -1184,6 +1335,9 @@ const periodicTableData = {
     'group': 14,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p2',
+    'shells': [2, 8, 18, 18, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_050_tin/element_050_tin_srp_th.png',
     'category': 'post-transition-metal'
   },
   'antimony': {
@@ -1194,6 +1348,9 @@ const periodicTableData = {
     'group': 15,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p3',
+    'shells': [2, 8, 18, 18, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_051_antimony/element_051_antimony_srp_th.png',
     'category': 'metalloid'
   },
   'tellurium': {
@@ -1204,7 +1361,10 @@ const periodicTableData = {
     'group': 16,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p4',
-    'category': 'metalloid'
+    'shells': [2, 8, 18, 18, 6],
+    'bohr_model_image': 'https://storage.googleapis.com/search-ar-edu/periodic-table/element_052_tellurium/element_052_tellurium_srp_th.png',
+    'category':
+        'metalloid'
   },
   'iodine': {
     'name': 'Iodine',
@@ -1214,7 +1374,11 @@ const periodicTableData = {
     'group': 17,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p5',
-    'category': 'diatomic-nonmetal'
+    'shells': [2, 8, 18, 18, 7],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_053_iodine/element_053_iodine_srp_th.png',
+    'category':
+        'diatomic-nonmetal'
   },
   'xenon': {
     'name': 'Xenon',
@@ -1224,7 +1388,11 @@ const periodicTableData = {
     'group': 18,
     'period': 5,
     'electron_configuration': '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6',
-    'category': 'noble-gas'
+    'shells': [2, 8, 18, 18, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_054_xenon/element_054_xenon_srp_th.png',
+    'category':
+        'noble-gas'
   },
   'cesium': {
     'name': 'Cesium',
@@ -1235,7 +1403,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1',
-    'category': 'alkali-metal'
+    'shells': [2, 8, 18, 18, 8, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_055_cesium/element_055_cesium_srp_th.png',
+    'category':
+        'alkali-metal'
   },
   'barium': {
     'name': 'Barium',
@@ -1246,7 +1418,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2',
-    'category': 'alkaline-earth-metal'
+    'shells': [2, 8, 18, 18, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_056_barium/element_056_barium_srp_th.png',
+    'category':
+        'alkaline-earth-metal'
   },
   'lanthanum': {
     'name': 'Lanthanum',
@@ -1257,7 +1433,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 5d1',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 18, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_057_lanthanum/element_057_lanthanum_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'cerium': {
     'name': 'Cerium',
@@ -1268,7 +1448,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 5d1 4f1',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 19, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_058_cerium/element_058_cerium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'praseodymium': {
     'name': 'Praseodymium',
@@ -1279,7 +1463,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f3',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 21, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_059_praseodymium/element_059_praseodymium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'neodymium': {
     'name': 'Neodymium',
@@ -1290,7 +1478,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f4',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 22, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_060_neodymium/element_060_neodymium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'promethium': {
     'name': 'Promethium',
@@ -1301,30 +1493,46 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f5',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 23, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_061_promethium/element_061_promethium_srp_th.png',
+    'category':
+        'lanthanide'
   },
-  'samarium': {
-    'name': 'Samarium',
-    'atomic_mass': 150.362,
-    'number': 62,
-    'symbol': 'Sm',
-    'group': 3,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f6',
-    'category': 'lanthanide'
-  },
-  'europium': {
-    'name': 'Europium',
-    'atomic_mass': 151.9641,
-    'number': 63,
-    'symbol': 'Eu',
-    'group': 3,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7',
-    'category': 'lanthanide'
-  },
+  'samarium':
+      {
+        'name':
+            'Samarium',
+        'atomic_mass': 150.362,
+        'number': 62,
+        'symbol': 'Sm',
+        'group': 3,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f6',
+        'shells': [2, 8, 18, 24, 8, 2],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_062_samarium/element_062_samarium_srp_th.png',
+        'category':
+            'lanthanide'
+      },
+  'europium':
+      {
+        'name':
+            'Europium',
+        'atomic_mass': 151.9641,
+        'number': 63,
+        'symbol': 'Eu',
+        'group': 3,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7',
+        'shells': [2, 8, 18, 25, 8, 2],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_063_europium/element_063_europium_srp_th.png',
+        'category':
+            'lanthanide'
+      },
   'gadolinium': {
     'name': 'Gadolinium',
     'atomic_mass': 157.253,
@@ -1334,7 +1542,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f7 5d1',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 25, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_064_gadolinium/element_064_gadolinium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'terbium': {
     'name': 'Terbium',
@@ -1345,7 +1557,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f9',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 27, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_065_terbium/element_065_terbium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'dysprosium': {
     'name': 'Dysprosium',
@@ -1356,7 +1572,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f10',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 28, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_066_dysprosium/element_066_dysprosium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'holmium': {
     'name': 'Holmium',
@@ -1367,7 +1587,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f11',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 29, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_067_holmium/element_067_holmium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'erbium': {
     'name': 'Erbium',
@@ -1378,7 +1602,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f12',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 30, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_068_erbium/element_068_erbium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'thulium': {
     'name': 'Thulium',
@@ -1389,7 +1617,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f13',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 31, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_069_thulium/element_069_thulium_srp_th.png',
+    'category':
+        'lanthanide'
   },
   'ytterbium': {
     'name': 'Ytterbium',
@@ -1400,19 +1632,29 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14',
-    'category': 'lanthanide'
+    'shells': [2, 8, 18, 32, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_070_ytterbium/element_070_ytterbium_srp_th.png',
+    'category':
+        'lanthanide'
   },
-  'lutetium': {
-    'name': 'Lutetium',
-    'atomic_mass': 174.96681,
-    'number': 71,
-    'symbol': 'Lu',
-    'group': 3,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d1',
-    'category': 'lanthanide'
-  },
+  'lutetium':
+      {
+        'name':
+            'Lutetium',
+        'atomic_mass': 174.96681,
+        'number': 71,
+        'symbol': 'Lu',
+        'group': 3,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d1',
+        'shells': [2, 8, 18, 32, 9, 2],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_071_lutetium/element_071_lutetium_srp_th.png',
+        'category':
+            'lanthanide'
+      },
   'hafnium': {
     'name': 'Hafnium',
     'atomic_mass': 178.492,
@@ -1422,30 +1664,46 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d2',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 10, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_072_hafnium/element_072_hafnium_srp_th.png',
+    'category':
+        'transition-metal'
   },
-  'tantalum': {
-    'name': 'Tantalum',
-    'atomic_mass': 180.947882,
-    'number': 73,
-    'symbol': 'Ta',
-    'group': 5,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d3',
-    'category': 'transition-metal'
-  },
-  'tungsten': {
-    'name': 'Tungsten',
-    'atomic_mass': 183.841,
-    'number': 74,
-    'symbol': 'W',
-    'group': 6,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d4',
-    'category': 'transition-metal'
-  },
+  'tantalum':
+      {
+        'name':
+            'Tantalum',
+        'atomic_mass': 180.947882,
+        'number': 73,
+        'symbol': 'Ta',
+        'group': 5,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d3',
+        'shells': [2, 8, 18, 32, 11, 2],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_073_tantalum/element_073_tantalum_srp_th.png',
+        'category':
+            'transition-metal'
+      },
+  'tungsten':
+      {
+        'name':
+            'Tungsten',
+        'atomic_mass': 183.841,
+        'number': 74,
+        'symbol': 'W',
+        'group': 6,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d4',
+        'shells': [2, 8, 18, 32, 12, 2],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_074_tungsten/element_074_tungsten_srp_th.png',
+        'category':
+            'transition-metal'
+      },
   'rhenium': {
     'name': 'Rhenium',
     'atomic_mass': 186.2071,
@@ -1455,7 +1713,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d5',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 13, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_075_rhenium/element_075_rhenium_srp_th.png',
+    'category':
+        'transition-metal'
   },
   'osmium': {
     'name': 'Osmium',
@@ -1466,7 +1728,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d6',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 14, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_076_osmium/element_076_osmium_srp_th.png',
+    'category':
+        'transition-metal'
   },
   'iridium': {
     'name': 'Iridium',
@@ -1477,19 +1743,29 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d7',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 15, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_077_iridium/element_077_iridium_srp_th.png',
+    'category':
+        'transition-metal'
   },
-  'platinum': {
-    'name': 'Platinum',
-    'atomic_mass': 195.0849,
-    'number': 78,
-    'symbol': 'Pt',
-    'group': 10,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1 4f14 5d9',
-    'category': 'transition-metal'
-  },
+  'platinum':
+      {
+        'name':
+            'Platinum',
+        'atomic_mass': 195.0849,
+        'number': 78,
+        'symbol': 'Pt',
+        'group': 10,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1 4f14 5d9',
+        'shells': [2, 8, 18, 32, 17, 1],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_078_platinum/element_078_platinum_srp_th.png',
+        'category':
+            'transition-metal'
+      },
   'gold': {
     'name': 'Gold',
     'atomic_mass': 196.9665695,
@@ -1499,7 +1775,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s1 4f14 5d10',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 18, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_079_gold/element_079_gold_srp_th.png',
+    'category':
+        'transition-metal'
   },
   'mercury': {
     'name': 'Mercury',
@@ -1510,19 +1790,29 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10',
-    'category': 'transition-metal'
+    'shells': [2, 8, 18, 32, 18, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_080_mercury/element_080_mercury_srp_th.png',
+    'category':
+        'transition-metal'
   },
-  'thallium': {
-    'name': 'Thallium',
-    'atomic_mass': 204.38,
-    'number': 81,
-    'symbol': 'Tl',
-    'group': 13,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p1',
-    'category': 'post-transition-metal'
-  },
+  'thallium':
+      {
+        'name':
+            'Thallium',
+        'atomic_mass': 204.38,
+        'number': 81,
+        'symbol': 'Tl',
+        'group': 13,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p1',
+        'shells': [2, 8, 18, 32, 18, 3],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_081_thallium/element_081_thallium_srp_th.png',
+        'category':
+            'post-transition-metal'
+      },
   'lead': {
     'name': 'Lead',
     'atomic_mass': 207.21,
@@ -1532,7 +1822,11 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p2',
-    'category': 'post-transition-metal'
+    'shells': [2, 8, 18, 32, 18, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_082_lead/element_082_lead_srp_th.png',
+    'category':
+        'post-transition-metal'
   },
   'bismuth': {
     'name': 'Bismuth',
@@ -1543,30 +1837,46 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p3',
-    'category': 'post-transition-metal'
+    'shells': [2, 8, 18, 32, 18, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_083_bismuth/element_083_bismuth_srp_th.png',
+    'category':
+        'post-transition-metal'
   },
-  'polonium': {
-    'name': 'Polonium',
-    'atomic_mass': 209,
-    'number': 84,
-    'symbol': 'Po',
-    'group': 16,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p4',
-    'category': 'post-transition-metal'
-  },
-  'astatine': {
-    'name': 'Astatine',
-    'atomic_mass': 210,
-    'number': 85,
-    'symbol': 'At',
-    'group': 17,
-    'period': 6,
-    'electron_configuration':
-        '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p5',
-    'category': 'metalloid'
-  },
+  'polonium':
+      {
+        'name':
+            'Polonium',
+        'atomic_mass': 209,
+        'number': 84,
+        'symbol': 'Po',
+        'group': 16,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p4',
+        'shells': [2, 8, 18, 32, 18, 6],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_084_polonium/element_084_polonium_srp_th.png',
+        'category':
+            'post-transition-metal'
+      },
+  'astatine':
+      {
+        'name':
+            'Astatine',
+        'atomic_mass': 210,
+        'number': 85,
+        'symbol': 'At',
+        'group': 17,
+        'period': 6,
+        'electron_configuration':
+            '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p5',
+        'shells': [2, 8, 18, 32, 18, 7],
+        'bohr_model_image':
+            'https://storage.googleapis.com/search-ar-edu/periodic-table/element_085_astatine/element_085_astatine_srp_th.png',
+        'category':
+            'metalloid'
+      },
   'radon': {
     'name': 'Radon',
     'atomic_mass': 222,
@@ -1576,6 +1886,9 @@ const periodicTableData = {
     'period': 6,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6',
+    'shells': [2, 8, 18, 32, 18, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_086_radon/element_086_radon_srp_th.png',
     'category': 'noble-gas'
   },
   'francium': {
@@ -1587,6 +1900,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s1',
+    'shells': [2, 8, 18, 32, 18, 8, 1],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_087_francium/element_087_francium_srp_th.png',
     'category': 'alkali-metal'
   },
   'radium': {
@@ -1598,6 +1914,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2',
+    'shells': [2, 8, 18, 32, 18, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_088_radium/element_088_radium_srp_th.png',
     'category': 'alkaline-earth-metal'
   },
   'actinium': {
@@ -1609,6 +1928,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 6d1',
+    'shells': [2, 8, 18, 32, 18, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_089_actinium/element_089_actinium_srp_th.png',
     'category': 'actinide'
   },
   'thorium': {
@@ -1620,6 +1942,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 6d2',
+    'shells': [2, 8, 18, 32, 18, 10, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_090_thorium/element_090_thorium_srp_th.png',
     'category': 'actinide'
   },
   'protactinium': {
@@ -1631,6 +1956,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f2 6d1',
+    'shells': [2, 8, 18, 32, 20, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_091_protactinium/element_091_protactinium_srp_th.png',
     'category': 'actinide'
   },
   'uranium': {
@@ -1642,6 +1970,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f3 6d1',
+    'shells': [2, 8, 18, 32, 21, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_092_uranium/element_092_uranium_srp_th.png',
     'category': 'actinide'
   },
   'neptunium': {
@@ -1653,6 +1984,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f4 6d1',
+    'shells': [2, 8, 18, 32, 22, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_093_neptunium/element_093_neptunium_srp_th.png',
     'category': 'actinide'
   },
   'plutonium': {
@@ -1664,6 +1998,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f6',
+    'shells': [2, 8, 18, 32, 24, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_094_plutonium/element_094_plutonium_srp_th.png',
     'category': 'actinide'
   },
   'americium': {
@@ -1675,6 +2012,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7',
+    'shells': [2, 8, 18, 32, 25, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_095_americium/element_095_americium_srp_th.png',
     'category': 'actinide'
   },
   'curium': {
@@ -1686,6 +2026,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f7 6d1',
+    'shells': [2, 8, 18, 32, 25, 9, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_096_curium/element_096_curium_srp_th.png',
     'category': 'actinide'
   },
   'berkelium': {
@@ -1697,6 +2040,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f9',
+    'shells': [2, 8, 18, 32, 27, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_097_berkelium/element_097_berkelium_srp_th.png',
     'category': 'actinide'
   },
   'californium': {
@@ -1708,6 +2054,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f10',
+    'shells': [2, 8, 18, 32, 28, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_098_californium/element_098_californium_srp_th.png',
     'category': 'actinide'
   },
   'einsteinium': {
@@ -1719,6 +2068,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f11',
+    'shells': [2, 8, 18, 32, 29, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_099_einsteinium/element_099_einsteinium_srp_th.png',
     'category': 'actinide'
   },
   'fermium': {
@@ -1730,6 +2082,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f12',
+    'shells': [2, 8, 18, 32, 30, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_100_fermium/element_100_fermium_srp_th.png',
     'category': 'actinide'
   },
   'mendelevium': {
@@ -1741,6 +2096,8 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f13',
+    'shells': [2, 8, 18, 32, 31, 8, 2],
+    'bohr_model_image': 'https://storage.googleapis.com/search-ar-edu/periodic-table/element_101_mendelevium/element_101_mendelevium_srp_th.png',
     'category': 'actinide'
   },
   'nobelium': {
@@ -1752,6 +2109,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14',
+    'shells': [2, 8, 18, 32, 32, 8, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_102_nobelium/element_102_nobelium_srp_th.png',
     'category': 'actinide'
   },
   'lawrencium': {
@@ -1763,6 +2123,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 7p1',
+    'shells': [2, 8, 18, 32, 32, 8, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_103_lawrencium/element_103_lawrencium_srp_th.png',
     'category': 'actinide'
   },
   'rutherfordium': {
@@ -1774,6 +2137,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d2',
+    'shells': [2, 8, 18, 32, 32, 10, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_104_rutherfordium/element_104_rutherfordium_srp_th.png',
     'category': 'transition-metal'
   },
   'dubnium': {
@@ -1785,6 +2151,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d3',
+    'shells': [2, 8, 18, 32, 32, 11, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_105_dubnium/element_105_dubnium_srp_th.png',
     'category': 'transition-metal'
   },
   'seaborgium': {
@@ -1796,6 +2165,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d4',
+    'shells': [2, 8, 18, 32, 32, 12, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_106_seaborgium/element_106_seaborgium_srp_th.png',
     'category': 'transition-metal'
   },
   'bohrium': {
@@ -1807,6 +2179,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d5',
+    'shells': [2, 8, 18, 32, 32, 13, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_107_bohrium/element_107_bohrium_srp_th.png',
     'category': 'transition-metal'
   },
   'hassium': {
@@ -1818,6 +2193,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d6',
+    'shells': [2, 8, 18, 32, 32, 14, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_108_hassium/element_108_hassium_srp_th.png',
     'category': 'transition-metal'
   },
   'meitnerium': {
@@ -1829,6 +2207,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d7',
+    'shells': [2, 8, 18, 32, 32, 15, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_109_meitnerium/element_109_meitnerium_srp_th.png',
     'category': 'unknown'
   },
   'darmstadtium': {
@@ -1840,6 +2221,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d8',
+    'shells': [2, 8, 18, 32, 32, 16, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_110_darmstadtium/element_110_darmstadtium_srp_th.png',
     'category': 'unknown'
   },
   'roentgenium': {
@@ -1851,6 +2235,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d9',
+    'shells': [2, 8, 18, 32, 32, 17, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_111_roentgenium/element_111_roentgenium_srp_th.png',
     'category': 'unknown'
   },
   'copernicium': {
@@ -1862,6 +2249,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10',
+    'shells': [2, 8, 18, 32, 32, 18, 2],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_112_copernicium/element_112_copernicium_srp_th.png',
     'category': 'transition-metal'
   },
   'nihonium': {
@@ -1873,6 +2263,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p1',
+    'shells': [2, 8, 18, 32, 32, 18, 3],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_113_nihonium/element_113_nihonium_srp_th.png',
     'category': 'unknown'
   },
   'flerovium': {
@@ -1884,6 +2277,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p2',
+    'shells': [2, 8, 18, 32, 32, 18, 4],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_114_flerovium/element_114_flerovium_srp_th.png',
     'category': 'post-transition-metal'
   },
   'moscovium': {
@@ -1895,6 +2291,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p3',
+    'shells': [2, 8, 18, 32, 32, 18, 5],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_115_moscovium/element_115_moscovium_srp_th.png',
     'category': 'unknown'
   },
   'livermorium': {
@@ -1906,6 +2305,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p4',
+    'shells': [2, 8, 18, 32, 32, 18, 6],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_116_livermorium/element_116_livermorium_srp_th.png',
     'category': 'unknown'
   },
   'tennessine': {
@@ -1917,6 +2319,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p5',
+    'shells': [2, 8, 18, 32, 32, 18, 7],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_117_tennessine/element_117_tennessine_srp_th.png',
     'category': 'unknown'
   },
   'oganesson': {
@@ -1928,6 +2333,9 @@ const periodicTableData = {
     'period': 7,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6',
+    'shells': [2, 8, 18, 32, 32, 18, 8],
+    'bohr_model_image':
+        'https://storage.googleapis.com/search-ar-edu/periodic-table/element_118_oganesson/element_118_oganesson_srp_th.png',
     'category': 'unknown'
   },
   'ununennium': {
@@ -1939,6 +2347,8 @@ const periodicTableData = {
     'period': 8,
     'electron_configuration':
         '1s2 2s2 2p6 3s2 3p6 4s2 3d10 4p6 5s2 4d10 5p6 6s2 4f14 5d10 6p6 7s2 5f14 6d10 7p6 8s1',
+    'shells': [2, 8, 18, 32, 32, 18, 8, 1],
+    'bohr_model_image': null,
     'category': 'unknown'
   }
 };
