@@ -1515,6 +1515,7 @@ td img {
 	border-radius: 2px;
 	width: 100%;
 	transition: background-color 0.3s;
+	outline: none;
 }
 
 .tableKey {
@@ -1573,8 +1574,17 @@ td img {
 	margin: 0px !important;
 }
 
-.invisible-element {
+.invisibleElement {
 	visibility: hidden;
+}
+
+.focusedElement {
+	border-color: #FFA500 !important;
+}
+
+.selectedElement {
+	background-color: #124d60 !important;
+	color: white
 }
 
 /* specific to dark mode */
@@ -1583,18 +1593,12 @@ td img {
 	border-color: white;
 }
 
-.selectedElement {
-	background-color: #124d60 !important;
-	color: white
-}
-
 .diatomic-nonmetal {
 	background-color: #C5E99B;
 }
 
 .diatomic-nonmetal-hovered {
 	background-color: #E2F4CD;
-	border-color: #FFA500 !important;
 }
 
 .noble-gas {
@@ -1603,7 +1607,6 @@ td img {
 
 .noble-gas-hovered {
 	background-color: #FCAFAF;
-	border-color: #FFA500 !important;
 }
 
 .alkali-metal {
@@ -1612,7 +1615,6 @@ td img {
 
 .alkali-metal-hovered {
 	background-color: #EDD8AB;
-	border-color: #FFA500 !important;
 }
 
 .alkaline-earth-metal {
@@ -1621,7 +1623,6 @@ td img {
 
 .alkaline-earth-metal-hovered {
 	background-color: #FBD4CB;
-	border-color: #FFA500 !important;
 }
 
 .metalloid {
@@ -1630,7 +1631,6 @@ td img {
 
 .metalloid-hovered {
 	background-color: #EBF4F7;
-	border-color: #FFA500 !important;
 }
 
 .polyatomic-nonmetal {
@@ -1639,7 +1639,6 @@ td img {
 
 .polyatomic-nonmetal-hovered {
 	background-color: #A4EEEE;
-	border-color: #FFA500 !important;
 }
 
 .post-transition-metal {
@@ -1648,7 +1647,6 @@ td img {
 
 .post-transition-metal-hovered {
 	background-color: #E3E4FF;
-	border-color: #FFA500 !important;
 }
 
 .transition-metal {
@@ -1657,7 +1655,6 @@ td img {
 
 .transition-metal-hovered {
 	background-color: #BFE9FB;
-	border-color: #FFA500 !important;
 }
 
 .lanthanide {
@@ -1666,7 +1663,6 @@ td img {
 
 .lanthanide-hovered {
 	background-color: #f7b6c9;
-	border-color: #FFA500 !important;
 }
 
 .actinide {
@@ -1675,7 +1671,6 @@ td img {
 
 .actinide-hovered {
 	background-color: #DAD3FC;
-	border-color: #FFA500 !important;
 }
 
 .unknown {
@@ -1684,5 +1679,4 @@ td img {
 
 .unknown-hovered {
 	background-color: #e3e3e3;
-	border-color: #FFA500 !important;
 }

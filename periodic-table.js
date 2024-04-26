@@ -534,7 +534,7 @@ class TableElement {
 
   setInteractive() {
     // set interactive cursor
-    this.elementDiv.style.cursor = 'pointer';
+    this.elementDiv.classList.add('hand-cursor');
 
     // make tab-able
     this.elementDiv.tabIndex = '0';
@@ -563,11 +563,13 @@ class TableElement {
   }
 
   setHovered() {
-    this.elementDiv.classList.add(this.colorSchemeClass() + '-hovered')
+    this.elementDiv.classList.add(this.colorSchemeClass() + '-hovered');
+    this.elementDiv.classList.add('focusedElement');
   }
 
   removeHovered() {
     this.elementDiv.classList.remove(this.colorSchemeClass() + '-hovered');
+    this.elementDiv.classList.remove('focusedElement');
   }
 
   setSelected() {
