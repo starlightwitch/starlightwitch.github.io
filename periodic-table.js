@@ -500,6 +500,8 @@ class TableElement {
   colorSchemeClass() {
     // get CSS class for container according to colorScheme
     switch (this.colorScheme) {
+      case 'exam':
+        return 'exam-color';
       case 'original':
         return this.category;
       case 'metals':

@@ -1584,6 +1584,14 @@ td img {
 }
 
 /* specific to light mode */
+.exam-color {
+	background-color: none;
+}
+
+.exam-color-hovered {
+	background-color: lightgray;
+}
+
 .diatomic-nonmetal {
 	background-color: #E2F4CD;
 }

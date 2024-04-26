@@ -1593,6 +1593,16 @@ td img {
 	border-color: white;
 }
 
+.exam-color {
+	background: none;
+	color: white !important
+}
+
+.exam-color-hovered {
+	background: #545454;
+	color: white !important
+}
+
 .diatomic-nonmetal {
 	background-color: #C5E99B;
 }
