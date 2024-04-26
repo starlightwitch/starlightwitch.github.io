@@ -7,6 +7,8 @@ const runPeriodicTableWidget = ({
   displayData,
   showPeriods,
   showGroups,
+  showLanthanides,
+  showActinides,
   tableVersion,
   colorScheme
 }) => {
@@ -349,6 +351,15 @@ const runPeriodicTableWidget = ({
       currElement.setInvisible();
       visible = false;
     };
+    if (!showActinides && elementData.category === 'actinide') {
+      currElement.setInvisible();
+      visible = false;
+    }
+    if (!showLanthanides && elementData.category === 'lanthanide') {
+      currElement.setInvisible();
+      visible = false;
+    }
+
     // apply event callbacks if interactive and not invisible
     if (visible) currElement.setInteractive();
 
@@ -591,7 +602,7 @@ class TableElement {
   }
 
   setInvisible() {
-    this.elementDiv.classList.add('invisible-element');
+    this.elementDiv.classList.add('invisibleElement');
   }
 
   setScore(score = 'correct') {
