@@ -94,6 +94,21 @@ const runPeriodicTableWidget = ({
         periodLabel.style.gridColumn = 1;
         tableContainer.append(periodLabel);
       }
+      // repeat for lanthanides/actinides
+      if (showLanthanides) {
+        let periodLabel = document.createElement('p');
+        periodLabel.innerHTML = 6;
+        periodLabel.style.gridRow = 9;
+        periodLabel.style.gridColumn = 1;
+        tableContainer.append(periodLabel);
+      }
+      if (showActinides) {
+        let periodLabel = document.createElement('p');
+        periodLabel.innerHTML = 7;
+        periodLabel.style.gridRow = 10;
+        periodLabel.style.gridColumn = 1;
+        tableContainer.append(periodLabel);
+      }
     }
 
     // create element grid
