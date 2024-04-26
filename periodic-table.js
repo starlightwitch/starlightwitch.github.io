@@ -234,11 +234,7 @@ const runPeriodicTableWidget = ({
         // add styling to element
         tableElements[elementNumber - 1].setSelected();
       } else {
-        Swal.fire({
-          title: 'Maximum Selections Exceeded',
-          text: 'Please unselect an element before selecting another.',
-          icon: 'warning'
-        });
+        fireMaxSelectionsPopup();
       }
     }
   };
@@ -257,11 +253,7 @@ const runPeriodicTableWidget = ({
         // add styling to element
         groupElements.forEach(e => e.setSelected());
       } else {
-        Swal.fire({
-          title: 'Maximum Selections Exceeded',
-          text: 'Please unselect a group before selecting another.',
-          icon: 'warning'
-        });
+        fireMaxSelectionsPopup();
       }
     }
   };
@@ -280,13 +272,18 @@ const runPeriodicTableWidget = ({
         // add styling to element
         periodElements.forEach(e => e.setSelected());
       } else {
-        Swal.fire({
-          title: 'Maximum Selections Exceeded',
-          text: 'Please unselect a period before selecting another.',
-          icon: 'warning'
-        });
+        fireMaxSelectionsPopup();
       }
     }
+  };
+
+  const fireMaxSelectionsPopup = () => {
+    Swal.fire({
+      title: 'Maximum Answers Reached',
+      text: `You can select up to ${maxSelections} answer${
+          maxSelections > 1 ? 's' : ''}.`,
+      icon: 'warning'
+    });
   };
 
   const focusElement = (elementNumber) => {
