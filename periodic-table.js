@@ -376,24 +376,23 @@ const runPeriodicTableWidget = ({
       currElement.setInvisible();
       visible = false;
     }
-
     // apply event callbacks if visible
     if (visible) currElement.setInteractive();
 
-    // apply scoring if not interactive
+    // apply scoring colors if not interactive
     if (!interactive) {
       // set which piece of data to score by
       let scoringData = elementTag;
       if (selectionMode === 'groups') scoringData = elementData.group;
       if (selectionMode === 'periods') scoringData = elementData.period;
 
-      // apply scores
+      // apply scoring colors, and icon mark if in element selection mode
       if (scores.correct.includes(scoringData)) {
-        currElement.setScore('correct')
+        currElement.setScore('correct', selectionMode === 'elements')
       } else if (scores.incorrect.includes(scoringData)) {
-        currElement.setScore('incorrect')
+        currElement.setScore('incorrect', selectionMode === 'elements')
       } else if (scores.missed.includes(scoringData)) {
-        currElement.setScore('missed')
+        currElement.setScore('missed', selectionMode === 'elements')
       }
     }
 
@@ -401,6 +400,42 @@ const runPeriodicTableWidget = ({
     tableElements.push(currElement);
   }
 
+  // apply score icon marks to first elements of groups/periods
+  if (!interactive && selectionMode === 'groups') {
+    for (const scoredGroup of scores.correct) {
+      let groupElements =
+          tableElements.filter(element => element.group == scoredGroup);
+      groupElements[0].setScore('correct');
+    }
+    for (const scoredGroup of scores.incorrect) {
+      let groupElements =
+          tableElements.filter(element => element.group == scoredGroup);
+      groupElements[0].setScore('incorrect');
+    }
+    for (const scoredGroup of scores.missed) {
+      let groupElements =
+          tableElements.filter(element => element.group == scoredGroup);
+      groupElements[0].setScore('missed');
+    }
+  };
+
+  if (!interactive && selectionMode === 'periods') {
+    for (const scoredPeriod of scores.correct) {
+      let periodElements =
+          tableElements.filter(element => element.period == scoredPeriod);
+      periodElements[periodElements.length - 1].setScore('correct');
+    }
+    for (const scoredPeriod of scores.incorrect) {
+      let periodElements =
+          tableElements.filter(element => element.period == scoredPeriod);
+      periodElements[periodElements.length - 1].setScore('incorrect');
+    }
+    for (const scoredPeriod of scores.missed) {
+      let periodElements =
+          tableElements.filter(element => element.period == scoredPeriod);
+      periodElements[periodElements.length - 1].setScore('missed');
+    }
+  };
 
   // create dynmic element div
   let dynamicElement = document.createElement('div');
@@ -622,11 +657,10 @@ class TableElement {
     this.elementDiv.classList.add('invisibleElement');
   }
 
-  setScore(score = 'correct') {
+  setScore(score = 'correct', applyIcon = 'false') {
     let iconMarkDiv = document.createElement('div');
     iconMarkDiv.classList.add('iconMarkContainer');
     iconMarkDiv.style.zIndex = 1;
-
 
     let iconMarkText = document.createElement('p');
     iconMarkText.classList.add('iconMarkText');
@@ -660,7 +694,7 @@ class TableElement {
     this.elementDiv.style.borderColor = borderHexCode;
     this.elementDiv.style.backgroundColor = backgroundHexCode;
 
-    this.elementDiv.append(iconMarkDiv)
+    if (applyIcon) this.elementDiv.append(iconMarkDiv);
   }
 
   clearEffects() {
