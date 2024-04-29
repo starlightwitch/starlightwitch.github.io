@@ -95,14 +95,14 @@ const runPeriodicTableWidget = ({
         tableContainer.append(periodLabel);
       }
       // repeat for lanthanides/actinides
-      if (showLanthanides) {
+      if (showLanthanides && showPeriods.includes(6)) {
         let periodLabel = document.createElement('p');
         periodLabel.innerHTML = 6;
         periodLabel.style.gridRow = 9;
         periodLabel.style.gridColumn = 1;
         tableContainer.append(periodLabel);
       }
-      if (showActinides) {
+      if (showActinides && showPeriods.includes(7)) {
         let periodLabel = document.createElement('p');
         periodLabel.innerHTML = 7;
         periodLabel.style.gridRow = 10;
@@ -342,6 +342,14 @@ const runPeriodicTableWidget = ({
   // initialize the widget
   // clear selections
   let selections = [];
+  // check for gaps in periods
+  let periodsHaveNoGap = true;
+  for (let i = 0; i < showPeriods.length - 1; i++) {
+    if (showPeriods[i + 1] - showPeriods[i] > 1) {
+      periodsHaveNoGap = false;
+      break;
+    }
+  };
   // create element objects
   let tableElements = [];
   for (const elementTag of periodicTableData.order) {
@@ -365,9 +373,15 @@ const runPeriodicTableWidget = ({
       visible = false;
     };
     if (showPeriods.length && !showPeriods.includes(elementData.period)) {
-      currElement.setInvisible();
+      if (periodsHaveNoGap) {
+        currElement.setOmitted();
+      } else {
+        currElement.setInvisible();
+      }
       visible = false;
     };
+
+
     if (!showLanthanides && elementData.category === 'lanthanide') {
       if (elementData.number === 57) {
         currElement.setInvisible();  // preserve gap in group 3
