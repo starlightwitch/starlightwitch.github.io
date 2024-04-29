@@ -368,12 +368,20 @@ const runPeriodicTableWidget = ({
       currElement.setInvisible();
       visible = false;
     };
-    if (!showActinides && elementData.category === 'actinide') {
-      currElement.setInvisible();
+    if (!showLanthanides && elementData.category === 'lanthanide') {
+      if (elementData.number === 57) {
+        currElement.setInvisible();  // preserve gap in group 3
+      } else {
+        currElement.setOmitted();  // omit floating block
+      }
       visible = false;
     }
-    if (!showLanthanides && elementData.category === 'lanthanide') {
-      currElement.setInvisible();
+    if (!showActinides && elementData.category === 'actinide') {
+      if (elementData.number === 89) {
+        currElement.setInvisible();  // preserve gap in group 3
+      } else {
+        currElement.setOmitted();  // omit floating block
+      }
       visible = false;
     }
     // apply event callbacks if visible
@@ -655,6 +663,10 @@ class TableElement {
 
   setInvisible() {
     this.elementDiv.classList.add('invisibleElement');
+  }
+
+  setOmitted() {
+    this.elementDiv.classList.add('omittedElement');
   }
 
   setScore(score = 'correct', applyIcon = 'false') {

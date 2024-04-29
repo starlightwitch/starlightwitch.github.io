@@ -1477,7 +1477,7 @@ td img {
 	min-width: 1200px;
 	display: grid;
 	grid-template-columns: 40px repeat(18, minmax(60px, 1fr));
-	grid-template-rows: 20px repeat(9, 1fr);
+	grid-template-rows: 20px repeat(auto, 1fr);
 	place-items: center;
 }
 
@@ -1573,6 +1573,10 @@ td img {
 
 .invisibleElement {
 	visibility: hidden;
+}
+
+.omittedElement {
+	display: none;
 }
 
 .focusedElement {
