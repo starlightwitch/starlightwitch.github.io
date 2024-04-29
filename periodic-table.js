@@ -673,16 +673,16 @@ class TableElement {
     switch (score) {
       case 'correct':
         iconMarkText.innerHTML = '\u2713';
-        borderHexCode = '#009444';
+        borderHexCode = '#04ce61';
         backgroundHexCode = '#bde3bd';
         break;
       case 'incorrect':
-        borderHexCode = '#ff7070';
+        borderHexCode = '#f95c5c';
         backgroundHexCode = '#ffa3a3'
         iconMarkText.innerHTML = '\u2715';
         break;
       case 'missed':
-        borderHexCode = '#FF66CC';
+        borderHexCode = '#F39D3D';
         backgroundHexCode = '#ffdcb5';
         iconMarkText.innerHTML = '\u2014';
         break;
