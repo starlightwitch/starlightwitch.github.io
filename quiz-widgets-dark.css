@@ -1473,7 +1473,7 @@ td img {
 }
 
 /* PERIODIC TABLE */
-.tableContainer {
+.ptw-tableContainer {
 	min-width: 1200px;
 	display: grid;
 	grid-template-columns: 40px repeat(18, minmax(60px, 1fr));
@@ -1481,7 +1481,7 @@ td img {
 	place-items: center;
 }
 
-.elementGrid {
+.ptw-elementGrid {
 	display: grid;
 	grid-template-columns: subgrid;
 	grid-template-rows: subgrid;
@@ -1489,22 +1489,22 @@ td img {
 	grid-column: 2 / span 18;
 }
 
-.elementGrid>div:nth-child(n+58):nth-last-child(n+50) {
+.ptw-elementGrid>div:nth-child(n+58):nth-last-child(n+50) {
 	grid-row-start: 8;
 }
 
-.elementGrid>div:nth-child(n+90):nth-last-child(n+18) {
+.ptw-elementGrid>div:nth-child(n+90):nth-last-child(n+18) {
 	grid-row-start: 9;
 }
 
-.elementGrid:before {
+.ptw-elementGrid:before {
 	display: block;
 	content: '';
 	grid-row: 8 / 10;
 	grid-column: 1 / 4;
 }
 
-.elementContainer {
+.ptw-elementContainer {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -1515,182 +1515,182 @@ td img {
 	outline: none;
 }
 
-.tableKey {
+.ptw-tableKey {
 	grid-row: 2 / span 2;
 	grid-column: 4 / span 3;
 }
 
-.tableDynamicElement {
+.ptw-tableDynamicElement {
 	grid-row: 2 / span 2;
 	grid-column: 8 / span 2;
 }
 
-.elementMass {
+.ptw-elementMass {
 	font-size: 12px;
 	margin: 0px !important;
 }
 
-.dynamicElementMass {
+.ptw-dynamicElementMass {
 	font-size: 16px;
 	margin: 0px !important;
 }
 
-.elementSymbol {
+.ptw-elementSymbol {
 	font-size: 20px;
 	margin: 0px !important;
 }
 
-.dynamicElementSymbol {
+.ptw-dynamicElementSymbol {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0px !important;
 }
 
-.elementName {
+.ptw-elementName {
 	font-size: 10px;
 	margin: 0px !important;
 }
 
-.elementLongName {
+.ptw-elementLongName {
 	font-size: 8px;
 	margin: 2px 0px !important;
 }
 
-.dynamicElementName {
+.ptw-dynamicElementName {
 	font-size: 18px;
 	margin: 0px !important;
 }
 
-.elementNumber {
+.ptw-elementNumber {
 	font-size: 12px;
 	margin: 0px !important;
 }
 
-.dynamicElementNumber {
+.ptw-dynamicElementNumber {
 	font-size: 16px;
 	margin: 0px !important;
 }
 
-.invisibleElement {
+.ptw-invisibleElement {
 	visibility: hidden;
 }
 
-.omittedElement {
+.ptw-omittedElement {
 	display: none;
 }
 
-.focusedElement {
+.ptw-focusedElement {
 	z-index: 1;
 	outline: 1px solid #FFA500 !important;
 }
 
-.selectedElement {
+.ptw-selectedElement {
 	background-color: #124d60 !important;
 	color: white
 }
 
 /* specific to dark mode */
-.elementContainer {
+.ptw-elementContainer {
 	color: black;
 	border-color: white;
 }
 
-.exam-color {
+.ptw-exam-color {
 	background-color: none;
 	outline: 1px solid grey;
 	outline-offset: -0.5px;
 	color: white;
 }
 
-.exam-color-hovered {
+.ptw-exam-color-hovered {
 	background: #545454;
 	color: white;
 }
 
-.diatomic-nonmetal {
+.ptw-diatomic-nonmetal {
 	background-color: #C5E99B;
 }
 
-.diatomic-nonmetal-hovered {
+.ptw-diatomic-nonmetal-hovered {
 	background-color: #E2F4CD;
 }
 
-.noble-gas {
+.ptw-noble-gas {
 	background-color: #FF9292;
 }
 
-.noble-gas-hovered {
+.ptw-noble-gas-hovered {
 	background-color: #FCAFAF;
 }
 
-.alkali-metal {
+.ptw-alkali-metal {
 	background-color: #FFD16D;
 }
 
-.alkali-metal-hovered {
+.ptw-alkali-metal-hovered {
 	background-color: #EDD8AB;
 }
 
-.alkaline-earth-metal {
+.ptw-alkaline-earth-metal {
 	background-color: #FFBCAD;
 }
 
-.alkaline-earth-metal-hovered {
+.ptw-alkaline-earth-metal-hovered {
 	background-color: #FBD4CB;
 }
 
-.metalloid {
+.ptw-metalloid {
 	background-color: #D7E7ED;
 }
 
-.metalloid-hovered {
+.ptw-metalloid-hovered {
 	background-color: #def7ff;
 }
 
-.polyatomic-nonmetal {
+.ptw-polyatomic-nonmetal {
 	background-color: #4ADDDD;
 }
 
-.polyatomic-nonmetal-hovered {
+.ptw-polyatomic-nonmetal-hovered {
 	background-color: #A4EEEE;
 }
 
-.post-transition-metal {
+.ptw-post-transition-metal {
 	background-color: #D1D3FF;
 }
 
-.post-transition-metal-hovered {
+.ptw-post-transition-metal-hovered {
 	background-color: #E3E4FF;
 }
 
-.transition-metal {
+.ptw-transition-metal {
 	background-color: #80D4F6;
 }
 
-.transition-metal-hovered {
+.ptw-transition-metal-hovered {
 	background-color: #BFE9FB;
 }
 
-.lanthanide {
+.ptw-lanthanide {
 	background-color: #ff759f;
 }
 
-.lanthanide-hovered {
+.ptw-lanthanide-hovered {
 	background-color: #f7b6c9;
 }
 
-.actinide {
+.ptw-actinide {
 	background-color: #B5A7F9;
 }
 
-.actinide-hovered {
+.ptw-actinide-hovered {
 	background-color: #DAD3FC;
 }
 
-.unknown {
+.ptw-unknown {
 	background-color: #cccccc;
 }
 
-.unknown-hovered {
+.ptw-unknown-hovered {
 	background-color: #e3e3e3;
 }

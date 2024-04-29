@@ -68,7 +68,7 @@ const runPeriodicTableWidget = ({
   const initializeTable = (widgetNode, tableElements, dynamicElement) => {
     // create outermost container
     let tableContainer = document.createElement('div');
-    tableContainer.classList.add('tableContainer');
+    tableContainer.classList.add('ptw-tableContainer');
     let emptyDiv = document.createElement('div');
     tableContainer.append(emptyDiv);
 
@@ -113,7 +113,7 @@ const runPeriodicTableWidget = ({
 
     // create element grid
     let elementGrid = document.createElement('div');
-    elementGrid.classList.add('elementGrid');
+    elementGrid.classList.add('ptw-elementGrid');
     for (const tableElement of tableElements) {
       elementGrid.append(tableElement.asDiv());
     }
@@ -122,37 +122,37 @@ const runPeriodicTableWidget = ({
     // create table key
     if (displayData.key) {
       let tableKey = document.createElement('div');
-      tableKey.classList.add('tableKey');
+      tableKey.classList.add('ptw-tableKey');
       let keyElement = document.createElement('div');
-      keyElement.classList.add('elementContainer');
-      keyElement.classList.add('unknown');
+      keyElement.classList.add('ptw-elementContainer');
+      keyElement.classList.add('ptw-unknown');
 
       // mass
       if (displayData.atomicMass) {
         let keyMass = document.createElement('p');
         keyMass.innerHTML = 'relative atomic mass';
-        keyMass.classList.add('dynamicElementMass');
+        keyMass.classList.add('ptw-dynamicElementMass');
         keyElement.append(keyMass);
       }
       // chemical symbol
       if (displayData.chemicalSymbol) {
         let keySymbol = document.createElement('p');
         keySymbol.innerHTML = 'atomic symbol';
-        keySymbol.classList.add('dynamicElementSymbol');
+        keySymbol.classList.add('ptw-dynamicElementSymbol');
         keyElement.append(keySymbol);
       }
       // chemical name
       if (displayData.chemicalName) {
         let keyName = document.createElement('p');
         keyName.innerHTML = 'name';
-        keyName.classList.add('dynamicElementName');
+        keyName.classList.add('ptw-dynamicElementName');
         keyElement.append(keyName);
       }
       // atomic number
       if (displayData.atomicNumber) {
         let keyNumber = document.createElement('p');
         keyNumber.innerHTML = 'atomic (proton) number';
-        keyNumber.classList.add('dynamicElementNumber');
+        keyNumber.classList.add('ptw-dynamicElementNumber');
         keyElement.append(keyNumber);
       }
 
@@ -461,7 +461,7 @@ const runPeriodicTableWidget = ({
 
   // create dynmic element div
   let dynamicElement = document.createElement('div');
-  dynamicElement.classList.add('tableDynamicElement');
+  dynamicElement.classList.add('ptw-tableDynamicElement');
 
   // setup and propogate table
   initializeTable(node, tableElements, dynamicElement);
@@ -510,8 +510,8 @@ class TableElement {
     let elementNumber = document.createElement('p');
 
     // stylize container
-    elementDiv.classList.add('elementContainer');
-    elementDiv.classList.add(this.colorSchemeClass());
+    elementDiv.classList.add('ptw-elementContainer');
+    elementDiv.classList.add('ptw-' + this.colorSchemeClass());
     if (this.name === 'Helium') {
       elementDiv.style.gridColumnStart = 18;
     } else if (this.name === 'Boron' || this.name === 'Aluminium') {
@@ -536,9 +536,9 @@ class TableElement {
       }
       elementMass.innerHTML = roundedMass;
       if (forDynamicElement) {
-        elementMass.classList.add('dynamicElementMass');
+        elementMass.classList.add('ptw-dynamicElementMass');
       } else {
-        elementMass.classList.add('elementMass');
+        elementMass.classList.add('ptw-elementMass');
       }
       elementDiv.append(elementMass);
     }
@@ -547,9 +547,9 @@ class TableElement {
     if (this.showChemicalSymbol) {
       elementSymbol.innerHTML = this.symbol;
       if (forDynamicElement) {
-        elementSymbol.classList.add('dynamicElementSymbol');
+        elementSymbol.classList.add('ptw-dynamicElementSymbol');
       } else {
-        elementSymbol.classList.add('elementSymbol');
+        elementSymbol.classList.add('ptw-elementSymbol');
       }
       elementDiv.append(elementSymbol);
     }
@@ -558,8 +558,8 @@ class TableElement {
     if (this.showChemicalName) {
       elementName.innerHTML = this.name;
       let nameCSSClass =
-          this.name.length > 9 ? 'elementLongName' : 'elementName';
-      if (forDynamicElement) nameCSSClass = 'dynamicElementName';
+          this.name.length > 9 ? 'ptw-elementLongName' : 'ptw-elementName';
+      if (forDynamicElement) nameCSSClass = 'ptw-dynamicElementName';
       elementName.classList.add(nameCSSClass);
       elementDiv.append(elementName);
     }
@@ -568,9 +568,9 @@ class TableElement {
     if (this.showAtomicNumber) {
       elementNumber.innerHTML = this.number;
       if (forDynamicElement) {
-        elementNumber.classList.add('dynamicElementNumber');
+        elementNumber.classList.add('ptw-dynamicElementNumber');
       } else {
-        elementNumber.classList.add('elementNumber');
+        elementNumber.classList.add('ptw-elementNumber');
       }
       elementDiv.append(elementNumber);
     }
@@ -658,29 +658,31 @@ class TableElement {
   }
 
   setHovered() {
-    this.elementDiv.classList.add(this.colorSchemeClass() + '-hovered');
-    this.elementDiv.classList.add('focusedElement');
+    this.elementDiv.classList.add(
+        'ptw-' + this.colorSchemeClass() + '-hovered');
+    this.elementDiv.classList.add('ptw-focusedElement');
   }
 
   removeHovered() {
-    this.elementDiv.classList.remove(this.colorSchemeClass() + '-hovered');
-    this.elementDiv.classList.remove('focusedElement');
+    this.elementDiv.classList.remove(
+        'ptw-' + this.colorSchemeClass() + '-hovered');
+    this.elementDiv.classList.remove('ptw-focusedElement');
   }
 
   setSelected() {
-    this.elementDiv.classList.add('selectedElement');
+    this.elementDiv.classList.add('ptw-selectedElement');
   }
 
   removeSelected() {
-    this.elementDiv.classList.remove('selectedElement');
+    this.elementDiv.classList.remove('ptw-selectedElement');
   }
 
   setInvisible() {
-    this.elementDiv.classList.add('invisibleElement');
+    this.elementDiv.classList.add('ptw-invisibleElement');
   }
 
   setOmitted() {
-    this.elementDiv.classList.add('omittedElement');
+    this.elementDiv.classList.add('ptw-omittedElement');
   }
 
   setScore(score = 'correct', applyIcon = 'false') {

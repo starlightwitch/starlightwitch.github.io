@@ -1469,7 +1469,7 @@ td img {
 }
 
 /* PERIODIC TABLE */
-.tableContainer {
+.ptw-tableContainer {
 	min-width: 1200px;
 	display: grid;
 	grid-template-columns: 40px repeat(18, minmax(60px, 1fr));
@@ -1477,7 +1477,7 @@ td img {
 	place-items: center;
 }
 
-.elementGrid {
+.ptw-elementGrid {
 	display: grid;
 	grid-template-columns: subgrid;
 	grid-template-rows: subgrid;
@@ -1485,22 +1485,22 @@ td img {
 	grid-column: 2 / span 18;
 }
 
-.elementGrid>div:nth-child(n+58):nth-last-child(n+50) {
+.ptw-elementGrid>div:nth-child(n+58):nth-last-child(n+50) {
 	grid-row-start: 8;
 }
 
-.elementGrid>div:nth-child(n+90):nth-last-child(n+18) {
+.ptw-elementGrid>div:nth-child(n+90):nth-last-child(n+18) {
 	grid-row-start: 9;
 }
 
-.elementGrid:before {
+.ptw-elementGrid:before {
 	display: block;
 	content: '';
 	grid-row: 8 / 10;
 	grid-column: 1 / 4;
 }
 
-.elementContainer {
+.ptw-elementContainer {
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -1511,175 +1511,175 @@ td img {
 	outline: none;
 }
 
-.tableKey {
+.ptw-tableKey {
 	grid-row: 2 / span 2;
 	grid-column: 4 / span 3;
 }
 
-.tableDynamicElement {
+.ptw-tableDynamicElement {
 	grid-row: 2 / span 2;
 	grid-column: 8 / span 2;
 }
 
-.elementMass {
+.ptw-elementMass {
 	font-size: 12px;
 	margin: 0px !important;
 }
 
-.dynamicElementMass {
+.ptw-dynamicElementMass {
 	font-size: 16px;
 	margin: 0px !important;
 }
 
-.elementSymbol {
+.ptw-elementSymbol {
 	font-size: 20px;
 	margin: 0px !important;
 }
 
-.dynamicElementSymbol {
+.ptw-dynamicElementSymbol {
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0px !important;
 }
 
-.elementName {
+.ptw-elementName {
 	font-size: 10px;
 	margin: 0px !important;
 }
 
-.elementLongName {
+.ptw-elementLongName {
 	font-size: 8px;
 	margin: 2px 0px !important;
 }
 
-.dynamicElementName {
+.ptw-dynamicElementName {
 	font-size: 18px;
 	margin: 0px !important;
 }
 
-.elementNumber {
+.ptw-elementNumber {
 	font-size: 12px;
 	margin: 0px !important;
 }
 
-.dynamicElementNumber {
+.ptw-dynamicElementNumber {
 	font-size: 16px;
 	margin: 0px !important;
 }
 
-.invisibleElement {
+.ptw-invisibleElement {
 	visibility: hidden;
 }
 
-.omittedElement {
+.ptw-omittedElement {
 	display: none;
 }
 
-.focusedElement {
+.ptw-focusedElement {
 	z-index: 1;
 	outline: 1px solid #FFA500 !important;
 }
 
-.selectedElement {
+.ptw-selectedElement {
 	background-color: #124d60 !important;
 	color: white
 }
 
 /* specific to light mode */
-.exam-color {
+.ptw-exam-color {
 	background-color: none;
 	outline: 1px solid black;
 	outline-offset: -0.5px;
 }
 
-.exam-color-hovered {
+.ptw-exam-color-hovered {
 	background-color: lightgray;
 }
 
-.diatomic-nonmetal {
+.ptw-diatomic-nonmetal {
 	background-color: #E2F4CD;
 }
 
-.diatomic-nonmetal-hovered {
+.ptw-diatomic-nonmetal-hovered {
 	background-color: #C5E99B;
 }
 
-.noble-gas {
+.ptw-noble-gas {
 	background-color: #FCAFAF;
 }
 
-.noble-gas-hovered {
+.ptw-noble-gas-hovered {
 	background-color: #FF9292;
 }
 
-.alkali-metal {
+.ptw-alkali-metal {
 	background-color: #f4e1b7;
 }
 
-.alkali-metal-hovered {
+.ptw-alkali-metal-hovered {
 	background-color: #FFD16D;
 }
 
-.alkaline-earth-metal {
+.ptw-alkaline-earth-metal {
 	background-color: #FBD4CB;
 }
 
-.alkaline-earth-metal-hovered {
+.ptw-alkaline-earth-metal-hovered {
 	background-color: #FFBCAD;
 }
 
-.metalloid {
+.ptw-metalloid {
 	background-color: #def7ff;
 }
 
-.metalloid-hovered {
+.ptw-metalloid-hovered {
 	background-color: #D7E7ED;
 }
 
-.polyatomic-nonmetal {
+.ptw-polyatomic-nonmetal {
 	background-color: #A4EEEE;
 }
 
-.polyatomic-nonmetal-hovered {
+.ptw-polyatomic-nonmetal-hovered {
 	background-color: #4ADDDD;
 }
 
-.post-transition-metal {
+.ptw-post-transition-metal {
 	background-color: #E3E4FF;
 }
 
-.post-transition-metal-hovered {
+.ptw-post-transition-metal-hovered {
 	background-color: #D1D3FF;
 }
 
-.transition-metal {
+.ptw-transition-metal {
 	background-color: #BFE9FB;
 }
 
-.transition-metal-hovered {
+.ptw-transition-metal-hovered {
 	background-color: #80D4F6;
 }
 
-.lanthanide {
+.ptw-lanthanide {
 	background-color: #f7b6c9;
 }
 
-.lanthanide-hovered {
+.ptw-lanthanide-hovered {
 	background-color: #ff759f;
 }
 
-.actinide {
+.ptw-actinide {
 	background-color: #DAD3FC;
 }
 
-.actinide-hovered {
+.ptw-actinide-hovered {
 	background-color: #B5A7F9;
 }
 
-.unknown {
+.ptw-unknown {
 	background-color: #e3e3e3;
 }
 
-.unknown-hovered {
+.ptw-unknown-hovered {
 	background-color: #cccccc;
 }
