@@ -61,6 +61,7 @@ const runPeriodicTableWidget = ({
       })
     };
     answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
+    answerHiddenInput.value = JSON.stringify(output.toSorted());
   };
   if (interactive) node.append(answerHiddenInput);
 
@@ -255,7 +256,7 @@ const runPeriodicTableWidget = ({
   };
 
   const toggleGroupSelection = (groupNumber) => {
-    let groupElements = tableElements.filter(e => e.group == groupNumber);
+    let groupElements = tableElements.filter(e => e.examGroup === groupNumber);
     if (selections.includes(groupNumber)) {
       // remove from selections
       selections = selections.filter(selection => selection != groupNumber);
@@ -309,7 +310,7 @@ const runPeriodicTableWidget = ({
   const focusGroup = (groupNumber) => {
     // apply focus to each element with matching groupNumber
     for (const element of tableElements) {
-      if (element.group == groupNumber) {
+      if (element.examGroup === groupNumber) {
         element.setHovered();
       }
     }
@@ -490,6 +491,18 @@ class TableElement {
     this.period = period;
     this.category = category;
 
+    // figure out the group number as it appears on UK exams
+    this.examGroup = group;
+    if (group > 2 && group < 13) {
+      this.examGroup = 'transition-metals';
+    }
+    if (group > 12 && group < 18) {
+      this.examGroup = group - 10;
+    }
+    if (group === 18) {
+      this.examGroup = 0;
+    }
+
     this.showChemicalName = showChemicalName;
     this.showChemicalSymbol = showChemicalSymbol;
     this.showAtomicNumber = showAtomicNumber;
@@ -636,23 +649,23 @@ class TableElement {
 
     // set event listeners
     this.elementDiv.addEventListener('mouseenter', (e) => {
-      this.eventManager('enter', this.number, this.group, this.period);
+      this.eventManager('enter', this.number, this.examGroup, this.period);
     });
     this.elementDiv.addEventListener('mouseleave', (e) => {
-      this.eventManager('leave', this.number, this.group, this.period);
+      this.eventManager('leave', this.number, this.examGroup, this.period);
     });
     this.elementDiv.addEventListener('click', (e) => {
-      this.eventManager('click', this.number, this.group, this.period);
+      this.eventManager('click', this.number, this.examGroup, this.period);
     });
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Tab') {
-        this.eventManager('leave', this.number, this.group, this.period);
-        this.eventManager('enter', this.number, this.group, this.period);
+        this.eventManager('leave', this.number, this.examGroup, this.period);
+        this.eventManager('enter', this.number, this.examGroup, this.period);
       }
     });
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        this.eventManager('click', this.number, this.group, this.period);
+        this.eventManager('click', this.number, this.examGroup, this.period);
       }
     });
   }
