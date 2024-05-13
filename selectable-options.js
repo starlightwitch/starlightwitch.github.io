@@ -126,24 +126,24 @@ const runSelectableOptionsWidget = ({
 
       iconMarkDiv.append(iconMarkText);
 
-      // add the correct icon mark
+      // add the correct icon mark and CSS class
       switch (optionData.iconMarkType) {
         case 'correct':
           iconMarkText.innerHTML = '\u2713';
+          iconMarkDiv.classList.add('sow-correctIconMark')
+          card.classList.add('sow-cardScoredCorrect');
           break;
         case 'incorrect':
           iconMarkText.innerHTML = '\u2715';
+          iconMarkDiv.classList.add('sow-incorrectIconMark')
+          card.classList.add('sow-cardScoredIncorrect');
           break;
         case 'missed':
           iconMarkText.innerHTML = '\u2014';
+          iconMarkDiv.classList.add('sow-missedIconMark')
+          card.classList.add('sow-cardScoredMissed');
           break;
       };
-
-      // color the icon mark and card
-      iconMarkText.style.color = optionData.borderHexCode;
-      iconMarkDiv.style.borderColor = optionData.borderHexCode;
-      card.style.borderColor = optionData.borderHexCode;
-      card.style.backgroundColor = optionData.backgroundHexCode;
 
       card.prepend(iconMarkDiv)
     };
@@ -187,7 +187,7 @@ const runSelectableOptionsWidget = ({
       } else {
         // format sweet alert message
         let messageText = `You can select up to ${maxSelections} answer`;
-        messageText += maxSelections > 1 ? 's.' : '.';  // pluralize answers
+        messageText += maxSelections > 1 ? 's' : '';  // pluralize answers
         // fire a sweet alert to the user
         Swal.fire({
           title: 'Maximum Answers Reached',

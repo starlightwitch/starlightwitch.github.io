@@ -1417,6 +1417,7 @@ td img {
 	display: inline-block;
 	padding: 8px;
 	max-width: 75%;
+	max-height: 300px;
 	object-fit: contain;
 }
 
@@ -1466,6 +1467,36 @@ td img {
 
 .selectedOptionCard {
 	background-color: #A9EAFF !important;
+}
+
+.sow-cardScoredCorrect {
+	border-color: #009444;
+	background-color: #bde3bd;
+}
+
+.sow-cardScoredIncorrect {
+	border-color: #BE1E2D;
+	background-color: #ffa3a3;
+}
+
+.sow-cardScoredMissed {
+	border-color: #F15A29;
+	background-color: #ffdcb5;
+}
+
+.sow-correctIconMark {
+	border-color: #009444;
+	color: #009444
+}
+
+.sow-incorrectIconMark {
+	border-color: #BE1E2D;
+	color: #BE1E2D
+}
+
+.sow-missedIconMark {
+	border-color: #F15A29;
+	color: #F15A29
 }
 
 /* PERIODIC TABLE */
