@@ -671,7 +671,12 @@ class TableElement {
     this.elementDiv.classList.add('hand-cursor');
 
     // make tab-able
-    this.elementDiv.tabIndex = '0';
+    let tabIndex = '0';
+    if (this.category === 'lanthanide' && this.name !== 'Lanthanum')
+      tabIndex = '1';
+    if (this.category === 'actinide' && this.name !== 'Actinium')
+      tabIndex = '2';
+    this.elementDiv.tabIndex = tabIndex;
 
     // set event listeners
     this.elementDiv.addEventListener('mouseenter', (e) => {
