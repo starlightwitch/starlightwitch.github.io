@@ -61,7 +61,6 @@ const runPeriodicTableWidget = ({
       })
     };
     answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
-    answerHiddenInput.value = JSON.stringify(output.toSorted());
   };
   if (interactive) node.append(answerHiddenInput);
 
