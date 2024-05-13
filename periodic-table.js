@@ -74,13 +74,39 @@ const runPeriodicTableWidget = ({
     tableContainer.append(emptyDiv);
 
     // add group numbers
-    if (displayData.groupNumbers) {
+    if (displayData.groupNumbers && tableVersion === 'alevel') {
       for (let group = 1; group <= 18; group++) {
         if (showGroups.length && !showGroups.includes(group)) continue;
         let groupLabel = document.createElement('p');
         groupLabel.innerHTML = group;
         groupLabel.style.gridRow = 1;
         groupLabel.style.gridColumn = group + 1;
+        tableContainer.append(groupLabel);
+      }
+    }
+
+    if (displayData.groupNumbers && tableVersion === 'gcse') {
+      for (let group = 1; group <= 2; group++) {
+        if (showGroups.length && !showGroups.includes(group)) continue;
+        let groupLabel = document.createElement('p');
+        groupLabel.innerHTML = group;
+        groupLabel.style.gridRow = 1;
+        groupLabel.style.gridColumn = group + 1;
+        tableContainer.append(groupLabel);
+      }
+      for (let group = 3; group <= 7; group++) {
+        if (showGroups.length && !showGroups.includes(group)) continue;
+        let groupLabel = document.createElement('p');
+        groupLabel.innerHTML = group;
+        groupLabel.style.gridRow = 1;
+        groupLabel.style.gridColumn = group + 11;
+        tableContainer.append(groupLabel);
+      }
+      if ((showGroups.length && showGroups.includes(0)) || !showGroups.length) {
+        let groupLabel = document.createElement('p');
+        groupLabel.innerHTML = 0;
+        groupLabel.style.gridRow = 1;
+        groupLabel.style.gridColumn = 19;
         tableContainer.append(groupLabel);
       }
     }
