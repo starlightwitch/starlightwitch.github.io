@@ -224,7 +224,13 @@
 			]
 		}
 
-		let removeWidget = runSelectableOptionsWidget(widgetConfig);
+		var removeWidget;
+
+		setTimeout(() => {
+			removeWidget = runSelectableOptionsWidget(widgetConfig);
+		}, 200);
+
+
 	</script>
 </body>
 

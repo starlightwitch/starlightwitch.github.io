@@ -126,7 +126,7 @@ const runSelectableOptionsWidget = ({
 
       iconMarkDiv.append(iconMarkText);
 
-      // add the correct icon mark and CSS class
+      // add the icon mark text and CSS class
       switch (optionData.iconMarkType) {
         case 'correct':
           iconMarkText.innerHTML = '\u2713';
@@ -160,6 +160,7 @@ const runSelectableOptionsWidget = ({
     for (const optionData of options) {
       let optionCard = createOptionCard(optionData);
       gridContainer.append(optionCard);
+      optionNodes.push(optionCard);
     }
   };
 
@@ -231,14 +232,17 @@ const runSelectableOptionsWidget = ({
   };
 
   const resizeGridItems = () => {
+    debugger;
     const rowHeight = getStyleValue(gridNode, 'grid-auto-rows');
     const rowGap = getStyleValue(gridNode, 'grid-row-gap');
     gridNode.style.gridAutoRows = 'auto';
     gridNode.style.alignItems = 'self-start';
     let gridItems = gridNode.childNodes;
     for (const item of gridItems) {
-      item.style.gridRowEnd = `span ${
-          Math.ceil((item.offsetHeight + rowGap) / (rowHeight + rowGap))}`;
+      let spanAmt =
+          Math.ceil((item.offsetHeight + rowGap) / (rowHeight + rowGap));
+
+      item.style.gridRowEnd = `span ${spanAmt}`;
     }
     gridNode.removeAttribute('style');
   };
@@ -262,14 +266,23 @@ const runSelectableOptionsWidget = ({
   node.append(gridNode);
   indexOptions();
   inferColors();
+  var optionNodes = [];
   populateGrid(gridNode);
 
   // handle sizing;
   if (!textOnly) {
     window.addEventListener('load', resizeGridItems)
     window.addEventListener('resize', resizeGridItems)
+
+    // resize the grid items on image loads
+    for (let optNode of optionNodes) {
+      let imgCollection = optNode.getElementsByTagName('img');
+      for (let img of imgCollection) {
+        img.addEventListener('load', resizeGridItems)
+      }
+    }
   }
-  resizeGridItems();
+
 
   // cleanup on widget close
   const removeSelectableOptionsWidget = () => {
