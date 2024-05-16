@@ -394,7 +394,7 @@ const runPeriodicTableWidget = ({
 
     // make groups/periods invisible if not in list to show
     let visible = true;
-    if (showGroups.length && !showGroups.includes(elementData.group)) {
+    if (showGroups.length && !showGroups.includes(currElement.examGroup)) {
       currElement.setInvisible();
       visible = false;
     };
@@ -526,6 +526,9 @@ class TableElement {
     }
     if (group === 18) {
       this.examGroup = 0;
+    }
+    if (category === 'lanthanide' || category === 'actinide') {
+      this.examGroup = 'lanthanides-actinides';
     }
 
     this.showChemicalName = showChemicalName;

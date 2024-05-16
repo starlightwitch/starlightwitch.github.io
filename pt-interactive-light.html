@@ -165,7 +165,7 @@
 				incorrect: [],
 				missed: [],
 			},
-			selectionMode: 'elements',  // options: elements | groups | periods
+			selectionMode: 'groups',  // options: elements | groups | periods
 			maxSelections: 10,
 			displayData: {
 				chemicalName: true,
@@ -177,7 +177,7 @@
 				key: true
 			},
 			showPeriods: [],       // indices of periods to show, empty array for all
-			showGroups: [],        // indices of groups to show, empty array for all
+			showGroups: [0, 1, 3, 4, 'transition-metals', 'lanthanides-actinides'],        // indices of groups to show, empty array for all
 			showLanthanides: true,
 			showActinides: true,
 			tableVersion: 'gcse',  // options: gcse | alevel
