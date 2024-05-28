@@ -1507,6 +1507,7 @@ td img {
 .ptw-tableContainer {
 	min-width: 1200px;
 	display: grid;
+	gap: 3px;
 	grid-template-columns: 40px repeat(18, minmax(60px, 1fr));
 	grid-template-rows: 20px repeat(auto, 1fr);
 	place-items: center;
@@ -1612,7 +1613,7 @@ td img {
 
 .ptw-focusedElement {
 	z-index: 1;
-	outline: 1px solid #FFA500 !important;
+	outline: 3px solid #FFA500 !important;
 }
 
 .ptw-selectedElement {
@@ -1621,6 +1622,18 @@ td img {
 }
 
 /* specific to dark mode */
+.ptw-element-scored-correct {
+	background-color: #04ce61 !important
+}
+
+.ptw-element-scored-incorrect {
+	background-color: #f39d3d !important
+}
+
+.ptw-element-scored-missed {
+	background-color: #f95c5c !important
+}
+
 .ptw-elementContainer {
 	color: black;
 	border-color: white;

@@ -54,7 +54,13 @@ const runPeriodicTableWidget = ({
   answerHiddenInput.name = 'answers[]';
   answerHiddenInput.value = '';
   const updateHiddenInputs = (output) => {
-    output.sort((a, b) => a - b);
+    // sort the output, strings last
+    let numbers = output.filter(o => {return typeof o === 'number'});
+    let strings = output.filter(o => {return typeof o === 'string'});
+    numbers.sort((a, b) => a - b);
+    strings.sort();
+    output = numbers.concat(strings);
+
     if (selectionMode === 'elements') {
       output = output.map(atomicNumber => {
         return periodicTableData.order[atomicNumber - 1];
@@ -69,22 +75,14 @@ const runPeriodicTableWidget = ({
     // create outermost container
     let tableContainer = document.createElement('div');
     tableContainer.classList.add('ptw-tableContainer');
+    // add spacer for TL corner
     let emptyDiv = document.createElement('div');
     tableContainer.append(emptyDiv);
+    // remove gaps in exam mode
+    if (colorScheme === 'exam') tableContainer.style.gap = '0px';
 
     // add group numbers
-    if (displayData.groupNumbers && tableVersion === 'alevel') {
-      for (let group = 1; group <= 18; group++) {
-        if (showGroups.length && !showGroups.includes(group)) continue;
-        let groupLabel = document.createElement('p');
-        groupLabel.innerHTML = group;
-        groupLabel.style.gridRow = 1;
-        groupLabel.style.gridColumn = group + 1;
-        tableContainer.append(groupLabel);
-      }
-    }
-
-    if (displayData.groupNumbers && tableVersion === 'gcse') {
+    if (displayData.groupNumbers) {
       for (let group = 1; group <= 2; group++) {
         if (showGroups.length && !showGroups.includes(group)) continue;
         let groupLabel = document.createElement('p');
@@ -249,7 +247,7 @@ const runPeriodicTableWidget = ({
     elementInfo += `<b>Symbol:</b> ${elementData.symbol}<br><br>`;
     elementInfo += `<b>Electron Configuration:</b> ${
         elementData.electron_configuration}<br><br>`;
-    elementInfo += `<b>Shells:</b> ${elementData.shells}<br><br>`;
+    elementInfo += `<b>Shells:</b> [${elementData.shells}]<br><br>`;
 
     let elementInfoDiv =
         '<div style="text-align:left">' + elementInfo + '</div>';
@@ -300,7 +298,8 @@ const runPeriodicTableWidget = ({
   };
 
   const togglePeriodSelection = (periodNumber) => {
-    let periodElements = tableElements.filter(e => e.period == periodNumber);
+    let periodElements =
+        tableElements.filter(e => e.examPeriod == periodNumber);
     if (selections.includes(periodNumber)) {
       // remove from selections
       selections = selections.filter(selection => selection != periodNumber);
@@ -344,7 +343,7 @@ const runPeriodicTableWidget = ({
   const focusPeriod = (periodNumber) => {
     // apply focus to each element with matching periodNumber
     for (const element of tableElements) {
-      if (element.period == periodNumber) {
+      if (element.examPeriod == periodNumber) {
         element.setHovered();
       }
     }
@@ -389,8 +388,8 @@ const runPeriodicTableWidget = ({
 
     // make the element
     let currElement = new TableElement(
-        elementData, elementDisplayData, tableVersion, colorScheme,
-        eventManager);
+        elementData, elementDisplayData, tableVersion, selectionMode,
+        colorScheme, eventManager);
 
     // make groups/periods invisible if not in list to show
     let visible = true;
@@ -398,7 +397,7 @@ const runPeriodicTableWidget = ({
       currElement.setInvisible();
       visible = false;
     };
-    if (showPeriods.length && !showPeriods.includes(elementData.period)) {
+    if (showPeriods.length && !showPeriods.includes(currElement.examPeriod)) {
       if (periodsHaveNoGap) {
         currElement.setOmitted();
       } else {
@@ -431,8 +430,8 @@ const runPeriodicTableWidget = ({
     if (!interactive) {
       // set which piece of data to score by
       let scoringData = elementTag;
-      if (selectionMode === 'groups') scoringData = elementData.group;
-      if (selectionMode === 'periods') scoringData = elementData.period;
+      if (selectionMode === 'groups') scoringData = currElement.examGroup;
+      if (selectionMode === 'periods') scoringData = currElement.examPeriod;
 
       // apply scoring colors, and icon mark if in element selection mode
       if (scores.correct.includes(scoringData)) {
@@ -452,17 +451,17 @@ const runPeriodicTableWidget = ({
   if (!interactive && selectionMode === 'groups') {
     for (const scoredGroup of scores.correct) {
       let groupElements =
-          tableElements.filter(element => element.group == scoredGroup);
+          tableElements.filter(element => element.examGroup == scoredGroup);
       groupElements[0].setScore('correct');
     }
     for (const scoredGroup of scores.incorrect) {
       let groupElements =
-          tableElements.filter(element => element.group == scoredGroup);
+          tableElements.filter(element => element.examGroup == scoredGroup);
       groupElements[0].setScore('incorrect');
     }
     for (const scoredGroup of scores.missed) {
       let groupElements =
-          tableElements.filter(element => element.group == scoredGroup);
+          tableElements.filter(element => element.examGroup == scoredGroup);
       groupElements[0].setScore('missed');
     }
   };
@@ -470,17 +469,17 @@ const runPeriodicTableWidget = ({
   if (!interactive && selectionMode === 'periods') {
     for (const scoredPeriod of scores.correct) {
       let periodElements =
-          tableElements.filter(element => element.period == scoredPeriod);
+          tableElements.filter(element => element.examPeriod == scoredPeriod);
       periodElements[periodElements.length - 1].setScore('correct');
     }
     for (const scoredPeriod of scores.incorrect) {
       let periodElements =
-          tableElements.filter(element => element.period == scoredPeriod);
+          tableElements.filter(element => element.examPeriod == scoredPeriod);
       periodElements[periodElements.length - 1].setScore('incorrect');
     }
     for (const scoredPeriod of scores.missed) {
       let periodElements =
-          tableElements.filter(element => element.period == scoredPeriod);
+          tableElements.filter(element => element.examPeriod == scoredPeriod);
       periodElements[periodElements.length - 1].setScore('missed');
     }
   };
@@ -507,7 +506,7 @@ class TableElement {
   constructor(
       {name, atomic_mass, number, symbol, group, period, category},
       [showChemicalName, showChemicalSymbol, showAtomicNumber, showAtomicMass],
-      tableVersion, colorScheme, eventManager) {
+      tableVersion, selectionMode, colorScheme, eventManager) {
     this.name = name;
     this.atomic_mass = atomic_mass;
     this.number = number;
@@ -530,6 +529,11 @@ class TableElement {
     if (category === 'lanthanide' || category === 'actinide') {
       this.examGroup = 'lanthanides-actinides';
     }
+    // seperate lanthanides and actinides in their own period
+    this.examPeriod = period;
+    if (category === 'lanthanide' || category === 'actinide') {
+      this.examPeriod = category + 's';
+    };
 
     this.showChemicalName = showChemicalName;
     this.showChemicalSymbol = showChemicalSymbol;
@@ -537,6 +541,7 @@ class TableElement {
     this.showAtomicMass = showAtomicMass;
 
     this.tableVersion = tableVersion;
+    this.selectionMode = selectionMode;
     this.colorScheme = colorScheme;
     this.eventManager = eventManager;
 
@@ -673,32 +678,53 @@ class TableElement {
     this.elementDiv.classList.add('hand-cursor');
 
     // make tab-able
-    let tabIndex = '0';
-    if (this.category === 'lanthanide' && this.name !== 'Lanthanum')
-      tabIndex = '1';
-    if (this.category === 'actinide' && this.name !== 'Actinium')
-      tabIndex = '2';
-    this.elementDiv.tabIndex = tabIndex;
+    if (this.selectionMode === 'elements') {
+      let tabIndex = '1';
+      if (this.category === 'lanthanide' && this.name !== 'Lanthanum')
+        tabIndex = '2';
+      if (this.category === 'actinide' && this.name !== 'Actinium')
+        tabIndex = '3';
+      this.elementDiv.tabIndex = tabIndex;
+    } else if (this.selectionMode === 'groups') {
+      let groupLeaders = [19, 20, 21, 31, 32, 33, 34, 35, 36, 57];
+      if (groupLeaders.includes(this.number)) {
+        this.elementDiv.tabIndex = 0;
+      }
+    } else if (this.selectionMode === 'periods') {
+      let periodLeaders = [1, 3, 11, 19, 37, 55, 58, 87, 90];
+      if (periodLeaders.includes(this.number)) {
+        if (this.examPeriod === 'lanthanides' ||
+            this.examPeriod === 'actinides') {
+          this.elementDiv.tabIndex = 2;
+        } else {
+          this.elementDiv.tabIndex = 1;
+        }
+      }
+    }
+
 
     // set event listeners
     this.elementDiv.addEventListener('mouseenter', (e) => {
-      this.eventManager('enter', this.number, this.examGroup, this.period);
+      this.eventManager('enter', this.number, this.examGroup, this.examPeriod);
     });
     this.elementDiv.addEventListener('mouseleave', (e) => {
-      this.eventManager('leave', this.number, this.examGroup, this.period);
+      this.eventManager('leave', this.number, this.examGroup, this.examPeriod);
     });
     this.elementDiv.addEventListener('click', (e) => {
-      this.eventManager('click', this.number, this.examGroup, this.period);
+      this.eventManager('click', this.number, this.examGroup, this.examPeriod);
     });
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Tab') {
-        this.eventManager('leave', this.number, this.examGroup, this.period);
-        this.eventManager('enter', this.number, this.examGroup, this.period);
+        this.eventManager(
+            'leave', this.number, this.examGroup, this.examPeriod);
+        this.eventManager(
+            'enter', this.number, this.examGroup, this.examPeriod);
       }
     });
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
-        this.eventManager('click', this.number, this.examGroup, this.period);
+        this.eventManager(
+            'click', this.number, this.examGroup, this.examPeriod);
       }
     });
   }
@@ -743,37 +769,29 @@ class TableElement {
 
     // add the correct icon mark & colors
     let borderHexCode;
-    let backgroundHexCode;
     switch (score) {
       case 'correct':
         iconMarkText.innerHTML = '\u2713';
         borderHexCode = '#04ce61';
-        backgroundHexCode = '#bde3bd';
+        this.elementDiv.classList.add('ptw-element-scored-correct')
         break;
       case 'incorrect':
-        borderHexCode = '#f95c5c';
-        backgroundHexCode = '#ffa3a3'
         iconMarkText.innerHTML = '\u2715';
+        borderHexCode = '#f95c5c';
+        this.elementDiv.classList.add('ptw-element-scored-incorrect')
         break;
       case 'missed':
-        borderHexCode = '#F39D3D';
-        backgroundHexCode = '#ffdcb5';
         iconMarkText.innerHTML = '\u2014';
+        borderHexCode = '#F39D3D';
+        this.elementDiv.classList.add('ptw-element-scored-missed')
         break;
     };
 
     // color the icon mark and card
     iconMarkText.style.color = borderHexCode;
     iconMarkDiv.style.borderColor = borderHexCode;
-    this.elementDiv.style.borderColor = borderHexCode;
-    this.elementDiv.style.backgroundColor = backgroundHexCode;
 
     if (applyIcon) this.elementDiv.append(iconMarkDiv);
-  }
-
-  clearEffects() {
-    this.elementDiv.classList.remove(this.colorSchemeClass() + '-hovered');
-    this.elementDiv.classList.remove('selectedElement');
   }
 }
 

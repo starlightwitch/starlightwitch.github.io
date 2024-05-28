@@ -1503,6 +1503,7 @@ td img {
 .ptw-tableContainer {
 	min-width: 1200px;
 	display: grid;
+	gap: 3px;
 	grid-template-columns: 40px repeat(18, minmax(60px, 1fr));
 	grid-template-rows: 20px repeat(auto, 1fr);
 	place-items: center;
@@ -1539,7 +1540,6 @@ td img {
 	justify-content: space-around;
 	width: 100%;
 	transition: background-color 0.3s;
-	outline: none;
 }
 
 .ptw-tableKey {
@@ -1608,7 +1608,7 @@ td img {
 
 .ptw-focusedElement {
 	z-index: 1;
-	outline: 1px solid #FFA500 !important;
+	outline: 3px solid #FFA500 !important;
 }
 
 .ptw-selectedElement {
@@ -1617,6 +1617,18 @@ td img {
 }
 
 /* specific to light mode */
+.ptw-element-scored-correct {
+	background-color: rgb(189, 227, 189) !important;
+}
+
+.ptw-element-scored-incorrect {
+	background-color: rgb(255, 163, 163) !important;
+}
+
+.ptw-element-scored-missed {
+	background-color: rgb(255, 220, 181) !important;
+}
+
 .ptw-exam-color {
 	background-color: none;
 	outline: 1px solid black;
