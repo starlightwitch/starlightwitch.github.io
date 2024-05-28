@@ -256,7 +256,8 @@ const runPeriodicTableWidget = ({
       title: elementData.name,
       html: elementInfoDiv,
       animation: false,
-      imageUrl: elementData.bohr_model_image
+      imageUrl: elementData.bohr_model_image,
+      imageHeight: 200
     });
   };
 
