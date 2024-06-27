@@ -54,18 +54,21 @@ const runPeriodicTableWidget = ({
   answerHiddenInput.name = 'answers[]';
   answerHiddenInput.value = '';
   const updateHiddenInputs = (output) => {
-    // sort the output, strings last
-    let numbers = output.filter(o => {return typeof o === 'number'});
-    let strings = output.filter(o => {return typeof o === 'string'});
-    numbers.sort((a, b) => a - b);
-    strings.sort();
-    output = numbers.concat(strings);
-
+    // element selection mode
     if (selectionMode === 'elements') {
       output = output.map(atomicNumber => {
         return periodicTableData.order[atomicNumber - 1];
-      })
+      });
+      output.sort();
+    } else {
+      // sort the output, strings last
+      let numbers = output.filter(o => {return typeof o === 'number'});
+      let strings = output.filter(o => {return typeof o === 'string'});
+      numbers.sort((a, b) => a - b);
+      strings.sort();
+      output = numbers.concat(strings);
     };
+    console.log(output);
     answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
   };
   if (interactive) node.append(answerHiddenInput);
