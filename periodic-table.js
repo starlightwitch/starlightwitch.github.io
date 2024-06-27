@@ -714,6 +714,7 @@ class TableElement {
 
 
     // set event listeners
+    // mouse
     this.elementDiv.addEventListener('mouseenter', (e) => {
       this.eventManager('enter', this.number, this.examGroup, this.examPeriod);
     });
@@ -723,6 +724,7 @@ class TableElement {
     this.elementDiv.addEventListener('click', (e) => {
       this.eventManager('click', this.number, this.examGroup, this.examPeriod);
     });
+    // tab
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Tab') {
         this.eventManager(
@@ -731,6 +733,13 @@ class TableElement {
             'enter', this.number, this.examGroup, this.examPeriod);
       }
     });
+    this.elementDiv.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        this.eventManager(
+            'leave', this.number, this.examGroup, this.examPeriod);
+      };
+    });
+    // enter
     this.elementDiv.addEventListener('keyup', (e) => {
       if (e.key === 'Enter') {
         this.eventManager(
