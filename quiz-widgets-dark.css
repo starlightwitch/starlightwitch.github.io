@@ -1627,11 +1627,11 @@ td img {
 }
 
 .ptw-element-scored-incorrect {
-	background-color: #f39d3d !important
+	background-color: #f95c5c !important
 }
 
 .ptw-element-scored-missed {
-	background-color: #f95c5c !important
+	background-color: #f39d3d !important
 }
 
 .ptw-elementContainer {

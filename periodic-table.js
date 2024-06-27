@@ -79,7 +79,7 @@ const runPeriodicTableWidget = ({
     let emptyDiv = document.createElement('div');
     tableContainer.append(emptyDiv);
     // remove gaps in exam mode
-    if (colorScheme === 'exam') tableContainer.style.gap = '0px';
+    if (colorScheme === 'exam') tableContainer.style.gap = '5px';
 
     // add group numbers
     if (displayData.groupNumbers) {
