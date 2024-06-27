@@ -238,7 +238,12 @@ const runPeriodicTableWidget = ({
     }
   };
 
+  // formats information about an element & displays in a popup
+  var sweetAlertShowing = false;
   const fireInfoPopUp = (elementNumber) => {
+    if (sweetAlertShowing)
+      return;  // if the popup is showing, don't fire another
+
     let elementData =
         periodicTableData[periodicTableData.order[elementNumber - 1]];
 
@@ -253,12 +258,13 @@ const runPeriodicTableWidget = ({
         '<div style="text-align:left">' + elementInfo + '</div>';
 
     Swal.fire({
-      title: elementData.name,
-      html: elementInfoDiv,
-      animation: false,
-      imageUrl: elementData.popupImageURL,
-      imageHeight: 200
-    });
+          title: elementData.name,
+          html: elementInfoDiv,
+          animation: false,
+          imageUrl: elementData.popupImageURL,
+          imageHeight: 200
+        })
+        .then(() => {sweetAlertShowing = false});
   };
 
   const toggleElementSelection = (elementNumber) => {
