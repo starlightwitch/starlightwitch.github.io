@@ -260,6 +260,7 @@ const runPeriodicTableWidget = ({
     let elementInfoDiv =
         '<div style="text-align:left">' + elementInfo + '</div>';
 
+    sweetAlertShowing = true;
     Swal.fire({
           title: elementData.name,
           html: elementInfoDiv,
