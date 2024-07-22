@@ -68,7 +68,6 @@ const runPeriodicTableWidget = ({
       strings.sort();
       output = numbers.concat(strings);
     };
-    console.log(output);
     answerHiddenInput.value = encodeURIComponent(JSON.stringify(output));
   };
   if (interactive) node.append(answerHiddenInput);
@@ -192,7 +191,8 @@ const runPeriodicTableWidget = ({
     widgetNode.append(tableContainer)
   };
 
-  // event listener callback for indivdiual elements responding to the mouse
+  // event listener callback for indivdiual elements responding to the mouse or
+  // keyboard
   const eventManager = (type, elementNumber, elementGroup, elementPeriod) => {
     // dispatch the appropriate response
     switch (type) {
@@ -223,7 +223,6 @@ const runPeriodicTableWidget = ({
           fireInfoPopUp(elementNumber);
           break;
         }
-
         switch (selectionMode) {
           case 'elements':
             toggleElementSelection(elementNumber);
@@ -244,9 +243,10 @@ const runPeriodicTableWidget = ({
   // formats information about an element & displays in a popup
   var sweetAlertShowing = false;
   const fireInfoPopUp = (elementNumber) => {
-    if (sweetAlertShowing)
-      return;  // if the popup is showing, don't fire another
+    // prevent duplicate pop-ups
+    if (sweetAlertShowing) return;
 
+    // format popup data
     let elementData =
         periodicTableData[periodicTableData.order[elementNumber - 1]];
 
@@ -260,6 +260,7 @@ const runPeriodicTableWidget = ({
     let elementInfoDiv =
         '<div style="text-align:left">' + elementInfo + '</div>';
 
+    // fire the popup
     sweetAlertShowing = true;
     Swal.fire({
           title: elementData.name,
@@ -268,7 +269,9 @@ const runPeriodicTableWidget = ({
           imageUrl: elementData.popupImageURL,
           imageHeight: 200
         })
-        .then(() => {sweetAlertShowing = false});
+        .then(() => {
+          sweetAlertShowing = false;
+        });
   };
 
   const toggleElementSelection = (elementNumber) => {
@@ -713,7 +716,6 @@ class TableElement {
       }
     }
 
-
     // set event listeners
     // mouse
     this.elementDiv.addEventListener('mouseenter', (e) => {
@@ -738,14 +740,15 @@ class TableElement {
       if (e.key === 'Tab') {
         this.eventManager(
             'leave', this.number, this.examGroup, this.examPeriod);
-      };
+      }
     });
     // enter
-    this.elementDiv.addEventListener('keyup', (e) => {
+    this.elementDiv.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
+        e.preventDefault();
         this.eventManager(
             'click', this.number, this.examGroup, this.examPeriod);
-      }
+      };
     });
   }
 
