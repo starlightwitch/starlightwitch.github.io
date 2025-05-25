@@ -1,9 +1,28 @@
 let shaderObject;
 let seedOffset;
 let scrollOffset = 0;
+let string = '';
 
 document.getElementById('splash-holder').style.background = 'none';
 window.addEventListener('scroll', () => scrollOffset = scrollY);
+
+function keyPressed() {
+  string += key;
+  if (string.length > 4) {
+    string = string.slice(1);
+  }
+
+  if (string === 'hide') {
+    let links = document.getElementsByClassName('splash-link');
+    for (let l of links) {
+      if (l.style.display) {
+        l.style.display = null;
+      } else {
+        l.style.display = 'none';
+      }
+    }
+  }
+}
 
 
 function windowResized() {
