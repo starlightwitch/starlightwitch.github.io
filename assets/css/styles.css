@@ -1,0 +1,150 @@
+canvas {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+}
+
+#splash-holder {
+  height: 100vh;
+  flex-direction: row;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  padding: 12%;
+  background: #000;
+}
+
+@media (max-width: 992px) {
+  #splash-holder {
+    flex-direction: column;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 992px) {
+  #splash-holder > div {
+    justify-content: space-evenly;
+    width: 100%;
+  }
+}
+
+.splash-link {
+  min-width: 300px;
+  border-style: solid;
+  border-radius: 12px;
+  color: #fcfaee;
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: "antarctican-mono", sans-serif;
+  text-decoration: none;
+  padding: 12px 48px;
+}
+
+.splash-link:hover {
+  border-style: dotted;
+}
+
+.transparent-div {
+  background: none !important;
+}
+
+.fullscreen-div {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 48px;
+  background: #000;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 24px;
+  place-items: center;
+}
+
+.zine-thumbnail {
+  max-width: 100%;
+  border-radius: 24px;
+  border: solid #00000000;
+}
+
+.zine-thumbnail:hover {
+  border: solid #fcfaee;
+}
+
+.team-image {
+  width: min(100%, 300px);
+  border-radius: 12px;
+}
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#team-grid {
+  margin-top: 48px;
+}
+
+/* typography */
+
+h1 {
+  font-family: 'BB Manual Mono Pro TX';
+  /*text-align: center;*/
+  font-size: 3rem;
+  color: #fcfaee;
+}
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: 2.4rem;
+  }
+}
+
+p {
+  font-family: "antarctican-mono", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: #fcfaee;
+  max-width: 80ch;
+  margin-left: 24px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 992px) {
+  p {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .splash-link {
+    font-size: 1rem;
+    border-width: 1px;
+    width: 100%;
+  }
+}
+
+#contact-link {
+  color: #42BFDD;
+}
+
+#contact-link:hover {
+  color: #bc9eca;
+}
+
+.no-margin {
+  margin: 0px;
+}
+

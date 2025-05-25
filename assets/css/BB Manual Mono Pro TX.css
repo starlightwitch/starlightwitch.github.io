@@ -1,0 +1,8 @@
+@font-face {
+	font-family: 'BB Manual Mono Pro TX';
+	src: url(../../assets/fonts/BB%20Manual%20Mono%20Pro%20TX-9c5bbe029c0f07032d35655d017f2976.woff2) format('woff2'),
+	url(../../assets/fonts/BB%20Manual%20Mono%20Pro%20TX-58f1ef3a295985c9e9a4dd575931173f.woff) format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
