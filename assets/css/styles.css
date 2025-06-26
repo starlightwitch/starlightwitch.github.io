@@ -80,8 +80,9 @@ canvas {
 }
 
 .team-image {
-  width: min(100%, 300px);
+  width: min(100%, 400px);
   border-radius: 12px;
+  margin-bottom: 1rem;
 }
 
 .team-card {
@@ -128,6 +129,10 @@ p {
   }
 }
 
+.team-caption {
+  text-align: center;
+}
+
 @media (max-width: 992px) {
   .splash-link {
     font-size: 1rem;
@@ -136,11 +141,11 @@ p {
   }
 }
 
-#contact-link {
+.inline-link {
   color: #42BFDD;
 }
 
-#contact-link:hover {
+.inline-link:hover {
   color: #bc9eca;
 }
 
