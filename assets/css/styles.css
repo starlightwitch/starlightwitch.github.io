@@ -131,6 +131,8 @@ p {
 
 .team-caption {
   text-align: center;
+  margin: 0;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 992px) {
@@ -151,5 +153,16 @@ p {
 
 .no-margin {
   margin: 0px;
+}
+
+.team-bio {
+  max-width: min(60ch, 500px);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 767px) {
+  #team-grid {
+    grid-gap: 48px;
+  }
 }
 
