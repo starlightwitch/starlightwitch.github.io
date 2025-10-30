@@ -1,3 +1,7 @@
+body {
+  background-color: black;
+}
+
 canvas {
   position: fixed;
   top: 0;
@@ -49,10 +53,10 @@ canvas {
 }
 
 .fullscreen-div {
-  width: 100vw;
-  min-height: 100vh;
+  /*width: 100vw;*/
+  /*min-height: 100vh;*/
   padding: 48px;
-  background: #000;
+  /*background: #000;*/
 }
 
 .flex-col {
@@ -99,7 +103,6 @@ canvas {
 
 h1 {
   font-family: 'BB Manual Mono Pro TX';
-  /*text-align: center;*/
   font-size: 3rem;
   color: #fcfaee;
 }
@@ -110,7 +113,15 @@ h1 {
   }
 }
 
-p {
+ul {
+  list-style-type: '✧ ';
+  margin-bottom: 48px;
+}
+
+li {
+}
+
+p, li {
   font-family: "antarctican-mono", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -123,10 +134,16 @@ p {
 }
 
 @media (max-width: 992px) {
-  p {
+  p, li {
     font-size: 1rem;
     line-height: 1.5rem;
   }
+}
+
+li {
+  margin: 0;
+  margin-bottom: 12px;
+  /*background-color: #000000;*/
 }
 
 .team-caption {

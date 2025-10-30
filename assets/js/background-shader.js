@@ -3,9 +3,6 @@ let seedOffset;
 let scrollOffset = 0;
 let string = '';
 
-document.getElementById('splash-holder').style.background = 'none';
-window.addEventListener('scroll', () => scrollOffset = scrollY);
-
 function keyPressed() {
   string += key;
   if (string.length > 4) {
@@ -34,6 +31,8 @@ function setup() {
 
   //if the canvas loads, make all fullscreen divs transparent
   if (c) {
+    window.addEventListener('scroll', () => scrollOffset = scrollY);
+    scrollOffset = scrollY;
     let elements = document.getElementsByClassName('fullscreen-div');
     for (let e of elements) {
       e.classList.add('transparent-div');
