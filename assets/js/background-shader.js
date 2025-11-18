@@ -51,9 +51,11 @@ function draw() {
   shader(shaderObject)
 
   shaderObject.setUniform('u_resolution', [width, height])
+  shaderObject.setUniform('u_mouse', [mouseX * 2 - width, -(mouseY * 2 - height)])
   shaderObject.setUniform('u_time', millis() / 1000.0)
   shaderObject.setUniform('u_seed', seedOffset)
   shaderObject.setUniform('u_scroll', scrollOffset)
+
 
 
   rect(0, 0, width, height)
@@ -96,6 +98,7 @@ precision mediump float;
 
 // sketch uniforms
 uniform vec2 u_resolution;
+uniform vec2 u_mouse;
 uniform float u_time;
 uniform float u_seed;
 uniform float u_scroll;
@@ -149,7 +152,12 @@ void main() {
   // hue
   vec3 mixed = mix(collectiveBlue, collectivePurple, clamp(0.0, 1.0, 1.0+ sin(u_scroll * 0.003)));
 
+  // mouse effects
+  float dist = distance(uv, u_mouse/u_resolution);
+  float mouseDim = 3. - smoothstep(0.03, 0.2 + sin(u_time)/10.0, dist);
 
-  gl_FragColor = vec4(mixed * mask * noise * dim, 1.0);
+
+
+  gl_FragColor = vec4(mixed * mask * noise * dim * mouseDim, 1.0);
 }
   `;
